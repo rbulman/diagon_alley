@@ -1,0 +1,6 @@
+** NOTES: Things to Investiage **
+
+- user.js line 39  Promise.resolve(user) --> what does this do? 
+	- in what case would !user.password be true (line 39)
+
+- db/index.js line 26: require not save as variable. how is sync function using the info from models folder?

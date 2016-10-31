@@ -5,5 +5,6 @@
 // to get access to the User model.
 
 const User = require('./user')
+const Item = require('./item')
 
-module.exports = {User}
+module.exports = {User, Item}
