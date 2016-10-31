@@ -7,6 +7,8 @@ const api = require('express').Router()
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
+  .use('/items', require('./api/item.router'))
+  .use('/users', require('./api/user.router'))
 
 // Epilogue can make routes for us
 epilogue.initialize({app: api, sequelize: db})
@@ -30,7 +32,7 @@ const selfOnly = action => (req, res, context) => {
     res.status(403).send(`You can only ${action} yourself.`)
     return context.stop
   }
-  return context.continue  
+  return context.continue
 }
 
 const forbidden = message => (req, res, context) => {
