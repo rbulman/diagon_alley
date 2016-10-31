@@ -1,5 +1,5 @@
 {
-  "name": "www",
+  "name": "weasleys_wizard_wheezes",
   "version": "0.0.1",
   "description": "A happy little skeleton.",
   "main": "index.js",
@@ -35,6 +35,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

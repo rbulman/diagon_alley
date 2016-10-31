@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
-const User = db.define('users', {
+const User = db.define('user', {
   name: Sequelize.STRING,  
   email: {
     type: Sequelize.STRING,

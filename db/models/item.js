@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
-const Item = db.define('items', {
+const Item = db.define('item', {
 	name: { type: Sequelize.STRING,
 			allowNull: false
 		},
@@ -11,6 +11,7 @@ const Item = db.define('items', {
 	price: Sequelize.INTEGER,
 	inventory: Sequelize.INTEGER
 	//image URL
+	//tags/categories?
 
 })
 
