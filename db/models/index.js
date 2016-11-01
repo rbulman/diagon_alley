@@ -14,4 +14,9 @@ const Item = require('./item')
 // unless we can do something like the senior checkpoint where every message had a to and from
 // that were both users
 
+Item.belongsToMany(User, {through: "cart"})
+User.belongsToMany(Item, {through: "cart"})
+Item.belongsToMany(User, {through: "wishlist"})
+User.belongsToMany(Item, {through: "wishlist"})
+//Item.belongsToMany(User)
 module.exports = db;

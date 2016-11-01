@@ -5,7 +5,7 @@ const User = require('./user')
 const {expect} = require('chai')
 
 describe('User', () => {
-  before('wait for the db', () => db.didSync)
+  //before('RUNNING WITH BEFORE HOOK DROPPED TABLE wait for the db', () => db.didSync)
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
     it('resolves true if the password matches', () =>

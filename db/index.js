@@ -27,10 +27,13 @@ require('./models')
 
 // sync the db, creating it if necessary
 function sync(force=app.isTesting) {
+  console.log("force: ", force)
+  console.log("RUNNING DIDSYNC")
   return db.sync({force})
     .then(ok => console.log(`Synced models to db ${url}`))
     .catch(fail => {
       if (app.isProduction) {
+        console.log("inProduction")
         console.error(fail)
         return // Don't do this auto-create nonsense in prod
       }
@@ -43,3 +46,6 @@ function sync(force=app.isTesting) {
 }
 
 db.didSync = sync()
+if (app.isTesting) {
+  db.didSeed = require('APP/seed')(false)
+}
