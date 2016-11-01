@@ -7,6 +7,7 @@ import AppContainer from 'APP/app/containers/AppContainer'
 import AboutContainer from 'APP/app/containers/AboutContainer'
 import HomeContainer from 'APP/app/containers/HomeContainer'
 import LoginContainer from 'APP/app/containers/LoginContainer'
+import ItemList from 'APP/app/components/ItemList'
 import store from './store'
 import Root from './components/Root'
 
@@ -18,6 +19,7 @@ render (
    		<IndexRoute component={HomeContainer} />
    		<Route path="about" component={AboutContainer} />
    		<Route path="login" component={LoginContainer} />
+      <Route path="items" component={ItemList} />
    	</Route>
    </Router>
   </Provider>,
