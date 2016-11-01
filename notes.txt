@@ -6,3 +6,5 @@
 - db/index.js line 26: require not save as variable. how is sync function using the info from models folder?
 
 - how can we keep database synced across computers? mainly an issue for inventory purposes
+
+- {[] || items}
