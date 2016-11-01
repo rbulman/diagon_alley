@@ -9,7 +9,6 @@ api
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
 
-
 // Epilogue can make routes for us
 epilogue.initialize({app: api, sequelize: db})
 
