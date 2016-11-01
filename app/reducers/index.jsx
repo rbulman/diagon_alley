@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux'
+import itemsReducer from './items';
+import usersReducer from './users';
 
-const initialState = {}
+const initialState = {};
 
-const rootReducer = function(state = initialState, action) {
-  switch(action.type) {
-    default: return state
-  }
-};
+const rootReducer = combineReducers({itemsReducer, usersReducer});
 
 export default rootReducer
