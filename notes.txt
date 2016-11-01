@@ -7,4 +7,3 @@
 
 - how can we keep database synced across computers? mainly an issue for inventory purposes
 
-- {[] || items}
