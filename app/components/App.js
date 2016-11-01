@@ -7,11 +7,13 @@ export default class App extends Component{
 			<div>
 			<div> 
 				<ul> 
-				<li><Link> HOMEPAGE </Link></li>
-				<li><Link> About </Link></li>
-				<li><Link> Login </Link></li>
+				<li><Link to="/"> Home </Link></li>
+				<li><Link to="/items"> Shop </Link></li>
+				<li><Link to="/about"> About </Link></li>
+				<li><Link to="/login"> Login </Link></li>
 				</ul>
 			</div>
+			
 			{this.props.children}
 			</div>
 			
