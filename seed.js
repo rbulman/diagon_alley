@@ -5,12 +5,12 @@ var Item = require('./db/models/item');
 
 console.log("db: ", db)
 var data = {
-  user: [
+  users: [
     {name: "Harry Potter", email: "theBoyWhoLived@hogwarts.com", password: "ispeaktosnakes" },
     {name: "Ron Weasley", email: "loyalGinger@hogwarts.com", password: "ilovehermione" },
     {name: "Hermione Granger", email: "beautifulBraniac@hogwarts.com", password: "orworseexpelled" },
   ],
-  item: [
+  items: [
     {name: "Anti Gravity Hat", description: "Ruin a gentleman's day by making his hat fly away!", price: 11, inventory: 20},
     {name: "Aviatomobile", description: "A flying toy car", price: 12, inventory: 23},
     {name: "Headless Hats", description: "Make the wearer's head invisible (along with the hat itself).", price: 17, inventory: 40},
