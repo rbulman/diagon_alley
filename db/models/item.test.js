@@ -20,21 +20,25 @@ describe('Item', () => {
     //     .then(result => expect(result).to.be.false))
   })
 
-  describe('basic tests' () => {
+  describe('basic tests', () => {
+    let testItem;
     before('create an item entry', () => {
-      let testItem;
 
-      Item.create({
+      const newObj = {
         name: "Canary Creams",
-        description: "eat at your own risk!"
+        description: "eat at your own risk!",
         price: 4,
         inventory: 10,
-        category: "pranking"
+        category: "pranking",
         imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
-      })
+      }
+
+      return Item.create(newObj)
       .then((newItem) => {
+        // console.log("newItem",newItem)
         testItem = newItem;
       })
+
 
     })
 
@@ -42,26 +46,26 @@ describe('Item', () => {
       expect(testItem.name).to.be.equal("Canary Creams");
     })
     it('has a description', () => {
-      expect(testItem.name).to.be.equal("eat at your own risk!");
+      expect(testItem.description).to.be.equal("eat at your own risk!");
     })
     it('has a price', () => {
-      expect(testItem.name).to.be.equal(4);
+      expect(testItem.price).to.be.equal(4);
     })
-    it('tracks inventory' () => {
+    it('tracks inventory', () => {
       expect(testItem.inventory).to.be.equal(10);
     })
   })
 
   describe('test item categories', () => {
+    let testItem;
     before('create an item entry', () => {
-      let testItem;
 
-      Item.create({
+      return Item.create({
         name: "Canary Creams",
-        description: "eat at your own risk!"
+        description: "eat at your own risk!",
         price: 4,
         inventory: 10,
-        category: "pranking"
+        category: "pranking",
         imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
       })
       .then((newItem) => {
@@ -73,21 +77,21 @@ describe('Item', () => {
     it('should be a separate table consisting of name and id')
     // it('should have a join table with Items')
     it('Items and Categories have a many-to-many relationship')
-    it('item must have at least one category', () => {
-      it('either provide a default category of throw validation error')
-    })
+    it('item must have at least one category')
+    it('either provide a default category of throw validation error')
+
   })
 
   describe('test item photos', () => {
+    let testItem;
     before('create an item entry', () => {
-      let testItem;
 
-      Item.create({
+      return Item.create({
         name: "Canary Creams",
-        description: "eat at your own risk!"
+        description: "eat at your own risk!",
         price: 4,
         inventory: 10,
-        category: "pranking"
+        category: "pranking",
         imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
       })
       .then((newItem) => {
