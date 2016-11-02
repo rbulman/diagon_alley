@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import Login from "APP/app/components/Login";
+import Login from "APP/app/components/Login.jsx";
 
 const mapStateToProps = () => ({})
 const mapDispatchToProps = () => ({})
