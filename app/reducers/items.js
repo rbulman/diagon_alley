@@ -1,6 +1,6 @@
 // ACTIONS
 
-const INITIALIZE_ITEMS = 'INITIALIZE_ITEMS';
+const GET_ITEMS = 'GET_ITEMS';
 
 
 
@@ -11,10 +11,10 @@ const INITIALIZE_ITEMS = 'INITIALIZE_ITEMS';
 
 //ACTION CREATORS
 
-const initializeItems = (items) => {
-	type: INITIALIZE_ITEMS,
+const getItems = (items) => ({
+	type: GET_ITEMS,
 	items
-}
+})
 
 
 
@@ -28,8 +28,11 @@ const initializeItems = (items) => {
 
 // this is an empty reducer so things don't break when we combineReducers
 
-export default function itemsReducer(items = [], action) {
+export function items(items = [], action) {
+	console.log("ACTION: ", action)
 	switch(action.type) {
+		case 'GET_ITEMS':
+			return action.items
 		default:
 			return items;
 	}
@@ -39,11 +42,12 @@ export default function itemsReducer(items = [], action) {
 
 // DISPATCHERS
 
-const fetchItems = () => (dispatch) => {
+export const fetchItems = () => ((dispatch) => {
+	console.log("dispatching items")
 	fetch('/api/items')
     .then(res => res.json())
-    .then(items => dispatch(initializeItems(items)));
-}
+    .then(items => dispatch(getItems(items)));
+})
 
 
 
