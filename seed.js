@@ -3,7 +3,8 @@ var db = require('./db');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
 
-console.log("db: ", db)
+console.log("DROPPED DATABASE: NO BEFORE HOOK IN TESTS")
+console.log("db name: ", db.config.database)
 var data = {
   users: [
     {name: "Harry Potter", email: "theBoyWhoLived@hogwarts.com", password: "ispeaktosnakes" },
@@ -17,7 +18,7 @@ var data = {
   ]
 };
 
-db.didSync
+module.exports = shouldClose => db.didSync
 .then(function(){return db.sync({force: true})})
 .then(function () {
   console.log("Dropped old data, now inserting data");
@@ -31,14 +32,18 @@ db.didSync
   });
 })
 .then(function (blah) {
-  console.log("in then function: ", blah);
+  //console.log("in then function: ", blah);
   console.log("Finished inserting data");
 })
 .catch(function (err) {
   console.error('There was totally a problem', err, err.stack);
 })
 .finally(function () {
-  db.close() // uses promises but does not return a promise. https://github.com/sequelize/sequelize/pull/5776
+  shouldClose && db.close() // uses promises but does not return a promise. https://github.com/sequelize/sequelize/pull/5776
   console.log('connection closed'); // the connection eventually closes, we just manually do so to end the process quickly
   return null; // silences bluebird warning about using non-returned promises inside of handlers.
 });
+
+if (require.main === module) {
+  module.exports(true)
+}

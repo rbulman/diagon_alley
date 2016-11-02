@@ -21,6 +21,8 @@ if (!reasonableName.test(pkg.name)) {
   console.error(chalk.red(nameError))
 }
 
+//console.log("GLOBAL: ", global)
+
 module.exports = {
   get name() { return pkg.name },
   get isTesting() { return !!global.it },

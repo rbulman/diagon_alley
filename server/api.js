@@ -8,7 +8,6 @@ api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
-  .use('/users', require('./api/user.router'))
 
 // Epilogue can make routes for us
 epilogue.initialize({app: api, sequelize: db})
