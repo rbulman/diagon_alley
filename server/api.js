@@ -1,48 +1,50 @@
 'use strict'
-const epilogue = require('epilogue')
 
 const db = require('APP/db')
-const api = require('express').Router()
+const api = module.exports = require('express').Router()
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
 
-// Epilogue can make routes for us
-epilogue.initialize({app: api, sequelize: db})
+// // Epilogue can make routes for us
+// epilogue.initialize({app: api, sequelize: db})
 
-var users = epilogue.resource({
-  model: db.model('users'),
-  endpoints: ['/users', '/users/:id']
-});
+// var users = epilogue.resource({
+//   model: db.model('users'),
+//   endpoints: ['/users', '/users/:id']
+// });
 
-const mustBeLoggedIn = (req, res, context) => {
-  if (!req.user) {
-    res.status(401).send('You must be logged in')
-    return context.stop
-  }
+// const mustBeLoggedIn = (req, res, context) => {
+//   if (!req.user) {
+//     res.status(401).send('You must be logged in')
+//     return context.stop
+//   }
 
-  return context.continue
-}
+//   return context.continue
+// }
 
-const selfOnly = action => (req, res, context) => {
-  if (req.params.id !== req.user.id) {
-    res.status(403).send(`You can only ${action} yourself.`)
-    return context.stop
-  }
-  return context.continue
-}
+// const selfOnly = action => (req, res, context) => {
+//   if (req.params.id !== req.user.id) {
+//     res.status(403).send(`You can only ${action} yourself.`)
+//     return context.stop
+//   }
+//   return context.continue
+// }
 
-const forbidden = message => (req, res, context) => {
-  res.status(403).send(message)
-  return context.stop
-}
+// const forbidden = message => (req, res, context) => {
+//   res.status(403).send(message)
+//   return context.stop
+// }
 
-users.delete.auth(mustBeLoggedIn)
-users.delete.auth(selfOnly)
-users.list.auth(forbidden)
-users.read.auth(mustBeLoggedIn)
+// users.delete.auth(mustBeLoggedIn)
+// users.delete.auth(selfOnly)
+// users.list.auth(forbidden)
+// users.read.auth(mustBeLoggedIn)
+
+
+  .use('/users', require('./users'))
 
 
 // Send along any errors
@@ -51,6 +53,7 @@ api.use((err, req, res, next) => {
 })
 
 // No routes matched? 404.
+
 api.use((req, res) => res.status(404).end())
 
 module.exports = api

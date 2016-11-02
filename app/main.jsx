@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
 import {render} from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import {Route, Router, hashHistory, IndexRoute, IndexRedirect} from 'react-router';
 import AppContainer from 'APP/app/containers/AppContainer'
 import AboutContainer from 'APP/app/containers/AboutContainer'
@@ -13,11 +13,23 @@ import ItemContainer from 'APP/app/containers/ItemContainer'
 import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
+import Login from './components/Login'
+import WhoAmI from './components/WhoAmI'
 
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
   store.dispatch(fetchSelectedItem(params.id))
 }
+
+const Main = connect(
+  ({ auth }) => ({ user: auth })
+) (
+  ({ user }) =>
+    <div>
+      {user ? <WhoAmI/> : <Login/>} 
+      <Root />
+    </div>
+)
 
 render (
   <Provider store={store}>
