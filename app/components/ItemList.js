@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import Item from './Item';
-import {connect} from 'react-redux';
+import {Link} from 'react-router';
+
+
 
 
 export default class ItemList extends Component {
-  constructor() {
-    super();
-    this.state = {items: []};
+  constructor(props) {
+    super(props);
+    
   }
 
   componentDidMount() {  //we will refactor this to action creators, etc. later
-    fetch('/api/items')
-    .then(res => res.json())
-    .then(items => {
-      this.setState({items});
-    })
+    // fetch('/api/items')
+    // .then(res => res.json())
+    // .then(items => {
+    //   this.setState({items});
+    // })
+    this.props.getItems()
   }
 
 
@@ -22,9 +25,17 @@ export default class ItemList extends Component {
 
     return (
       <div>
-          {this.state.items.map(function(item) {
+          {this.props.items.map(function(item) {
             return (
-              <Item item={item} key={item.id} />
+              <div key={item.id}>
+                <Link to={`/items/${item.id}`}>
+                  <h3>{item.name}</h3>
+                  <img src="http://vignette3.wikia.nocookie.net/harrypotter/images/d/d0/Harry_Potter's_wand.gif/revision/latest?cb=20090801185350" />
+                  <h4>{item.price} Sickles</h4>
+                  <p>{item.description}</p>
+                </Link>
+                  <button> Add to cart </button>
+              </div>
             )
           })}
       </div>
@@ -33,13 +44,7 @@ export default class ItemList extends Component {
 }
 
 
-//------------------Container---------------------------
 
-const mapStateToProps = ({items}) => ({items}); 
-
-const mapDispatchToProps = dispatch => {
-    
-}
 
 
 

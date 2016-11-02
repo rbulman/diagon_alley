@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
-import itemsReducer from './items';
+import {items} from './items';
 import usersReducer from './users';
+import {selectedItem} from './selectedItem'
 
 const initialState = {};
 
-const rootReducer = combineReducers({itemsReducer, usersReducer});
+const rootReducer = combineReducers({items, selectedItem, usersReducer});
 
 export default rootReducer
