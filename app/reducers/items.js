@@ -11,7 +11,7 @@ const GET_ITEMS = 'GET_ITEMS';
 
 //ACTION CREATORS
 
-const getItems = (items) => ({
+export const getItems = (items) => ({
 	type: GET_ITEMS,
 	items
 })

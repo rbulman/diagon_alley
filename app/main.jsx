@@ -6,7 +6,6 @@ import {Route, Router, hashHistory, IndexRoute, IndexRedirect} from 'react-route
 import AppContainer from 'APP/app/containers/AppContainer'
 import AboutContainer from 'APP/app/containers/AboutContainer'
 import HomeContainer from 'APP/app/containers/HomeContainer'
-import LoginContainer from 'APP/app/containers/LoginContainer'
 import ItemList from 'APP/app/components/ItemList'
 import ItemListContainer from 'APP/app/containers/ItemListContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
@@ -15,13 +14,31 @@ import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
+import {getItems} from './reducers/items'
+import {getUsers} from './reducers/users'
 
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
   store.dispatch(fetchSelectedItem(params.id))
 }
 
-const Main = connect(
+const loadDatabase = (items, users) => {
+  console.log("ITEMS IN loadDatabase: ", items)
+  store.dispatch(getItems(items))
+  //store.dispatch(getUsers(users))
+}
+
+const onAppEnter = (input) => {
+  console.log("APP INPUT: ", input)
+ 
+ return Promise.all([
+      fetch('/api/items').then(res => res.json()),
+      //fetch('/api/users').then(res => res.json())
+    ])
+    .then(results => loadDatabase(...results))
+}
+
+export const ToggleButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
@@ -35,10 +52,10 @@ render (
   <Provider store={store}>
    {/* <Root/> */}
    <Router history={hashHistory}>
-   	<Route path='/' component={AppContainer}>
-   		<IndexRoute component={HomeContainer} />
+   	<Route path='/' component={AppContainer} >
+   		<IndexRoute component={HomeContainer} onEnter={onAppEnter}/>
    		<Route path="about" component={AboutContainer} />
-   		<Route path="login" component={LoginContainer} />
+   		<Route path="login" component={Login} />
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
    	</Route>
