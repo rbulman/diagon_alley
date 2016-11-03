@@ -38,16 +38,6 @@ const onAppEnter = (input) => {
     .then(results => loadDatabase(...results))
 }
 
-export const ToggleButton = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user }) =>
-    <div>
-      {user ? <WhoAmI/> : <Login/>} 
-      <Root />
-    </div>
-)
-
 render (
   <Provider store={store}>
    {/* <Root/> */}
