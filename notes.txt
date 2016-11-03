@@ -10,3 +10,7 @@
 
 "test": "mocha seed.test.js app/**/*.test.js db/**/*.test.js server/**/*.test.js && dropdb weasleys_wizard_wheezes_test",
     "test-watch": "mocha --watch app/**/*.test.js db/**/*.test.js server/**/*.test.js",
+
+ - we export api but where do we import it, to actually link it to our app
+ <script src="/jquery/dist/jquery.min.js"></script>
+  	<script src="/bootstrap/dist/js/bootstrap.min.js"></script>

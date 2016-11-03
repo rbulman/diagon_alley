@@ -9,7 +9,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <div>
-      {user ? <WhoAmI/> : <Login/>} 
+      {user ? <Link><WhoAmI/></Link> : <Link to="/login"> Login </Link>} 
     </div>
 )
 
@@ -18,16 +18,14 @@ export default class App extends Component{
 		console.log("propsLogout: ", this.props.logout)
 		return(
 			<div>
-			<div> 
-				<ul> 
+			<nav className="navbar navbar-inverse" role="navigation">
+       			<ul className="nav navbar-nav">
 				<li><Link to="/"> Home </Link></li>
 				<li><Link to="/items"> Shop </Link></li>
 				<li><Link to="/about"> About </Link></li>
-				<li><Link to="/login"> Login </Link></li>
-				<li><button onClick={this.props.logout}> Logout </button></li>
 				<li><ToggleButton /> </li>
 				</ul>
-			</div>
+			</nav>
 			
 			{this.props.children}
 			</div>
