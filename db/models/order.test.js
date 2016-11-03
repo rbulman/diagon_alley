@@ -14,11 +14,10 @@ describe('Order', () => {
 	let testOrder;
 
 	before('create new order', () => {
-		return User.findById(1)
-		.then((foundUser) => {
-			return foundUser.createOrder({
-				status: 'pending'
-			})
+		Order.create({
+			status: 'pending'
+			user: 1,
+			userType: 'user'
 		})
 		.then((newOrder) => {
 			testOrder = newOrder;

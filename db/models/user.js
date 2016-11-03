@@ -13,10 +13,13 @@ const User = db.define('users', {
 			notEmpty: true,
 		}
   },
-
   // We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING,
-	password: Sequelize.VIRTUAL
+	password: Sequelize.VIRTUAL,
+  currentOrder: {
+    type: Sequelize.INTEGER,
+    defaultValue: null
+  }
 }, {
 	indexes: [{fields: ['email'], unique: true,}],
   hooks: {

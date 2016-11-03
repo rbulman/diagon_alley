@@ -20,7 +20,6 @@ const Review = require('./review')
 Item.belongsToMany(Category, {through: "items_categories"})
 Category.belongsToMany(Item, {through: "items_categories"})
 
-User.hasMany(Order, {as: 'Orders'})
 Order.belongsToMany(Item, {through: "orderItems"})
 	/* e.g.
 	 * order.getItem()
