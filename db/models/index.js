@@ -7,9 +7,6 @@ var db = require('APP/db')
 
 const User = require('./user')
 const Item = require('./item')
-const Category = require('./category')
-const Order = require('./order')
-const Review = require('./review')
 
 // User.hasMany(Item);
 // If we want a cart and a wishlist, we should have a wishlist and a cart model so we can
@@ -17,22 +14,9 @@ const Review = require('./review')
 // unless we can do something like the senior checkpoint where every message had a to and from
 // that were both users
 
-Item.belongsToMany(Category, {through: "items_categories"})
-Category.belongsToMany(Item, {through: "items_categories"})
-
-Order.belongsToMany(Item, {through: "orderItems"})
-	/* e.g.
-	 * order.getItem()
-	 * order.hasItem()
-	 * order.addItem()
-	 */
-
+Item.belongsToMany(User, {through: "cart"})
+User.belongsToMany(Item, {through: "cart"})
 Item.belongsToMany(User, {through: "wishlist"})
 User.belongsToMany(Item, {through: "wishlist"})
 //Item.belongsToMany(User)
-
-User.hasMany(Review, {as: 'Review'})
-Item.hasMany(Review, {as: 'Review'})
-
-
 module.exports = db;
