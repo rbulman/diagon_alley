@@ -20,6 +20,12 @@ var data = {
       email: "beautifulBraniac@hogwarts.com", 
       password: "orworseexpelled" 
     },
+    {
+      name: "Albus Dumbledore", 
+      email: "headmaster@hogwarts.com", 
+      password: "trustsnape", 
+      isAdmin: true
+    }
   ],
   items: [
     {

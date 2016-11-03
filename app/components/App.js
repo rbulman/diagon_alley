@@ -12,6 +12,14 @@ export const ToggleButton = connect(
       {user ? <Link><WhoAmI/></Link> : <Link to="/login"> Login </Link>} 
     </div>
 )
+const AdminButton = connect(
+  ({ auth }) => ({ user: auth })
+) (
+  ({ user }) =>
+    <div>
+      {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null} 
+    </div>
+)
 
 export default class App extends Component{
 	render(){
@@ -24,6 +32,7 @@ export default class App extends Component{
 				<li><Link to="/items"> Shop </Link></li>
 				<li><Link to="/about"> About </Link></li>
 				<li><ToggleButton /> </li>
+				<li><AdminButton /> </li>
 				</ul>
 			</nav>
 			

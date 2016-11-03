@@ -8,6 +8,7 @@ import AboutContainer from 'APP/app/containers/AboutContainer'
 import HomeContainer from 'APP/app/containers/HomeContainer'
 import ItemList from 'APP/app/components/ItemList'
 import ItemListContainer from 'APP/app/containers/ItemListContainer'
+import AdminContainer from 'APP/app/containers/AdminContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
 import store from './store'
 import Root from './components/Root'
@@ -45,9 +46,12 @@ render (
    	<Route path='/' component={AppContainer} >
    		<IndexRoute component={HomeContainer} onEnter={onAppEnter}/>
    		<Route path="about" component={AboutContainer} />
-   		<Route path="login" component={Login} />
+   		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
+      <Route path="admin" component={AdminContainer} onEnter={onAppEnter}>
+        <Route path="items" component={ItemListContainer}/>
+      </Route>
    	</Route>
    </Router>
   </Provider>,
