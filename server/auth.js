@@ -97,9 +97,13 @@ passport.deserializeUser(
 
 passport.use(new (require('passport-local').Strategy) (
   (email, password, done) => {
+    console.log("INSIDE PASSPORT")
+    console.log("email: ", email)
+    email = email.toLowerCase()
     debug('will authenticate user(email: "%s")', email)
     User.findOne({where: {email}})
       .then(user => {
+        console.log("USER: ", user)
         if (!user) {
           debug('authenticate user(email: "%s") did fail: no such user', email)
           return done(null, false, { message: 'Login incorrect' })
@@ -120,11 +124,12 @@ passport.use(new (require('passport-local').Strategy) (
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
-auth.post('/:strategy/login', (req, res, next) =>
+auth.post('/:strategy/login', (req, res, next) => {
+  console.log("STRATEGY: ", req.params.strategy)
   passport.authenticate(req.params.strategy, {
     successRedirect: '/'
   })(req, res, next)
-)
+})
 
 auth.post('/logout', (req, res, next) => {
   req.logout()

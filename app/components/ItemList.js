@@ -17,7 +17,7 @@ export default class ItemList extends Component {
     // .then(items => {
     //   this.setState({items});
     // })
-    this.props.getItems()
+    //this.props.getItems()
   }
 
 
