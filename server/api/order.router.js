@@ -2,7 +2,6 @@
 
 var router = require('express').Router();
 var Order = require('APP/db/models/order');
-
 var Item = require('APP/db/models/item');
 
 
@@ -46,7 +45,7 @@ router.get('/user/:userid', function(req,res,next){
 });
 
 // get current order(s) for userid
-router.get('/user/current/:userid', function(req,res,next){
+router.get('/user/pending/:userid', function(req,res,next){
 
   Order.findAll({
     where: {
@@ -110,7 +109,15 @@ router.get('/session/:id', function(req,res,next){
 router.put('/:id', function(req, res, next){
   Order.findById(req.params.id)
   .then(function(order){
-    order.update(req.body);
+    if(order){
+      return order.update(req.body);
+    }
+  })
+  .then(function(order){
+    if(order){
+      res.status(201).send(order);
+    }
+    else res.sendStatus(404);
   });
 });
 
@@ -120,10 +127,14 @@ router.put('/:id', function(req, res, next){
 //  - add item
 //  - delete item
 
-router.put('/addItem/:id', function (req, res, next){
-  Item.findById(req.params.id)
-  .then(function(item){
-    Order.addItem(item);
+router.put('/addItem/:orderId/:itemId', function (req, res, next){
+  const item = Item.findById(req.params.itemId);
+  const order = Order.findById(req.params.orderId);
+  Promise.all([item, order])
+  .then(function(result){
+    const item = result[0];
+    const order = result[1];
+    order.addItem(item);
   })
   .then(function(){
     console.log("item added to cart!");
@@ -133,6 +144,9 @@ router.put('/addItem/:id', function (req, res, next){
 
 // *------------------------- POST ROUTES ------------------------------*//
 
+//when user or session id holder adds to cart w/o an existing cart
+
+//need to validate that sessionID is unique
 router.post('/session/:id', function(req, res, next){
   Order.create({
     user: req.params.id,
@@ -144,6 +158,7 @@ router.post('/session/:id', function(req, res, next){
   .catch(next);
 });
 
+// current user ID should be on props somewhere
 router.post('/user/:id', function(req, res, next){
   Order.create({
     user: req.params.id,
@@ -159,15 +174,16 @@ router.post('/user/:id', function(req, res, next){
 // ** EXTRA CREDIT **
 // Delete session orders when session dies
 
-router.put('/deleteItem/:id', function (req, res, next){
+router.put('/removeItem/:id', function (req, res, next){
   Item.findById(req.params.id)
   .then(function(item){
-    Order.removeItem(item) // this should work with belongs to many association
+    Order.removeItem(item); // this should work with belongs to many association
   })
   .then(function(){
-    console.log("item added to cart!");
+    console.log("item deleted from cart!");
   })
   .catch(next);
 });
 
-module.exports = router
+module.exports = router;
+
