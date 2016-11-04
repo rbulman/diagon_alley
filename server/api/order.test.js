@@ -3,6 +3,7 @@ const {expect} = require('chai');
 const db = require('APP/db');
 const Order = require('APP/db/models/order');
 const Item = require('APP/db/models/item');
+const OrderItems = require('APP/db/models/orderItems')
 const app = require('APP/server/start');
 const supertest = require('supertest');
 const agent = supertest.agent(app);
@@ -10,13 +11,19 @@ const agent = supertest.agent(app);
 
 describe('Orders routes', function(){
 
+  var items = [
+      {name: "Anti Gravity Hat", description: "Ruin a gentleman's day by making his hat fly away!", price: 11, inventory: 20},
+      {name: "Aviatomobile", description: "A flying toy car", price: 12, inventory: 23},
+      {name: "Headless Hats", description: "Make the wearer's head invisible (along with the hat itself).", price: 17, inventory: 40},
+    ];
+
     before(function () {
       return db.sync({force: true});
     });
 
-    afterEach(function () {
-      return db.sync({force: true});
-    });
+    // afterEach(function () {
+    //   return db.sync({force: true});
+    // });
 
     describe('GETs orders', function(){
       var theOrder;
@@ -41,11 +48,11 @@ describe('Orders routes', function(){
             user: 1,
             userType: 'session'
           }
-        ]
+        ];
 
-        return Order.bulkCreate(ordArray)
+        return Order.bulkCreate(ordArray);
 
-      })
+      });
 
       it('by user id (logged in)', function(done){
         agent
@@ -57,8 +64,8 @@ describe('Orders routes', function(){
           expect(res.body).to.have.length(2);
           // console.log(res.body);
           done();
-        })
-      })
+        });
+      });
 
       it('by order id', function(done){
         agent.get('/api/order/1')
@@ -69,8 +76,8 @@ describe('Orders routes', function(){
           expect(res.body.user).to.be.equal(1);
           expect(res.body.status).to.be.equal('pending');
           done()
-        })
-      })
+        });
+      });
 
       it('by user id and pending status', function(done){
         agent
@@ -113,6 +120,8 @@ describe('Orders routes', function(){
           done();
         })
       })
+
+
     })
 
     describe('PUTs orders', function(){
@@ -140,8 +149,8 @@ describe('Orders routes', function(){
         ];
 
         return Order.bulkCreate(ordArray)
-          .then(function(array){
-            theOrders = array;
+          .then(function(){
+              Item.bulkCreate(items);
           });
       });
 
@@ -196,18 +205,67 @@ describe('Orders routes', function(){
         .expect(201)
         .end(function(err, res) {
           if(err) return done(err);
-          Order.findById(res.body.id)
+          // console.log("res.body", res.body)
+          Order.findById(res.body.order_id)
           .then(function(order) {
-            expect(order).to.not.be.null;
-            order.getItems()
-            .then(function(items){
-              expect(items).to.not.be.null;
-              expect(items).to.have.length(1);
-              done();
-            });
+            // expect(order).to.not.be.null;
+            return order.getItems();
+          })
+          .then(function(items){
+            expect(items).to.not.be.null;
+            expect(items).to.have.length(1);
+            done();
           });
         });
       });
+
+      it('adds several items to an order', function(done) {
+        var first = agent.put('/api/order/addItem/1/1');
+        var third = agent.put('/api/order/addItem/1/1');
+        var second = agent.put('/api/order/addItem/1/2');
+
+        Promise.all([first, second, third])
+        .then(function(){
+           return OrderItems.findAll({
+              where: { order_id: 1}
+           })
+        })
+        .then( function(orderItems) {
+          // console.log(orderItems)
+          expect(orderItems.length).to.be.equal(2)
+          done();
+        })
+        .catch();
+      })
+
+
+
+        // .expect(201)
+        // .end(function(err, res) {
+        //   if(err) return done(err);
+        //   console.log("res.body", res.body)
+        //   Order.findById(res.body.order_id)
+        //   .then(function(order) {
+        //     // expect(order).to.not.be.null;
+        //     return order.getItems();
+        //   })
+        //   .then(function(items){
+        //     expect(items).to.not.be.null;
+        //     expect(items).to.have.length(1);
+        //     done();
+        //   });
+        // });
+
+        it('returns the cart', function(done){
+          agent.get('/api/order/cartItems/1')
+          .end( function(err, res){
+            if(err) return done(err);
+            console.log(res.body)
+            expect(res.body).to.be.anArray
+            expect(res.body.length).to.be.equal(2)
+            done();
+          })
+        })
     });
 
     describe('POSTs orders', function(){

@@ -8,7 +8,7 @@ import {Link} from 'react-router';
 export default class ItemList extends Component {
   constructor(props) {
     super(props);
-    
+
   }
 
   componentDidMount() {  //we will refactor this to action creators, etc. later
@@ -34,7 +34,6 @@ export default class ItemList extends Component {
                   <h4>{item.price} Sickles</h4>
                   <p>{item.description}</p>
                 </Link>
-                  <button> Add to cart </button>
               </div>
             )
           })}
@@ -42,18 +41,3 @@ export default class ItemList extends Component {
     )
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
