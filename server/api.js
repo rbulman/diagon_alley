@@ -14,6 +14,7 @@ api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
+  .use('/review', require('./api/review.router'))
 
 // // Epilogue can make routes for us
 // epilogue.initialize({app: api, sequelize: db})
@@ -53,7 +54,7 @@ api
 
   .use('/users', require('./users'))
   .use(express.static(rootPath))
-  .use(express.static(nodeModulesPath));
+  .use(express.static(nodeModulesPath))
 
 
 
