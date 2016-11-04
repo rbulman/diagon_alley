@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from "react-router";
+import { Review } from './Review';
 
 export default class Item extends Component {
   constructor(props) {
