@@ -85,6 +85,7 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
+        console.log("PASSPORT FOUND USER: ", user)
         debug('deserialize did ok user.id=%d', user.id)
         done(null, user)
       })
@@ -122,7 +123,10 @@ passport.use(new (require('passport-local').Strategy) (
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', (req, res) => {
+  console.log("REQUEST IN /whoami: ", req.user)
+  res.send(req.user)
+})
 
 auth.post('/:strategy/login', (req, res, next) => {
   console.log("STRATEGY: ", req.params.strategy)

@@ -10,6 +10,15 @@ var Item = require('APP/db/models/item');
 //Get specific order given id
 //perhaps we save current order ID on state and get by ID when we view Cart
 //or get details of cart from "order history"
+router.get('/', function(req,res,next){
+
+  Order.findAll({})
+    .then(function(orders){
+      res.json(orders);
+    })
+    .catch(next);
+});
+
 router.get('/:id', function(req,res,next){
 
   Order.findById(req.params.id)
@@ -41,6 +50,8 @@ router.get('/user/pending/:userid', function(req,res,next){
   Order.findAll({
     where: {
       user: req.params.userid,
+      // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
+      // OUT IF YOU ARE NOT A USER
       userType: 'user',
       status: 'pending'
     }
@@ -174,5 +185,5 @@ router.put('/removeItem/:id', function (req, res, next){
   .catch(next);
 });
 
-
 module.exports = router;
+

@@ -27,5 +27,17 @@ const forbidden = message => (req, res, context) => {
   return context.stop
 }
 
-epilogue.filters = {mustBeLoggedIn, selfOnly, forbidden,}
+const mustBeAdmin = message => (req, res, context) => {
+  console.log("req.user: ", req.user)
+  if (!req.user || !req.user.isAdmin) {
+    console.log("thinks user is not Admin")
+    res.status(403).send('You do not have access to this page')
+    return context.stop
+  }
+  else if(req.user && req.user.isAdmin){
+    return context.continue
+  }
+}
+
+epilogue.filters = {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin}
 module.exports = epilogue

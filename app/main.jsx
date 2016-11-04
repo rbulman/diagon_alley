@@ -8,7 +8,9 @@ import AboutContainer from 'APP/app/containers/AboutContainer'
 import HomeContainer from 'APP/app/containers/HomeContainer'
 import ItemList from 'APP/app/components/ItemList'
 import ItemListContainer from 'APP/app/containers/ItemListContainer'
+import AdminContainer from 'APP/app/containers/AdminContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
+import UsersContainer from 'APP/app/containers/UsersContainer'
 import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
@@ -32,10 +34,26 @@ const onAppEnter = (input) => {
   console.log("APP INPUT: ", input)
  
  return Promise.all([
-      fetch('/api/items').then(res => res.json()),
+      fetch('/api/items').then(res => res.json())
       //fetch('/api/users').then(res => res.json())
     ])
     .then(results => loadDatabase(...results))
+}
+
+const loadAdminDatabase = (items, users) => {
+  console.log("Users IN loadDatabase: ", users)
+  //store.dispatch(getItems(items))
+  store.dispatch(getUsers(users))
+}
+
+const onAdminEnter = (input) => {
+  console.log("APP INPUT: ", input)
+ 
+ return Promise.all([
+      //fetch('/api/items').then(res => res.json()),
+      fetch('/api/users').then(res => res.json())
+    ])
+    .then(results => loadAdminDatabase(...results))
 }
 
 render (
@@ -45,9 +63,13 @@ render (
    	<Route path='/' component={AppContainer} >
    		<IndexRoute component={HomeContainer} onEnter={onAppEnter}/>
    		<Route path="about" component={AboutContainer} />
-   		<Route path="login" component={Login} />
+   		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
+      <Route path="admin" component={AdminContainer} >
+        <Route path="users" component={UsersContainer} onEnter={onAdminEnter}/>
+        <Route path="items" component={ItemListContainer}/>
+      </Route>
    	</Route>
    </Router>
   </Provider>,
