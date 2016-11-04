@@ -13,7 +13,7 @@ export default class Users extends Component {
     return (
       <div>
       <div> Users </div>
-          {this.props.users.map(function(item) {
+          {this.props.users.map(function(user) {
             return (
               <div key={user.id}>
                 <Link to={`/users/${user.id}`}>
