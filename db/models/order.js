@@ -12,10 +12,10 @@ const Order = db.define('orders', {
 	},
 	status: {
 		type: Sequelize.STRING,
-		defaultValue: 'pending' // 'pending' vs 'completed'
+		defaultValue: 'pending' // 'pending' vs 'completed' vs 'wishlist'
 	},
 	dateCompleted: {
-		type: Sequelize.DATE,
+		type: Sequelize.DATE, // does this need Date.now() or new Date();
 		defaultValue: null
 	}
 }, {
