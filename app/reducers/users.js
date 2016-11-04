@@ -25,7 +25,7 @@ export const getUsers = (users) => ({
 
 // this is an empty reducer so things don't break when we combineReducers
 
-export default function users(users = [], action) {
+export function users(users = [], action) {
 	switch(action.type) { 
 		case GET_USERS:
 			return action.users     
@@ -38,3 +38,9 @@ export default function users(users = [], action) {
 //-------------------------------------------------------------------------
 
 // DISPATCHERS
+export const fetchUsers = () => ((dispatch) => {
+	console.log("dispatching users")
+	fetch('/api/users')
+    .then(res => res.json())
+    .then(items => dispatch(getUsers(users)));
+})

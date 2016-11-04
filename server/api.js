@@ -6,9 +6,7 @@ const api = module.exports = express.Router()
 const path = require('path');
 
 // -------------------------
-const rootPath = path.join(__dirname, '..', '..');
-const publicPath = path.join(rootPath, 'public');
-const nodeModulesPath = path.join(rootPath, 'node_modules');
+
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
@@ -52,9 +50,7 @@ api
 
 
   .use('/users', require('./users'))
-  .use(express.static(rootPath))
-  .use(express.static(nodeModulesPath));
-
+  .use('/orders', require('./api/order.router'))
 
 
 // Send along any errors
