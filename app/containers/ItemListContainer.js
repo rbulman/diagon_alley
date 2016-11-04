@@ -12,9 +12,6 @@ const mapDispatchToProps = dispatch => ({
     	dispatch(fetchItems());
     },
 
-    go(item){
-    	dispatch(fetchSelectedItem(item))
-    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemList)

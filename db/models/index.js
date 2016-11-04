@@ -27,8 +27,7 @@ Order.belongsToMany(Item, {through: "orderItems"})
 	 * order.addItem()
 	 */
 
-Item.belongsToMany(User, {through: "wishlist"})
-User.belongsToMany(Item, {through: "wishlist"})
+
 //Item.belongsToMany(User)
 
 User.hasMany(Review, {as: 'Review'})

@@ -19,6 +19,10 @@ const User = db.define('users', {
   currentOrder: {
     type: Sequelize.INTEGER,
     defaultValue: null
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
 	indexes: [{fields: ['email'], unique: true,}],
