@@ -38,7 +38,6 @@ export default class ItemList extends Component {
                   <h4>{item.price} Sickles</h4>
                   <p>{item.description}</p>
                 </Link>
-                  <button> Add to cart </button>
               </div>
             )
           })}

@@ -7,6 +7,10 @@ export default class Users extends Component {
     
   }
 
+  componentDidMount(){
+    this.props.getUsers()
+  }
+
 
   render() {
 
