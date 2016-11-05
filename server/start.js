@@ -36,12 +36,9 @@ module.exports = app
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
 
-require('./auth').init(app)
-
   //.use(session({ secret: 'keyboard cat' }))
 
   // Authentication middleware
-app
   .use(passport.initialize())
   .use(passport.session())
   
