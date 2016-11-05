@@ -3,10 +3,6 @@
 const GET_ORDERS = 'GET_ORDERS';
 
 
-
-
-
-
 //-------------------------------------------------------------------------
 
 //ACTION CREATORS
@@ -15,10 +11,6 @@ export const getItems = (orders) => ({
 	type: GET_ORDERS,
 	orders
 })
-
-
-
-
 
 
 

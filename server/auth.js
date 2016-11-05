@@ -6,6 +6,10 @@ const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 
+const epilogue = require('./epilogue')
+const db = require('APP/db')
+
+
 
 /*************************
  * Auth strategies
@@ -85,7 +89,7 @@ passport.deserializeUser(
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
-        console.log("PASSPORT FOUND USER: ", user)
+        console.log("PASSPORT FOUND USER: ", user.name)
         debug('deserialize did ok user.id=%d', user.id)
         done(null, user)
       })
@@ -97,36 +101,53 @@ passport.deserializeUser(
 )
 
 passport.use(new (require('passport-local').Strategy) (
-  (email, password, done) => {
-    console.log("INSIDE PASSPORT")
-    console.log("email: ", email)
-    email = email.toLowerCase()
-    debug('will authenticate user(email: "%s")', email)
-    User.findOne({where: {email}})
-      .then(user => {
-        console.log("USER: ", user)
-        if (!user) {
-          debug('authenticate user(email: "%s") did fail: no such user', email)
-          return done(null, false, { message: 'Login incorrect' })
-        }
-        return user.authenticate(password)
-          .then(ok => {
-            if (!ok) {
-              debug('authenticate user(email: "%s") did fail: bad password')              
-              return done(null, false, { message: 'Login incorrect' })
-            }
-            debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
-            done(null, user)              
-          })
-      })
-      .catch(done)
-  }
-))
+    (email, password, done) => {
+      console.log("INSIDE PASSPORT")
+      console.log("email: ", email)
+      email = email.toLowerCase()
+      debug('will authenticate user(email: "%s")', email)
+      User.findOne({where: {email}})
+        .then(user => {
+          console.log("USER: ", user)
+          if (!user) {
+            debug('authenticate user(email: "%s") did fail: no such user', email)
+            return done(null, false, { message: 'Login incorrect' })
+          }
+          return user.authenticate(password)
+            .then(ok => {
+              if (!ok) {
+                debug('authenticate user(email: "%s") did fail: bad password')              
+                return done(null, false, { message: 'Login incorrect' })
+              }
+              debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
+              done(null, user)              
+            })
+        })
+        .catch(done)
+    }
+  ))
 
-auth.get('/whoami', (req, res) => {
-  console.log("REQUEST IN /whoami: ", req.user)
+auth.get('/whoami', (req, res, next) => {
+  console.log("REQUEST IN /whoami: ", req.user.name)
   res.send(req.user)
 })
+
+// // This works when users come after the /api/auth
+
+// auth.get("/users", function(req, res, next){
+//  console.log("in custom REQ.USER: ", req.user.name)
+//  if(!req.user || !req.user.isAdmin){
+//    res.sendStatus(403)
+//    return;
+//  }
+//  User.findAll({})
+//  .then((user) => res.send(user))
+//  .catch(next)
+// })
+
+
+
+
 
 auth.post('/:strategy/login', (req, res, next) => {
   console.log("STRATEGY: ", req.params.strategy)
@@ -135,10 +156,33 @@ auth.post('/:strategy/login', (req, res, next) => {
   })(req, res, next)
 })
 
+// auth.post('/:strategy/login', (req, res, next) => {
+//   console.log("STRATEGY: ", req.params.strategy)
+//   passport.authenticate('local-login', function (err, user, info) {
+//         if (err) {
+//             mysend(res, 500, 'Ups. Something broke!');
+//         } else if (info) {
+//             mysend(res, 401, 'unauthorized');
+//         } else {
+//             req.login(user, function(err) {
+//                 if (err) {
+//                     mysend(res, 500, 'Ups.');
+//                 } else {
+//                     mysend(res, 200, JSON.stringify(user));
+//                 }
+//             })
+//         }
+//     })(req, res, next);
+// });
+
+
 auth.post('/logout', (req, res, next) => {
   req.logout()
   res.redirect('/api/auth/whoami')
 })
 
-module.exports = auth
+module.exports = auth 
+
+
+
 

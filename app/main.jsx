@@ -18,6 +18,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import {getItems} from './reducers/items'
 import {getUsers} from './reducers/users'
+import axios from 'axios'
 
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
@@ -50,8 +51,8 @@ const onAdminEnter = (input) => {
   console.log("APP INPUT: ", input)
  
  return Promise.all([
-      //fetch('/api/items').then(res => res.json()),
-      fetch('/api/users').then(res => res.json())
+      fetch('/api/items').then(res => res.json()),
+      axios.get('/api/auth/users').then(res => res.data)
     ])
     .then(results => loadAdminDatabase(...results))
 }
@@ -66,8 +67,8 @@ render (
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-      <Route path="admin" component={AdminContainer} >
-        <Route path="users" component={UsersContainer} onEnter={onAdminEnter}/>
+      <Route path="admin" component={AdminContainer} onEnter={onAdminEnter}>
+        <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
       </Route>
    	</Route>

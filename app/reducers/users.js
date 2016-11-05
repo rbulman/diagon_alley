@@ -42,5 +42,5 @@ export const fetchUsers = () => ((dispatch) => {
 	console.log("dispatching users")
 	fetch('/api/users')
     .then(res => res.json())
-    .then(items => dispatch(getUsers(users)));
+    .then(users => dispatch(getUsers(users)));
 })

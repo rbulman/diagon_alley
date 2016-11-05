@@ -1,6 +1,10 @@
 'use strict'
-
+// var xhr = new XMLHttpRequest();
+// xhr.open(...);
+// xhr.withCredentials = true;
 const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
 const db = require('APP/db')
 const api = module.exports = express.Router()
 const path = require('path');
@@ -55,6 +59,7 @@ api
 
 // Send along any errors
 api.use((err, req, res, next) => {
+	console.log("ERROR")
   res.status(500).send(err)
 })
 
