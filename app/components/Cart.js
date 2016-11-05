@@ -28,6 +28,7 @@ export default class Cart extends Component{
 		let subtotal = 0;
 
 		console.log("this.props", this.props)
+		console.log("cartItems", cartItems)
 
 		return (
 			<div> 
@@ -40,7 +41,7 @@ export default class Cart extends Component{
 							<th>Item Price</th>
 							<th>Qty</th>
 							<th>Item Total</th>
-							<th/>
+							<th><button>Checkout</button></th>
 						</tr>
 					</thead>
 					<tbody>

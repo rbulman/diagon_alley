@@ -72,14 +72,17 @@ let fakeItems = [{
 
 // DISPATCHERS
 export function fetchCartItems () {
+	console.log("fetchCartItems")
 	return (dispatch) => {
-		dispatch(getCartItems(fakeItems));
-		// console.log("fetching cart items")
-		// fetch() //NEED API ROUTE TO FETCH CART ITEMS
-	 //    .then(res => res.json())
-	 //    .then((cartItems) => {
-	 //    	dispatch(getCartItems(cartItems))
-	 //    })
+		// dispatches dummy data, comment out for access to backend
+		return dispatch(getCartItems(fakeItems));
+	
+		console.log("fetching cart items")
+		fetch() //NEED API ROUTE TO FETCH CART ITEMS
+		.then(res => res.json())
+		.then((cartItems) => {
+			dispatch(getCartItems(cartItems))
+		})
 	}
 }
 

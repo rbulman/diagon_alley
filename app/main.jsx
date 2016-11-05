@@ -62,7 +62,7 @@ const onAdminEnter = (input) => {
 
 const onCartEnter = () => {
   console.log("LOAD CART");
-  fetchCartItems()
+  store.dispatch(fetchCartItems())
 }
 
 render (

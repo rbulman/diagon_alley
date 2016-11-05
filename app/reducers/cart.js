@@ -6,7 +6,7 @@
  * CartItems is the order-items join table + necessary items details
  */
 
-const GET_CART_DETAILS = "GET_CART_DETAILS"
+const GET_CART = "GET_CART"
 
 
 
@@ -18,8 +18,8 @@ const GET_CART_DETAILS = "GET_CART_DETAILS"
 
 
 export const getCart = (cart) => ({
-	type: GET_CART_DETAILS,
-	cartItems
+	type: GET_CART,
+	cart
 })
 
 
@@ -31,9 +31,9 @@ export const getCart = (cart) => ({
 
 // this is an empty reducer so things don't break when we combineReducers
 
-export function cart(cart = [], action) {
+export function cart(cart = {}, action) {
 	switch(action.type) { 
-		case GET_CART_DETAILS:
+		case GET_CART:
 			return action.cart
 		default:
 			return cart;
@@ -44,6 +44,8 @@ export function cart(cart = [], action) {
 //-------------------------------------------------------------------------
 
 // DISPATCHERS
+
+// copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 	console.log("dispatching users")
 	fetch('/api/users')
