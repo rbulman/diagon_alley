@@ -52,7 +52,7 @@ const onAdminEnter = (input) => {
  
  return Promise.all([
       fetch('/api/items').then(res => res.json()),
-      axios.get('/api/auth/users').then(res => res.data)
+      axios.get('/api/users').then(res => res.data)
     ])
     .then(results => loadAdminDatabase(...results))
 }
@@ -62,7 +62,7 @@ render (
    {/* <Root/> */}
    <Router history={hashHistory}>
    	<Route path='/' component={AppContainer} >
-   		<IndexRoute component={HomeContainer} onEnter={onAppEnter}/>
+   		<IndexRoute component={HomeContainer}/>
    		<Route path="about" component={AboutContainer} />
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />

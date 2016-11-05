@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 
 
 
+
 export default class ItemList extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,9 @@ export default class ItemList extends Component {
     //   this.setState({items});
     // })
     //this.props.getItems()
+    this.props.getItems()
+
+
   }
 
 
