@@ -51,7 +51,8 @@ export default class App extends Component{
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/items">Shop</Link></li>
-            <li><Link to="#">Works</Link></li>
+            <li><Link to="/cart">Cart</Link></li>
+
 			<AdminButton/> 
           </ul>
            { this.props.user ? this.renderLogout() : this.renderLoginSignup() }
@@ -90,7 +91,7 @@ export default class App extends Component{
 		return (
       	<ul className="nav navbar-nav navbar-right">
         <WhoAmI/>
-      </ul>
+      	</ul>
     )
 
 	}

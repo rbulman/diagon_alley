@@ -21,6 +21,10 @@ import {getItems} from './reducers/items'
 import {getUsers} from './reducers/users'
 import axios from 'axios'
 
+import {fetchCartItems} from 'APP/app/reducers/cartItems'
+
+import CartContainer from 'APP/app/containers/CartContainer'
+
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
   store.dispatch(fetchSelectedItem(params.id))
@@ -58,6 +62,11 @@ const onAdminEnter = (input) => {
     .then(results => loadAdminDatabase(...results))
 }
 
+const onCartEnter = () => {
+  console.log("LOAD CART");
+  store.dispatch(fetchCartItems())
+}
+
 render (
   <Provider store={store}>
    {/* <Root/> */}
@@ -73,6 +82,7 @@ render (
         <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
       </Route>
+      <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>
    	</Route>
    </Router>
   </Provider>,
