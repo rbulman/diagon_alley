@@ -1,10 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 export const WhoAmI = ({ user, logout }) => (
-  <li className="whoami">
-    <span className="whoami-user-name">{user && user.name}</span>
-    <button className="navbar-btn btn btn-default" onClick={logout}>Logout</button>
-  </li>
+
+  <ul className="nav navbar-nav navbar-right">
+  	<li className="whoami"> {user && "Hi, " + user.name + " "} </li>
+    <li><Link onClick={logout}>Logout</Link></li>
+  </ul>
 )
 
 import {logout} from 'APP/app/reducers/auth'

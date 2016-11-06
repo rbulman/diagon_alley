@@ -16,9 +16,9 @@ const AdminButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <div>
+    <li>
       {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null} 
-    </div>
+    </li>
 )
 
 export default class App extends Component{
@@ -52,7 +52,7 @@ export default class App extends Component{
             <li><Link to="/about">About</Link></li>
             <li><Link to="/items">Shop</Link></li>
             <li><Link to="#">Works</Link></li>
-			<li><AdminButton /> </li>
+			<AdminButton/> 
           </ul>
            { this.props.user ? this.renderLogout() : this.renderLoginSignup() }
           <div className="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
