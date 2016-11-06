@@ -4,12 +4,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const axios = require('axios')
 
 // Bones has a symlink from node_modules/APP to the root of the app.
 // That means that we can require paths relative to the app root by
 // saying require('APP/whatever').
 //
 // This next line requires our root index.js:
+
+
 const pkg = require('APP')
 
 const app = express()
@@ -27,8 +32,11 @@ module.exports = app
   }))
 
   // Body parsing middleware
+  //.use(cookieParser())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
+
+  //.use(session({ secret: 'keyboard cat' }))
 
   // Authentication middleware
   .use(passport.initialize())

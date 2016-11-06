@@ -1,10 +1,7 @@
+import axios from 'axios'
 // ACTIONS
 
 const GET_ORDERS = 'GET_ORDERS';
-
-
-
-
 
 
 //-------------------------------------------------------------------------
@@ -15,10 +12,6 @@ export const getItems = (orders) => ({
 	type: GET_ORDERS,
 	orders
 })
-
-
-
-
 
 
 
@@ -42,10 +35,10 @@ export function orders(orders = [], action) {
 
 // DISPATCHERS
 
-export const fetchItems = () => ((dispatch) => {
+export const fetchOrders = () => ((dispatch) => {
 	console.log("dispatching items")
-	fetch('/api/orders')
-    .then(res => res.json())
+	axios('/api/orders')
+    .then(res => res.data)
     .then(orders => dispatch(getItems(orders)));
 })
 

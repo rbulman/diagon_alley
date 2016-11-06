@@ -28,7 +28,7 @@ const forbidden = message => (req, res, context) => {
 }
 
 const mustBeAdmin = message => (req, res, context) => {
-  console.log("req.user: ", req.user)
+  console.log("MUSTBEADMIN req.user: ", req.user.name)
   if (!req.user || !req.user.isAdmin) {
     console.log("thinks user is not Admin")
     res.status(403).send('You do not have access to this page')

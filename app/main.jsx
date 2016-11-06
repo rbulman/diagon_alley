@@ -11,6 +11,7 @@ import ItemListContainer from 'APP/app/containers/ItemListContainer'
 import AdminContainer from 'APP/app/containers/AdminContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
 import UsersContainer from 'APP/app/containers/UsersContainer'
+import OrdersContainer from 'APP/app/containers/OrdersContainer'
 import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
@@ -18,6 +19,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import {getItems} from './reducers/items'
 import {getUsers} from './reducers/users'
+import axios from 'axios'
 
 import {fetchCartItems} from 'APP/app/reducers/cartItems'
 
@@ -54,8 +56,8 @@ const onAdminEnter = (input) => {
   console.log("APP INPUT: ", input)
  
  return Promise.all([
-      //fetch('/api/items').then(res => res.json()),
-      fetch('/api/users').then(res => res.json())
+      fetch('/api/items').then(res => res.json()),
+      axios.get('/api/users').then(res => res.data)
     ])
     .then(results => loadAdminDatabase(...results))
 }
@@ -70,13 +72,14 @@ render (
    {/* <Root/> */}
    <Router history={hashHistory}>
    	<Route path='/' component={AppContainer} >
-   		<IndexRoute component={HomeContainer} onEnter={onAppEnter}/>
+   		<IndexRoute component={HomeContainer}/>
    		<Route path="about" component={AboutContainer} />
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-      <Route path="admin" component={AdminContainer} >
-        <Route path="users" component={UsersContainer} onEnter={onAdminEnter}/>
+      <Route path="admin" component={AdminContainer}>
+        <Route path="orders" component={OrdersContainer} />
+        <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
       </Route>
       <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>

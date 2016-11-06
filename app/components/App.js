@@ -52,6 +52,7 @@ export default class App extends Component{
             <li><Link to="/about">About</Link></li>
             <li><Link to="/items">Shop</Link></li>
             <li><Link to="/cart">Cart</Link></li>
+
 			<AdminButton/> 
           </ul>
            { this.props.user ? this.renderLogout() : this.renderLoginSignup() }
