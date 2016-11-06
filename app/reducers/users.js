@@ -3,19 +3,14 @@
 const GET_USERS = "GET_USERS"
 
 
-
-
-
 //-------------------------------------------------------------------------
 
 //ACTION CREATORS
-
 
 export const getUsers = (users) => ({
 	type: GET_USERS,
 	users
 })
-
 
 
 
@@ -41,6 +36,9 @@ export function users(users = [], action) {
 export const fetchUsers = () => ((dispatch) => {
 	console.log("dispatching users")
 	fetch('/api/users')
-    .then(res => res.json())
+    .then(res => {
+    	console.log("USERS RES: ", users)
+    	return res.json()}
+    	)
     .then(users => dispatch(getUsers(users)));
 })

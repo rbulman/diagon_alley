@@ -31,6 +31,7 @@ export default class App extends Component{
 				<li><Link to="/"> Home </Link></li>
 				<li><Link to="/items"> Shop </Link></li>
 				<li><Link to="/about"> About </Link></li>
+				<li><Link to="/cart"> Cart </Link></li>
 				<li><ToggleButton /> </li>
 				<li><AdminButton /> </li>
 				</ul>

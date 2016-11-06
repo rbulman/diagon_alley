@@ -29,37 +29,7 @@ const loadSingleItem = ({params}) => {
   store.dispatch(fetchSelectedItem(params.id))
 }
 
-const loadDatabase = (items, users) => {
-  console.log("ITEMS IN loadDatabase: ", items)
-  store.dispatch(getItems(items))
-  //store.dispatch(getUsers(users))
-}
 
-const onAppEnter = (input) => {
-  console.log("APP INPUT: ", input)
- 
- return Promise.all([
-      fetch('/api/items').then(res => res.json())
-      //fetch('/api/users').then(res => res.json())
-    ])
-    .then(results => loadDatabase(...results))
-}
-
-const loadAdminDatabase = (items, users) => {
-  console.log("Users IN loadDatabase: ", users)
-  //store.dispatch(getItems(items))
-  store.dispatch(getUsers(users))
-}
-
-const onAdminEnter = (input) => {
-  console.log("APP INPUT: ", input)
- 
- return Promise.all([
-      fetch('/api/items').then(res => res.json()),
-      axios.get('/api/users').then(res => res.data)
-    ])
-    .then(results => loadAdminDatabase(...results))
-}
 
 const onCartEnter = () => {
   console.log("LOAD CART");
@@ -76,7 +46,7 @@ render (
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-      <Route path="admin" component={AdminContainer} onEnter={onAdminEnter}>
+      <Route path="admin" component={AdminContainer} >
         <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
       </Route>
