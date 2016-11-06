@@ -46,8 +46,8 @@ router.get('/user/:userid', function(req,res,next){
 
 // get current order(s) for userid
 router.get('/user/pending/:userid', function(req,res,next){
-
-  Order.findAll({
+  let currentOrder, orderItems;
+  Order.findOne({
     where: {
       user: req.params.userid,
       // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
@@ -56,10 +56,21 @@ router.get('/user/pending/:userid', function(req,res,next){
       status: 'pending'
     }
   })
-    .then(function(orders){
-      res.json(orders);
-    })
-    .catch(next);
+  .then(function(foundOrder){
+    currentOrder = foundOrder;
+    return foundOrder.getItems()
+  })
+  .then(function(foundItems){
+    res.json(foundItems);
+  })
+  .catch(next);
+
+  /* 
+   * User.findById(userid)
+   * then call
+   * Order.findById(foundUser.currentOrder)
+   * the two calls to findByID should run faster / smoother than what we have now
+   */
 });
 
 // get completed order history
