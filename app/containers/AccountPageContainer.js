@@ -1,8 +1,8 @@
 'use strict';
 
 import { connect } from 'react-redux';
-import ItemList from '../components/ItemList'
-import {fetchItems} from 'APP/app/reducers/items'
+import AccountPage from '../components/AccountPage'
+
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
 
 const mapStateToProps = ({items}) => ({items}); 
