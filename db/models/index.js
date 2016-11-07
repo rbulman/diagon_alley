@@ -32,8 +32,8 @@ Order.hasMany(OrderItems)
 OrderItems.belongsTo(Item)
 //Item.belongsToMany(User)
 
-//User.hasMany(Review, {as: 'Review'})
-//Item.hasMany(Review, {as: 'Review'})
+//User.hasMany(Review, {as: 'Reviews'})
+Item.hasMany(Review)
 
 
 module.exports = db;
