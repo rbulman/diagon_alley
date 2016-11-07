@@ -56,26 +56,32 @@ router.get('/user/pending/:userid', function(req,res,next){
       // OUT IF YOU ARE NOT A USER
       userType: 'user',
       status: 'pending'
-    }, 
+    },
+    include: [
+    {
+      model: OrderItem,
+      include: [Item]
+    }
+    ]
 
-    include: [OrderItem]
-
   })
-  .then(function(foundOrder){
-    console.log("currentOrder: ", foundOrder)
-    currentOrder = foundOrder;
-    console.log("ORDER ID: ", currentOrder.id)
-    // return OrderItem.findAll({
-    //   where: {
-    //     order_id: currentOrder.id
-    //   }
-    // })
+  // .then(function(foundOrder){
+  //   console.log("currentOrder: ", foundOrder)
+  //   currentOrder = foundOrder;
+  //   console.log("ORDER ID: ", currentOrder.id)
+  //   // return .findAll({
+  //   //   where: {
+  //   //     order_id: currentOrder.id
+  //   //   }
+  //   // })
+  //   //res.json(currentOrder)
+  //   return currentOrder.getItems()
+  //})
+  .then(function(order){
+    console.log("foundItems: ", order)
+    res.json(order.orderItems);
   })
-  .then(function(foundItems){
-    console.log("foundItems: ", foundItems)
-    res.json(foundItems);
-  })
-  .catch(next);
+  .catch(err => console.log(err));
 
   /* 
    * User.findById(userid)
