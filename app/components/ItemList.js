@@ -35,21 +35,21 @@ export default class ItemList extends Component {
           </div>
         </div>
         <h1>PRODUCTS</h1>
-      <div className="row">
-          {this.props.items.map(function(item) {
-            return (
-              <div key={item.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div className="shop-item">
-                  <Link to={`/items/${item.id}`}>
-                    <h3 className="item-title">{item.name}</h3>
-                    <img className="img-responsive img-rounded item-image" alt={item.name} src={item.imageURL} />
-                    <h4>{item.price} Sickles</h4>
-                  </Link>
+        <div className="row">
+            {this.props.items.map(function(item) {
+              return (
+                <div key={item.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                  <div className="shop-item">
+                    <Link to={`/items/${item.id}`}>
+                      <h3 className="item-title">{item.name}</h3>
+                      <img className="img-responsive img-rounded item-image" alt={item.name} src={item.imageURL} />
+                      <h4>{item.price} Sickles</h4>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-      </div>
+              )
+            })}
+        </div>
       </div>
     )
   }

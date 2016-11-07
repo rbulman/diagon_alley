@@ -44,7 +44,7 @@ export default class App extends Component{
             </ul>
           </div>
         </nav>
-  			<div className="container">
+  			<div className="container child-container">
       		{this.props.children}
   			</div>
       </div>

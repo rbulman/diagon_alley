@@ -52,7 +52,10 @@ h3, h4 {
 .item-container {
   margin-left: -10px;
   margin-right: -10px;
-  margin-top: 65px;
+}
+
+.child-container {
+    margin-top: 65px;
 }
 #logo-header {
   font-weight: bold;
