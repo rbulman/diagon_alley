@@ -8,50 +8,84 @@ console.log("db name: ", db.config.database)
 var data = {
   users: [
     {
-      name: "Harry Potter", 
-      email: "theBoyWhoLived@hogwarts.com", 
-      password: "ispeaktosnakes" 
+      name: "Harry Potter",
+      email: "theBoyWhoLived@hogwarts.com",
+      password: "ispeaktosnakes"
     }, {
-      name: "Ron Weasley", 
-      email: "loyalGinger@hogwarts.com", 
-      password: "ilovehermione" 
+      name: "Ron Weasley",
+      email: "loyalGinger@hogwarts.com",
+      password: "ilovehermione"
     }, {
-      name: "Hermione Granger", 
-      email: "beautifulBraniac@hogwarts.com", 
-      password: "orworseexpelled" 
+      name: "Hermione Granger",
+      email: "beautifulBraniac@hogwarts.com",
+      password: "orworseexpelled"
     },
     {
-      name: "Albus Dumbledore", 
-      email: "headmaster@hogwarts.com", 
-      password: "trustsnape", 
+      name: "Albus Dumbledore",
+      email: "headmaster@hogwarts.com",
+      password: "trustsnape",
       isAdmin: true
     }
   ],
   items: [
     {
-      name: "Anti Gravity Hat", 
-      description: "Ruin a gentleman's day by making his hat fly away!", 
-      price: 11, 
+      name: "Anti Gravity Hat",
+      description: "Ruin a gentleman's day by making his hat fly away!",
+      price: 11,
       inventory: 20,
-      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
       categories: ["hats"]
     }, {
-      name: "Aviatomobile", 
-      description: "A flying toy car", 
-      price: 12, 
+      name: "Aviatomobile",
+      description: "A flying toy car",
+      price: 12,
       inventory: 23,
-      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
     }, {
-      name: "Headless Hats", 
+      name: "Headless Hats",
       description: "Make the wearer's head invisible (along with the hat itself).",
-      price: 17, 
+      price: 17,
       inventory: 40,
-      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg"
+    },
+    {
+      name: "Canary Creams",
+      description: "Temporarily transfigures the eater into a canary.",
+      price: 3,
+      inventory: 213,
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+      categories: ["sweets"]
+    },
+    {
+      name: "Edible Dark Marks",
+      description: "They'll make anyone sick!",
+      price: 5,
+      inventory: 7,
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+      categories: ["sweets", "dark"]
+    },
+    {
+      name: "Skiving Snackbox",
+      description: "A range of sweets to make the user ill.",
+      price: 10,
+      inventory: 24,
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+      categories: ["sweets"]
+    },
+    {
+      name: "Ton-Tongue Toffee",
+      description: "Causes the tongue to rapidly swell and turn purple.",
+      price: 11,
+      inventory: 20,
+      imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+      categories: ["sweets"]
     },
   ],
   categories: [
     {name: 'hats'},
-    {name: 'flying'}
+    {name: 'flying'},
+    {name: 'sweets'},
+    {name: 'dark'}
   ]
   // orders: [
   //   {

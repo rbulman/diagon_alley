@@ -8,16 +8,16 @@ export const ToggleButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <div>
-      {user ? <Link><WhoAmI/></Link> : <Link to="/login"> Login </Link>}
-    </div>
+    <li>
+      {user ? <Link><WhoAmI/></Link> : <Link to="/login"> LOGIN </Link>}
+    </li>
 )
 const AdminButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
     <li>
-      {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null}
+      {user && user.isAdmin ? <Link to="/admin">ADMIN</Link> : null}
     </li>
 )
 
@@ -31,26 +31,23 @@ export default class App extends Component{
 	render(){
 		console.log("propsLogout: ", this.props.logout)
 		return(
-			<div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            <Link className="text-center" to="/"><h1 id="logo-header">Weasley's Wizarding Wheezes</h1></Link>
+      <div>
+        <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div className="container">
+            <ul className="nav navbar-nav">
+              <li><Link to="/"> HOME </Link></li>
+              <li><Link to="/items"> SHOP </Link></li>
+              <li><Link to="/about"> ABOUT </Link></li>
+              <li><Link to="/cart"> CART </Link></li>
+              <ToggleButton />
+              <AdminButton />
+            </ul>
           </div>
-        </div>
-        <div className="row">
-    			<nav className="navbar navbar-inverse" role="navigation">
-           	<ul className="nav navbar-nav">
-    				<li><Link to="/"> Home </Link></li>
-    				<li><Link to="/items"> Shop </Link></li>
-    				<li><Link to="/about"> About </Link></li>
-    				<li><Link to="/cart"> Cart </Link></li>
-    				<li><ToggleButton /> </li>
-    				<li><AdminButton /> </li>
-    				</ul>
-    			</nav>
-    		</div>
-    		{this.props.children}
-			</div>
+        </nav>
+  			<div className="container">
+      		{this.props.children}
+  			</div>
+      </div>
 
 			)
 	}

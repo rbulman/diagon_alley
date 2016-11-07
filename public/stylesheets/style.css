@@ -1,3 +1,4 @@
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -12,5 +13,50 @@ li {
 li a {
     display: block;
     padding: 8px;
-    background-color: #dddddd;
+    color: #eeeeee;
+}
+
+li a:hover {
+  background-color: #dddddd;
+  color: #ffbf00;
+}
+
+h1 {
+  font-family: 'Playfair Display SC', serif;
+}
+
+h3, h4 {
+  color: black;
+}
+
+.shop-item {
+  box-shadow:  0px 0px 16px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.shop-item:hover {
+  box-shadow:  0px 0px 16px rgba(75,45,113,0.7);
+}
+
+.item-title {
+  margin: 0px;
+}
+
+.item-image {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.item-container {
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 65px;
+}
+#logo-header {
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 25px;
+  color: black;
 }
