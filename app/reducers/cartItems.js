@@ -147,7 +147,14 @@ export const putItemInCart = (item) => ((dispatch) => {
 	// item must show up in cart
 	dispatch(addItemToCart(item));
 
-
+	// orderItem relation
+	putItemInCartToServer(item)
 })
 
-// const 
+const putItemInCartToServer = (item) => {
+	return axios.get('/api/auth/whoami')
+	.then(res => res.data)
+	.then(user => {
+		if (user) return axios.put(`api/orders/addItem/${user.currentOrder}/${item.id}`);
+	})
+}
