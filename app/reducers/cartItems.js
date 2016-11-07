@@ -7,6 +7,20 @@ import axios from 'axios'
  * CartItems is the order-items join table + necessary items details
  */
 
+
+/* OrderItem = {
+		order_id:
+		item_id:
+		quantity:
+		item: {
+			price:
+			imageURL:
+			name:
+		}
+ 	}
+ * cartItem = [OrderItem]
+ */
+
 const GET_CART_ITEMS = "GET_CART_ITEMS"
 const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART"
 const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART"
@@ -112,24 +126,28 @@ export const fetchCartItems = () => ((dispatch) => {
 		})
 		 //NEED API ROUTE TO FETCH CART ITEMS
 		.then(res => res.data)
-		.then((cart) => {
-			console.log("cart: ", cart)
-			// dispatch(getCartItems(cart))
+		.then((cartItems) => {
+			console.log("cartItems: ", cartItems)
+			dispatch(getCartItems(cartItems))
 		})
 	})
 
+/* FRONTEND STORE
+ * item must show up in cart
+ * cart subtotal must increase
+ * 
+ * BACKEND ORDER MODEL
+ * orderItem relation
+ * order.subtotal increase
+ */
 
-export const putItemInCart = () => ((dispatch) => {
+export const putItemInCart = (item) => ((dispatch) => {
 	console.log("put item to cart");
 
-	axios.get('/api/auth/whoami')
-	.then(res => res.data)
-	.then(user => {
-		return axios.get(`api/orders/user/pending/${user.id}`)
-	})
-	.then(res => res.data)
-	.then((order) => {
-		console.log("cartItems: ", cartItems)
-		dispatch(getCartItems(cartItems))
-	})
+	// item must show up in cart
+	dispatch(addItemToCart(item));
+
+
 })
+
+const 

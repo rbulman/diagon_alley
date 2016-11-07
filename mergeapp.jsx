@@ -8,9 +8,9 @@ export const ToggleButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <div>
-      {user ? <WhoAmI/> : <Link to="/login"> Login </Link>}
-    </div>
+    <li>
+      {user ? <Link><WhoAmI/></Link> : <Link to="/login"> LOGIN </Link>}
+    </li>
 )
 const AdminButton = connect(
   ({ auth }) => ({ user: auth })
@@ -48,6 +48,7 @@ export default class App extends Component{
       		{this.props.children}
   			</div>
       </div>
+
 			)
 	}
 

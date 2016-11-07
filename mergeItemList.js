@@ -20,6 +20,8 @@ export default class ItemList extends Component {
     // })
     //this.props.getItems()
     this.props.getItems()
+
+
   }
 
 
@@ -29,7 +31,7 @@ export default class ItemList extends Component {
       <div className="item-container">
         <div className="row">
           <div className="jumbotron">
-            <Link className="text-center" to="/"><h1 id="logo-header">Weasley's Wizard Wheezes</h1></Link>
+            <Link className="text-center" to="/"><h1 id="logo-header">Weasleys Wizard Wheezes</h1></Link>
           </div>
         </div>
         <h1>PRODUCTS</h1>
