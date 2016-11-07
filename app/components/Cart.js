@@ -53,7 +53,11 @@ export default class Cart extends Component{
 										<td><img src={singleItem.imageURL} height="100" width="100"/></td>
 										<td>{singleItem.name}</td>
 										<td>{singleItem.singlePrice}</td>
-										<td>{singleItem.qty}<button>+</button></td>
+										<td>
+											{singleItem.qty}
+											<button>+</button>
+											<button>-</button>
+										</td>
 										<td>{singleItem.singlePrice * singleItem.qty}</td>
 										<td><button>Remove</button></td>
 									</tr>

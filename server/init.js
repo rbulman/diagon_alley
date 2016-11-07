@@ -77,7 +77,7 @@ passport.use(new (require('passport-local').Strategy) (
       debug('will authenticate user(email: "%s")', email)
       User.findOne({where: {email}})
         .then(user => {
-          console.log("USER: ", user)
+          console.log("USER: ", user.id)
           if (!user) {
             debug('authenticate user(email: "%s") did fail: no such user', email)
             return done(null, false, { message: 'Login incorrect' })

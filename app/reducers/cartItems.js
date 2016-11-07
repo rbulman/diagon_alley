@@ -41,7 +41,19 @@ export function cartItems(cartItems = [], action) {
 			return action.cartItems
 
 		case ADD_ITEM_TO_CART:
-			return cartItems.concat([action.item]) 
+			let newCartItems = cartItems.slice(0);
+			let addedItem = false;
+			newCartItems.forEach((element) => {
+				if (addedItem) return;
+				if (element.itemId === action.item.id) {
+					element.qty++;
+					addedItem = true;
+				}
+			})
+			if (!addedItem) newCartItems.push(action.item);
+			return newCartItems;
+			
+			// return cartItems.concat([action.item]) 
 			// need to figure out duplicate items
 
 		case REMOVE_ITEM_FROM_CART:

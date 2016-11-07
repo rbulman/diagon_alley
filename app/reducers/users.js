@@ -14,8 +14,6 @@ export const getUsers = (users) => ({
 	users
 })
 
-
-
 //-------------------------------------------------------------------------
 
 //USERS REDUCER
@@ -31,16 +29,12 @@ export function users(users = [], action) {
 	}
 }
 
-
 //-------------------------------------------------------------------------
 
 // DISPATCHERS
 export const fetchUsers = () => ((dispatch) => {
 	console.log("dispatching users")
-	axios('/api/users')
-    .then(res => {
-    	console.log("USERS RES: ", res)
-    	return res.data}
-    	)
+	axios.get('/api/users')
+    .then(res => res.data)
     .then(users => dispatch(getUsers(users)));
 })
