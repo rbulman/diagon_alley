@@ -48,6 +48,7 @@ router.get('/user/:userid', function(req,res,next){
 // get current order(s) for userid
 router.get('/user/pending/:userid', function(req,res,next){
   let currentOrder, orderItems;
+  console.log("USER ID: ", req.params.userid)
   Order.findOne({
     where: {
       user: req.params.userid,
@@ -58,6 +59,7 @@ router.get('/user/pending/:userid', function(req,res,next){
     }
   })
   .then(function(foundOrder){
+    console.log("currentOrder: ", foundOrder)
     currentOrder = foundOrder;
     return foundOrder.getItems()
   })

@@ -9,6 +9,7 @@ import HomeContainer from 'APP/app/containers/HomeContainer'
 import ItemList from 'APP/app/components/ItemList'
 import ItemListContainer from 'APP/app/containers/ItemListContainer'
 import AdminContainer from 'APP/app/containers/AdminContainer'
+import OrdersContainer from 'APP/app/containers/OrdersContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
 import UsersContainer from 'APP/app/containers/UsersContainer'
 import store from './store'
@@ -49,8 +50,9 @@ render (
       <Route path="admin" component={AdminContainer} >
         <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
+        <Route path="orders" component={OrdersContainer}/>
       </Route>
-      <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>
+      <Route path="cart" component={CartContainer} />
    	</Route>
    </Router>
   </Provider>,

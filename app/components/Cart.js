@@ -1,37 +1,12 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router'
+import {connect} from 'react-redux'
 
-export default class Cart extends Component{
-
-	render(){
-	
-		let {cartItems} = this.props;
-		// let cartItems = [{
-		// 	name: "Extendable Ears",
-		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
-		// 	singlePrice: 7,
-		// 	qty: 3
-		// },{
-		// 	name: "Firebolt",
-		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
-		// 	singlePrice: 1000,
-		// 	qty: 1
-		// }];
-		/* expecting item to be:
-		{
-			name: string
-			imageURL: url
-			singlePrice: integer
-			qty: integer
-		}
-		 */
-		
-		let subtotal = 0;
-
-		console.log("this.props", this.props)
-		console.log("cartItems", cartItems)
-
-		return (
-			<div> 
+const CartDisplay = connect(
+  ({ cartItems }) => ({ cartItems })
+) (
+  ({ cartItems}) => (
+   <div> 
 				<h1>CART</h1>
 				<table className="table">
 					<thead>
@@ -69,6 +44,46 @@ export default class Cart extends Component{
 						</tr>
 					</tbody>
 				</table>
+			</div>
+))
+
+export default class Cart extends Component{
+	componentDidMount(){
+		this.props.getCartItems()
+	}
+
+	render(){
+	
+		let {cartItems} = this.props
+		// let cartItems = [{
+		// 	name: "Extendable Ears",
+		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+		// 	singlePrice: 7,
+		// 	qty: 3
+		// },{
+		// 	name: "Firebolt",
+		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
+		// 	singlePrice: 1000,
+		// 	qty: 1
+		// }];
+		/* expecting item to be:
+		{
+			name: string
+			imageURL: url
+			singlePrice: integer
+			qty: integer
+		}
+		 */
+		
+		let subtotal = 0;
+
+		console.log("this.props", this.props)
+		console.log("cartItems", cartItems)
+
+		return (
+			<div>
+				{this.props.cartItems && this.props.cartItems.length ? 
+				<CartDisplay cartItems={this.props.cartItems}/> : <Link to="/items"> Treat Yourself! </Link>}
 			</div>
 			)
 	}
