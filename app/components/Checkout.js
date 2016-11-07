@@ -14,29 +14,19 @@ export default class Checkout extends Component{
 	render(){
 		// let {cart} = this.props;
 		let cart = {
-			subtotal: 100
+			subtotal: 100,
+			owl: "Common Barn Owl",
+			owlPrice: 15
 		}
-		let owls = {
-			US: [
-				"Common Barn Owl",
-				"Screech Owl",
-				"Great Horned Owl",
-				"Northern Pygmy Owl",
-				"Northern Burrowing Owl"
-			],
-			Canada: [
-				"Snowy Owl",
-				"Screech Owl",
-				"Great Horned Owl",
-				"Northern Pygmy Owl",
-				"Northern Burrowing Owl"
-			],
-			GB: [
-				"Snowy Owl",
-				"Common Barn Owl",
-			]
+		let address = {
+			country: "US",
+			fullName: "Liz",
+			streetAddress: "5 Hanover Sq",
+			municipality: "New York",
+			state: "New York"
 		}
 		console.log("Checkout", this.props)
+
 		return (
 			<div>
 				<h1>CHECKOUT</h1>
@@ -52,39 +42,21 @@ export default class Checkout extends Component{
 							<td>{parseInt(cart.subtotal * 0.07)} sickles</td>
 						</tr>
 						<tr>
+							<td>Owl Delivery: </td>
+							<td>{cart.owlPrice} sickles</td>
+						</tr>
+						<tr>
 							<td>Total: </td>
-							<td>{cart.subtotal * 1.07} sickles</td>
+							<td>{cart.subtotal * 1.07 + cart.owlPrice} sickles</td>
 						</tr>
 					</tbody>
 				</table>
-				<h2>Owl Delivery</h2>
-				<form>
-					<label>Choose your country: </label>
-					<select name="country">
-						<option value="US">United States</option>
-						<option value="Canada">Canada</option>
-						<option value="GB">Great Britain</option>
-					</select><br/>
-					<label>Choose your owl: </label>
-					<select name="owl">
-						{
-							owls.US.map((element, index) => (
-								<option value={index} key={index}>{element}</option>
-							))
-						}
-					</select>
-					<p>Depending on country, change species of owl to use for delivery</p>
-					<fieldset>
-						<legend>Address</legend>
-						<label>Street Address: </label>
-						<input type="text" name="street-address"/><br/>
-						<label>Municipality: </label>
-						<input type="text" name="municipality" /><br/>
-						<label>State/Province: </label>
-						<input type="text" name="state" /><br/>
-						<input type="submit"/>
-					</fieldset>
-				</form>
+				<h2>Delivery By {cart.owl} to: </h2>
+				<p>{address.fullName}</p>
+				<p>{address.streetAddress}</p>
+				<p>{address.municipality},{address.state}</p>
+				<p>{address.country}</p>
+				<button>Confirm Order</button>
 			</div>
 		)
 	}
