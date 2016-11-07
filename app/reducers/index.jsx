@@ -6,8 +6,12 @@ import auth from './auth'
 import {orders} from './orders'
 import {cartItems} from './cartItems'
 
+import {cart} from './cart'
+
+
 const initialState = {};
-const rootReducer = combineReducers({items, selectedItem, users, auth, orders, cartItems});
+
+const rootReducer = combineReducers({items, selectedItem, users, auth, cart, cartItems, orders});
 
 
 export default rootReducer

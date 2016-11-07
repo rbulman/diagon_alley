@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 // ACTIONS
 
 const GET_USERS = "GET_USERS"
@@ -34,6 +35,7 @@ export function users(users = [], action) {
 // DISPATCHERS
 export const fetchUsers = () => ((dispatch) => {
 	console.log("dispatching users")
+
 	axios.get('/api/users')
     .then(res => res.data)
     .then(users => dispatch(getUsers(users)));

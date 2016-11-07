@@ -10,6 +10,7 @@ const Item = require('./item')
 const Category = require('./category')
 const Order = require('./order')
 const Review = require('./review')
+const OrderItems = require('./orderItems')
 
 // User.hasMany(Item);
 // If we want a cart and a wishlist, we should have a wishlist and a cart model so we can
@@ -20,14 +21,15 @@ const Review = require('./review')
 Item.belongsToMany(Category, {through: "items_categories"})
 Category.belongsToMany(Item, {through: "items_categories"})
 
-Order.belongsToMany(Item, {through: "orderItems"})
+Order.belongsToMany(Item, {through: OrderItems })
 	/* e.g.
 	 * order.getItem()
 	 * order.hasItem()
 	 * order.addItem()
 	 */
 
-
+Order.hasMany(OrderItems)
+OrderItems.belongsTo(Item)
 //Item.belongsToMany(User)
 
 //User.hasMany(Review, {as: 'Reviews'})

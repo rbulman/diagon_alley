@@ -9,7 +9,7 @@ import {Link} from 'react-router';
 export default class ItemList extends Component {
   constructor(props) {
     super(props);
-    
+
   }
 
   componentDidMount() {  //we will refactor this to action creators, etc. later
@@ -43,18 +43,3 @@ export default class ItemList extends Component {
     )
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
