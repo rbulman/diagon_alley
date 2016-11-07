@@ -9,7 +9,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <li>
-      {user ? <WhoAmI/> : <Link to="/login"> Login </Link>}
+      {user ? <Link><WhoAmI/></Link> : <Link to="/login"> LOGIN </Link>}
     </li>
 )
 const AdminButton = connect(
@@ -31,7 +31,6 @@ export default class App extends Component{
 	render(){
 		console.log("propsLogout: ", this.props.logout)
 		return(
-
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div className="container">
