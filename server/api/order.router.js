@@ -4,6 +4,8 @@ var router = require('express').Router();
 var Order = require('APP/db/models/order');
 var Item = require('APP/db/models/item');
 var OrderItem = require('APP/db/models/orderItems')
+const epilogue = require('../epilogue')
+const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
 
 
 // *-------------------------GET ROUTES ------------------------------*//
@@ -12,7 +14,8 @@ var OrderItem = require('APP/db/models/orderItems')
 //perhaps we save current order ID on state and get by ID when we view Cart
 //or get details of cart from "order history"
 router.get('/', function(req,res,next){
-
+  console.log("Context: ", next)
+  mustBeAdmin()(req, res, next)
   Order.findAll({})
     .then(function(orders){
       res.json(orders);

@@ -8,9 +8,9 @@ export const ToggleButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <div>
+    <li>
       {user ? <WhoAmI/> : <Link to="/login"> Login </Link>}
-    </div>
+    </li>
 )
 const AdminButton = connect(
   ({ auth }) => ({ user: auth })

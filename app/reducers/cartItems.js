@@ -150,4 +150,4 @@ export const putItemInCart = (item) => ((dispatch) => {
 
 })
 
-const 
+// const 
