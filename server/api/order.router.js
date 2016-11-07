@@ -168,6 +168,46 @@ router.put('/:id', function(req, res, next){
   });
 });
 
+router.use('/addToCart/:itemId', function (req, res, next){
+  let orderID;
+  if(!req.user){
+    if(!req.session.orderId){
+      Order.create({
+      userType: 'guest',
+      status: 'pending'
+      })
+      .then(order => {
+        req.session.orderId = order.id
+        orderID = order.id
+      })
+    }
+    else{
+      orderID = req.session.orderId
+    }
+  }
+  else{
+    // if(!req.user.currentOrder){
+    //   Order.create({
+    //   userType: 'user',
+    //   status: 'pending'
+    //   })
+    //   .then(order => {
+    //     User.findById(req.user.id)
+    //     orderID = order.id
+    //   })
+    // }
+    Order.findOrCreate({
+      where: {
+        userId : req.user.id,
+        status: 'pending'
+      }
+    })
+    .spread((order, created) => {
+      orderID = order.id
+    })
+    
+  }
+})
 
 
 //ADD ITEM TO CART

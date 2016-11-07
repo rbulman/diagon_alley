@@ -7,13 +7,14 @@ export const Login = ({ login }) => (<div>
     login(evt.target.username.value, evt.target.password.value)
     browserHistory.push('/')
   } }>
-    <input name="username" />
-    <input name="password" type="password" />
-    <input type="submit" value="Login" />
+    <input name="name" placeholder="Full name" />
+    <input name="username" placeholder="E-mail"/>
+    <input name="password" type="password" placeholder="password"/>
+    <input type="submit" value="Sign Up" />
   </form>
   <div>
-  Don't have an account?
-  <button onClick={() => {browserHistory.push('/signup')}}> Sign Up</button>
+  Already have an account?
+  <button onClick={() => {browserHistory.push('/login')}}> Login</button>
   </div>
   </div>
 )
