@@ -93,6 +93,38 @@ module.exports = shouldClose => db.didSync
     return user.update({
       currentOrder: order.id
     })
+    .then(() => {
+      return order.addItem(1)
+    })
+    .then(() => {
+      return order.addItem(2)
+    })
+    .then(() => console.log("Added current order to user"))
+  })
+  .then(() => console.log("Added current order to user"))
+})
+.then(() => {
+  return User.findOne({
+    where: {isAdmin: false}
+  })
+})
+.then(user => {
+  return Order.create({
+    user: user.id,
+    status: 'pending', 
+    userType: 'user'
+  })
+  .then(order => {
+    return user.update({
+      currentOrder: order.id
+    })
+    .then(() => {
+      return order.addItem(2)
+    })
+    .then(() => {
+      return order.addItem(3)
+    })
+    .then(() => console.log("Added current order to user"))
   })
   .then(() => console.log("Added current order to user"))
 })

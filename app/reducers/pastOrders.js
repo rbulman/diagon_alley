@@ -28,7 +28,7 @@ export const getPastOrders = (pastOrders) => ({
 export function pastOrders(pastOrders = [], action) {
 	console.log("ACTION: ", action)
 	switch(action.type) {
-		case 'GET_ITEMS':
+		case 'GET_PAST_ORDERS':
 			return action.pastOrders
 		default:
 			return pastOrders;
