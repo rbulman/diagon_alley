@@ -48,6 +48,7 @@ router.get('/user/:userid', function(req,res,next){
 // get current order(s) for userid
 router.get('/user/pending/:userid', function(req,res,next){
   let currentOrder, orderItems;
+  console.log("USER ID: ", req.params.userid)
   Order.findOne({
     where: {
       user: req.params.userid,
@@ -55,16 +56,32 @@ router.get('/user/pending/:userid', function(req,res,next){
       // OUT IF YOU ARE NOT A USER
       userType: 'user',
       status: 'pending'
+    },
+    include: [
+    {
+      model: OrderItem,
+      include: [Item]
     }
+    ]
+
   })
-  .then(function(foundOrder){
-    currentOrder = foundOrder;
-    return foundOrder.getItems()
+  // .then(function(foundOrder){
+  //   console.log("currentOrder: ", foundOrder)
+  //   currentOrder = foundOrder;
+  //   console.log("ORDER ID: ", currentOrder.id)
+  //   // return .findAll({
+  //   //   where: {
+  //   //     order_id: currentOrder.id
+  //   //   }
+  //   // })
+  //   //res.json(currentOrder)
+  //   return currentOrder.getItems()
+  //})
+  .then(function(order){
+    console.log("foundItems: ", order)
+    res.json(order.orderItems);
   })
-  .then(function(foundItems){
-    res.json(foundItems);
-  })
-  .catch(next);
+  .catch(err => console.log(err));
 
   /* 
    * User.findById(userid)

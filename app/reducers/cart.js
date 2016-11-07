@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // ACTIONS
 
 
@@ -51,11 +53,16 @@ let fakeCart = {
 
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
-	
-	return dispatch(getCart(fakeCart));
 
-	console.log("dispatching cart")
-	fetch()
-    .then(res => res.json())
-    .then(cart => dispatch(getCart(cart)));
+	console.log("dispatching users")
+	axios.get('/api/auth/whoami')
+    .then(res => res.data)
+    .then(user => {
+    	return axios.get(`/api/orders/${user.currentOrder}`)
+    })
+    .then(res => res.data)
+    .then(cart => {
+    	dispatch(getCart(cart))
+    })
+
 })

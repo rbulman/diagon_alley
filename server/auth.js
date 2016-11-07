@@ -81,6 +81,49 @@ const db = require('APP/db')
 
 // // Other passport configuration:
 
+passport.deserializeUser(
+  (id, done) => {
+    debug('will deserialize user.id=%d', id)
+    User.findById(id)
+      .then(user => {
+        console.log("PASSPORT FOUND USER: ", user.name)
+        debug('deserialize did ok user.id=%d', user.id)
+        done(null, user)
+      })
+      .catch(err => {
+        debug('deserialize did fail err=%s', err)
+        done(err)
+      })
+  }
+)
+
+passport.use(new (require('passport-local').Strategy) (
+    (email, password, done) => {
+      console.log("INSIDE PASSPORT")
+      console.log("email: ", email)
+      email = email.toLowerCase()
+      debug('will authenticate user(email: "%s")', email)
+      User.findOne({where: {email}})
+        .then(user => {
+          console.log("USER: ", user.name)
+          if (!user) {
+            debug('authenticate user(email: "%s") did fail: no such user', email)
+            return done(null, false, { message: 'Login incorrect' })
+          }
+          return user.authenticate(password)
+            .then(ok => {
+              if (!ok) {
+                debug('authenticate user(email: "%s") did fail: bad password')              
+                return done(null, false, { message: 'Login incorrect' })
+              }
+              debug('authenticate user(email: "%s") did ok: user.id=%d', user.id)
+              done(null, user)              
+            })
+        })
+        .catch(done)
+    }
+  ))
+
 // passport.serializeUser((user, done) => {
 //   debug('will serialize user.id=%d', user.id)
 //   done(null, user.id)
@@ -130,8 +173,9 @@ const db = require('APP/db')
 //     }
 //   ))
 
+
 auth.get('/whoami', (req, res, next) => {
-  console.log("REQUEST IN /whoami: ", req.user.name)
+  //console.log("REQUEST IN /whoami: ", req.user.name)
   res.send(req.user)
 })
 

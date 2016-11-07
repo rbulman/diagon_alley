@@ -16,9 +16,9 @@ const AdminButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <li>
+    <div>
       {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null} 
-    </li>
+    </div>
 )
 
 export default class App extends Component{
@@ -32,47 +32,16 @@ export default class App extends Component{
 		console.log("propsLogout: ", this.props.logout)
 		return(
 			<div>
-			<nav className="navbar navbar-default">
-      <div className="container">
-      
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-2">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
-          <Link className="navbar-brand" to="#">Brand</Link>
-        </div>
-    
-        
-        <div className="collapse navbar-collapse" id="navbar-collapse-2">
-          <ul className="nav navbar-nav">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/items">Shop</Link></li>
-            <li><Link to="/cart">Cart</Link></li>
-
-			<AdminButton/> 
-          </ul>
-           { this.props.user ? this.renderLogout() : this.renderLoginSignup() }
-          <div className="collapse nav navbar-nav nav-collapse slide-down" id="nav-collapse2">
-            <form className="navbar-form navbar-right form-inline" role="form">
-              <div className="form-group">
-                <label className="sr-only" htmlFor="Email">Email</label>
-                <input type="email" className="form-control" id="Email" placeholder="Email" autoFocus required />
-              </div>
-              <div className="form-group">
-                <label className="sr-only" htmlFor="Password">Password</label>
-                <input type="password" className="form-control" id="Password" placeholder="Password" required />
-              </div>
-              <button type="submit" className="btn btn-success">Sign in</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </nav>
-			
+			<nav className="navbar navbar-inverse" role="navigation">
+       			<ul className="nav navbar-nav">
+				<li><Link to="/"> Home </Link></li>
+				<li><Link to="/items"> Shop </Link></li>
+				<li><Link to="/about"> About </Link></li>
+				<li><Link to="/cart"> Cart </Link></li>
+				<li><ToggleButton /> </li>
+				<li><AdminButton /> </li>
+				</ul>
+			</nav>
 			{this.props.children}
 			</div>
 			

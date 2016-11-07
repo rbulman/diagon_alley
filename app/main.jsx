@@ -9,9 +9,9 @@ import HomeContainer from 'APP/app/containers/HomeContainer'
 import ItemList from 'APP/app/components/ItemList'
 import ItemListContainer from 'APP/app/containers/ItemListContainer'
 import AdminContainer from 'APP/app/containers/AdminContainer'
+import OrdersContainer from 'APP/app/containers/OrdersContainer'
 import ItemContainer from 'APP/app/containers/ItemContainer'
 import UsersContainer from 'APP/app/containers/UsersContainer'
-import OrdersContainer from 'APP/app/containers/OrdersContainer'
 import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
@@ -60,7 +60,7 @@ render (
         <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
       </Route>
-      <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>
+      <Route path="cart" component={CartContainer} />
       <Route path="shipping" component={ShippingContainer} />
       <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
    	</Route>

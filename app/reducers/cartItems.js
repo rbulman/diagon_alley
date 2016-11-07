@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // ACTIONS
 
 /* CART IS A PENDING ORDER!!
@@ -83,19 +85,23 @@ let fakeItems = [{
 		}];
 
 // DISPATCHERS
-export function fetchCartItems () {
+export const fetchCartItems = () => ((dispatch) => {
 	console.log("fetchCartItems")
-	return (dispatch) => {
-		// dispatches dummy data, comment out for access to backend
-		return dispatch(getCartItems(fakeItems));
 	
-		console.log("fetching cart items")
-		fetch() //NEED API ROUTE TO FETCH CART ITEMS
-		.then(res => res.json())
+		// dispatches dummy data, comment out for access to backend
+		//return dispatch(getCartItems(fakeItems));
+		axios.get('/api/auth/whoami')
+		.then(res => res.data)
+		.then(user => {
+			return axios.get(`api/orders/user/pending/${user.id}`)
+		})
+		 //NEED API ROUTE TO FETCH CART ITEMS
+		.then(res => res.data)
 		.then((cartItems) => {
+			console.log("cartItems: ", cartItems)
 			dispatch(getCartItems(cartItems))
 		})
-	}
-}
+	})
+
 
 // export const dispatchAddItem
