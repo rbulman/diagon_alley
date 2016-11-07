@@ -21,15 +21,15 @@ const CartDisplay = connect(
 					</thead>
 					<tbody>
 						{	
-							cart.items.map((singleItem, index) => {
-								subtotal += singleItem.price * singleItem.quantity
+							cartItems.map((singleItem, index) => {
+								subtotal += singleItem.item.price * singleItem.quantity
 								return (
 									<tr key = {index}>
-										<td><img src={singleItem.imageURL} height="100" width="100"/></td>
-										<td>{singleItem.name}</td>
-										<td>{singleItem.price}</td>
-										<td>{singleItem.qty}<button>+</button></td>
-										<td>{singleItem.singlePrice * singleItem.qty}</td>
+										<td><img src={singleItem.item.imageURL} height="100" width="100"/></td>
+										<td>{singleItem.item.name}</td>
+										<td>{singleItem.item.price}</td>
+										<td>{singleItem.quantity}<button>+</button></td>
+										<td>{singleItem.item.price * singleItem.quantity}</td>
 										<td><button>Remove</button></td>
 									</tr>
 								)

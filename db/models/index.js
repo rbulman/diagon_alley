@@ -28,7 +28,8 @@ Order.belongsToMany(Item, {through: OrderItems })
 	 * order.addItem()
 	 */
 
-
+Order.hasMany(OrderItems)
+OrderItems.belongsTo(Item)
 //Item.belongsToMany(User)
 
 //User.hasMany(Review, {as: 'Review'})

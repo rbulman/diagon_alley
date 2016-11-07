@@ -53,7 +53,7 @@ export const fetchCart = () => ((dispatch) => {
 	axios.get('/api/auth/whoami')
     .then(res => res.data)
     .then(user => {
-    	return axios.get(`/api/orders/pending/${user.id}`)
+    	return axios.get(`/api/orders/${user.currentOrder}`)
     })
     .then(res => res.data)
     .then(cart => {
