@@ -3,6 +3,7 @@
 var router = require('express').Router();
 var Order = require('APP/db/models/order');
 var Item = require('APP/db/models/item');
+var OrderItem = require('APP/db/models/orderItems')
 
 
 // *-------------------------GET ROUTES ------------------------------*//
@@ -109,6 +110,21 @@ router.get('/session/:id', function(req,res,next){
 });
 
 
+// Get all items on an order
+// for cart this owuld be all the items on a pending order?
+
+router.get('/cartItems/:id', function(req, res, next){
+  Order.findById(req.params.id)
+  .then(function(order){
+    console.log('found order', order)
+    return order.getItems()
+  })
+  .then(function(items){
+    console.log("ITEMS ARRAY???", items)
+    res.json(items)
+  })
+})
+
 // *------------------------- PUT ROUTES ------------------------------*//
 
 // Updates the Order Instance
@@ -133,25 +149,116 @@ router.put('/:id', function(req, res, next){
 });
 
 
-// Update joiny tables
-// Possible updates:
-//  - add item
-//  - delete item
-
+//MAKE ADD/REMOVE/CHANGE ROUTES DRIER
 router.put('/addItem/:orderId/:itemId', function (req, res, next){
-  const item = Item.findById(req.params.itemId);
-  const order = Order.findById(req.params.orderId);
-  Promise.all([item, order])
+  var itemPromise = Item.findById(req.params.itemId);
+  var orderPromise = Order.findById(req.params.orderId);
+  console.log("in put /addItem")
+  Promise.all([itemPromise, orderPromise])
   .then(function(result){
-    const item = result[0];
-    const order = result[1];
-    order.addItem(item);
+    var item = result[0];
+    var order = result[1];
+    if(item && order ){
+      console.log("item && order")
+      OrderItem.findOne({
+        where : {
+          order_id : order.id,
+          item_id : item.id
+        }
+      })
+      .then(function(orderItem){
+        if(orderItem){
+          //if the item is already in the cart, increment the quantity
+          return orderItem.increment('quantity');
+        }
+        else {
+          //if the order is not yet in the card, add it
+          return order.addItem(item);
+        }
+      })
+      .then(function(result){
+        // console.log('result', result)
+        if(result[0][0]) {
+          res.status(201).send(result[0][0]);
+        }
+        else if (result){
+          res.status(201).send(result)
+        }
+        else res.sendStatus(404); // shouldl this move outside if?
+      })
+      .catch(next)
+    }})
   })
-  .then(function(){
-    console.log("item added to cart!");
+
+
+
+    //   return OrderItem.findOne({
+    //     where: {
+    //       order_id: order.id,
+    //       item_id: item.id
+    //     }
+    //   })
+    // //  return  order.getItems({
+    // //     where: {
+    // //       id : item.id
+    // //     }
+    // //   })
+    //   .then(function(orderItem){
+    //     console.log("orderItem length", orderItem.length)
+    //     if(orderItem.length > 0){
+    //       console.log("item from additem", orderItem)
+    //       return order.addItem(item);
+    //     }
+    //     else {
+    //       console.log("in else statement")
+    //       // console.log("item", item)
+    //       return order.addItem(item);
+    //     }
+    //   })
+  //
+  //     .then(function(association){
+  //       console.log(association)
+  //       if(association[0][0]) {
+  //         res.status(201).send(association[0][0]);
+  //       }
+  //       else res.sendStatus(404); // shouldl this move outside if?
+  //     })
+  //     .catch(next)
+  //   } //end of if
+  //   //need to compensate for bad order/item numbers
+  // })
+
+//});
+
+  router.put('/setQuantity/:orderId/:itemId', function(req, res, next){
+    var num = req.body.quantity
+    OrderItem.findOne({
+      where: {
+        order_id: req.params.orderId,
+        item_id: req.params.itemId
+      }
+    })
+    .then(function(orderItem){
+      orderItem.update({quantity: num});
+      res.status(201)
+    })
+    .catch(next);
   })
-  .catch(next);
-});
+
+
+  router.put('/removeItem/:orderId/:itemId', function (req, res, next){
+    OrderItem.findOne({
+      where: {
+        order_id: req.params.orderId,
+        item_id: req.params.itemId
+      }
+    })
+    .then(function(orderItem){
+      orderItem.decrement('quantity');
+      res.status(201)
+    })
+    .catch(next);
+  });
 
 // *------------------------- POST ROUTES ------------------------------*//
 
@@ -185,16 +292,6 @@ router.post('/user/:id', function(req, res, next){
 // ** EXTRA CREDIT **
 // Delete session orders when session dies
 
-router.put('/removeItem/:id', function (req, res, next){
-  Item.findById(req.params.id)
-  .then(function(item){
-    Order.removeItem(item); // this should work with belongs to many association
-  })
-  .then(function(){
-    console.log("item deleted from cart!");
-  })
-  .catch(next);
-});
 
 module.exports = router;
 

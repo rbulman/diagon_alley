@@ -28,13 +28,14 @@ const Order = db.define('orders', {
 	}
 });
 
-
 // Automatically set date Completed (once) when status is complete and
 // dateCompleted hadn't already been set
 Order.addHook("afterUpdate", "addDateCompleted", function(order){
 	if(order.status === "completed" && !order.dateCompleted){
 		order.dateCompleted = new Date();
 	}
+
 });
+
 
 module.exports = Order;
