@@ -32,7 +32,6 @@ export default class App extends Component{
 		console.log("propsLogout: ", this.props.logout)
 		return(
 			<div>
-\
 			<nav className="navbar navbar-inverse" role="navigation">
        			<ul className="nav navbar-nav">
 				<li><Link to="/"> Home </Link></li>
