@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 const CartDisplay = connect(
   ({ cartItems }) => ({ cartItems })
 ) (
-  ({ cartItems}) => (
+  ({ cartItems, subtotal, cart}) => (
    <div> 
 				<h1>CART</h1>
 				<table className="table">
@@ -20,14 +20,14 @@ const CartDisplay = connect(
 						</tr>
 					</thead>
 					<tbody>
-						{
-							cartItems.map((singleItem, index) => {
-								subtotal += singleItem.singlePrice * singleItem.qty
+						{	
+							cart.items.map((singleItem, index) => {
+								subtotal += singleItem.price * singleItem.quantity
 								return (
 									<tr key = {index}>
 										<td><img src={singleItem.imageURL} height="100" width="100"/></td>
 										<td>{singleItem.name}</td>
-										<td>{singleItem.singlePrice}</td>
+										<td>{singleItem.price}</td>
 										<td>{singleItem.qty}<button>+</button></td>
 										<td>{singleItem.singlePrice * singleItem.qty}</td>
 										<td><button>Remove</button></td>
@@ -50,11 +50,12 @@ const CartDisplay = connect(
 export default class Cart extends Component{
 	componentDidMount(){
 		this.props.getCartItems()
+		this.props.getCart()
 	}
 
 	render(){
 	
-		let {cartItems} = this.props
+		let {cartItems, cart} = this.props
 		// let cartItems = [{
 		// 	name: "Extendable Ears",
 		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
@@ -78,12 +79,12 @@ export default class Cart extends Component{
 		let subtotal = 0;
 
 		console.log("this.props", this.props)
-		console.log("cartItems", cartItems)
+		console.log("first item in cart", cartItems[0])
 
 		return (
 			<div>
 				{this.props.cartItems && this.props.cartItems.length ? 
-				<CartDisplay cartItems={this.props.cartItems}/> : <Link to="/items"> Treat Yourself! </Link>}
+				<CartDisplay cartItems={this.props.cartItems} cart={cart} subtotal={subtotal}/> : <Link to="/items"> Treat Yourself! </Link>}
 			</div>
 			)
 	}

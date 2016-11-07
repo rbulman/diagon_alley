@@ -16,7 +16,7 @@ export default class Orders extends Component {
     return (
       <div>
       <div> Orders </div>
-          {this.props.orders.map(function(item) {
+          {this.props.orders.map(function(order) {
             return (
               <div key={order.id}>
                 <Link to={`/orders/${order.id}`}>

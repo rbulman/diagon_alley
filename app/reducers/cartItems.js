@@ -78,8 +78,12 @@ export const fetchCartItems = () => ((dispatch) => {
 	
 		// dispatches dummy data, comment out for access to backend
 		//return dispatch(getCartItems(fakeItems));
-	
-		axios.get('api/orders/user/pending/3') //NEED API ROUTE TO FETCH CART ITEMS
+		axios.get('/api/auth/whoami')
+		.then(res => res.data)
+		.then(user => {
+			return axios.get(`api/orders/user/pending/${user.id}`)
+		})
+		 //NEED API ROUTE TO FETCH CART ITEMS
 		.then(res => res.data)
 		.then((cartItems) => {
 			console.log("cartItems: ", cartItems)

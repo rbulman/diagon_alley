@@ -4,7 +4,7 @@ var router = require('express').Router();
 var Item = require('APP/db/models/item');
 
 router.get('/', function(req,res,next){
-  console.log("IN ITEMS ROUTE: ", req.user.name)
+  //console.log("IN ITEMS ROUTE: ", req.user.name)
   Item.findAll({})
     .then(function(items){
       res.json(items);
