@@ -10,10 +10,6 @@ import axios from 'axios'
 
 const GET_CART = "GET_CART"
 
-
-
-
-
 //-------------------------------------------------------------------------
 
 //ACTION CREATORS
@@ -23,8 +19,6 @@ export const getCart = (cart) => ({
 	type: GET_CART,
 	cart
 })
-
-
 
 
 //-------------------------------------------------------------------------
