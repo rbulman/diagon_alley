@@ -5,11 +5,11 @@ import Review from '../components/Review';
 import { fetchReviews } from '../reducers/review';
 
 
-const mapStateToProps = ({reviews}) => ({reviews}); 
+const mapStateToProps = ({selectedItem}) => ({selectedItem}); 
 
 const mapDispatchToProps = dispatch => ({
     getReviews() {
-        dispatch(fetchReviews());
+        dispatch(fetchReviews(selectedItem));
     }
 })
 

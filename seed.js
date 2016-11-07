@@ -2,6 +2,8 @@ var Promise = require('bluebird');
 var db = require('./db');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
+var Review = require('./db/models/review');
+var Order = require('./db/models/order');
 
 console.log("DROPPED DATABASE: NO BEFORE HOOK IN TESTS")
 console.log("db name: ", db.config.database)
@@ -85,17 +87,102 @@ var data = {
     {name: 'hats'},
     {name: 'flying'},
     {name: 'sweets'},
-    {name: 'dark'}
+    {name: 'dark'},
+    {name: 'flying'}
+  ],
+   reviews: [
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 1
+     },
+     {
+       stars: 4,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 2
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 3
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 4
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 5
+     },
+     {
+       stars: 3,
+       content: "It is so great I love it so much yes",
+       item_id: 6
+     },
+     {
+       stars: 5,
+       content: "I would totes buy this again.",
+       item_id: 7
+     },
+     {
+       stars: 4,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 1
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 2
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 3
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 4
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 5
+     },
+     {
+       stars: 5,
+       content: "I am very happy with this product. Very good product.",
+       item_id: 6
+     },
+     {
+       stars: 4,
+       content: "I am very happy with this product.",
+       item_id: 7
+     },
+     {
+       stars: 5,
+       content: "Very good product.",
+       item_id: 1
+     },
+     {
+       stars: 5,
+       content: "I like this. It is good.",
+       item_id: 2
+     }
+   ],
+
+
+  orders: [
+    {
+      user_id: 1,
+      status: 'pending',
+    }, {
+      user_id: 2,
+      status: 'pending'
+    }
   ]
-  // orders: [
-  //   {
-  //     user_id: 1,
-  //     status: 'pending',
-  //   }, {
-  //     user_id: 2,
-  //     status: 'pending'
-  //   }
-  // ]
 };
 
 module.exports = shouldClose => db.didSync
@@ -110,6 +197,56 @@ module.exports = shouldClose => db.didSync
       .create(item);
     });
   });
+})
+.then(() => {
+  return User.findOne({
+    where: {isAdmin: true}
+  })
+})
+.then(user => {
+  return Order.create({
+    user: user.id,
+    status: 'pending', 
+    userType: 'user'
+  })
+  .then(order => {
+    return user.update({
+      currentOrder: order.id
+    })
+    .then(() => {
+      return order.addItem(1)
+    })
+    .then(() => {
+      return order.addItem(2)
+    })
+    .then(() => console.log("Added current order to user"))
+  })
+  .then(() => console.log("Added current order to user"))
+})
+.then(() => {
+  return User.findOne({
+    where: {isAdmin: false}
+  })
+})
+.then(user => {
+  return Order.create({
+    user: user.id,
+    status: 'pending', 
+    userType: 'user'
+  })
+  .then(order => {
+    return user.update({
+      currentOrder: order.id
+    })
+    .then(() => {
+      return order.addItem(2)
+    })
+    .then(() => {
+      return order.addItem(3)
+    })
+    .then(() => console.log("Added current order to user"))
+  })
+  .then(() => console.log("Added current order to user"))
 })
 .then(function (blah) {
   //console.log("in then function: ", blah);
