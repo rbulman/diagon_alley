@@ -59,6 +59,81 @@ var data = {
        stars: 5,
        content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
        item_id: 1
+     },
+     {
+       stars: 4,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 2
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 3
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 4
+     },
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 5
+     },
+     {
+       stars: 3,
+       content: "It is so great I love it so much yes",
+       item_id: 6
+     },
+     {
+       stars: 5,
+       content: "I would totes buy this again.",
+       item_id: 7
+     },
+     {
+       stars: 4,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 1
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 2
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 3
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 4
+     },
+     {
+       stars: 5,
+       content: "This is a great product. The best. I have a lot of products, let me tell you, and this one- it's fantastic.",
+       item_id: 5
+     },
+     {
+       stars: 5,
+       content: "I am very happy with this product. Very good product.",
+       item_id: 6
+     },
+     {
+       stars: 4,
+       content: "I am very happy with this product.",
+       item_id: 7
+     },
+     {
+       stars: 5,
+       content: "Very good product.",
+       item_id: 1
+     },
+     {
+       stars: 5,
+       content: "I like this. It is good.",
+       item_id: 2
      }
    ]
   // orders: [
