@@ -2,7 +2,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import { Provider, connect } from 'react-redux'
-import {Route, Router, hashHistory, IndexRoute, IndexRedirect} from 'react-router';
+import {Route, Router, browserHistory, IndexRoute, IndexRedirect} from 'react-router';
 import AppContainer from 'APP/app/containers/AppContainer'
 import AboutContainer from 'APP/app/containers/AboutContainer'
 import HomeContainer from 'APP/app/containers/HomeContainer'
@@ -48,7 +48,7 @@ const onCheckoutEnter = () => {
 render (
   <Provider store={store}>
    {/* <Root/> */}
-   <Router history={hashHistory}>
+   <Router history={browserHistory}>
    	<Route path='/' component={AppContainer} >
    		<IndexRoute component={HomeContainer}/>
    		<Route path="about" component={AboutContainer} />
@@ -65,6 +65,7 @@ render (
       <Route path="cart" component={CartContainer} />
       <Route path="shipping" component={ShippingContainer} />
       <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
+
    	</Route>
    </Router>
   </Provider>,
