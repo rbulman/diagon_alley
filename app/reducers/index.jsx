@@ -5,13 +5,13 @@ import {selectedItem} from './selectedItem'
 import auth from './auth'
 import {orders} from './orders'
 import {cartItems} from './cartItems'
-
+import {pastOrders} from './pastOrders'
 import {cart} from './cart'
 import {reviews} from './review'
 
 const initialState = {};
 
-const rootReducer = combineReducers({items, selectedItem, users, auth, cart, cartItems, orders});
+const rootReducer = combineReducers({items, selectedItem, users, auth, cart, cartItems, orders, pastOrders});
 
 
 export default rootReducer

@@ -27,6 +27,7 @@ import {fetchCart} from 'APP/app/reducers/cart'
 import CartContainer from 'APP/app/containers/CartContainer'
 import ShippingContainer from 'APP/app/containers/ShippingContainer'
 import CheckoutContainer from 'APP/app/containers/CheckoutContainer'
+import AccountPageContainer from 'APP/app/containers/AccountPageContainer'
 
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
@@ -55,7 +56,7 @@ render (
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-
+      <Route path="accountPage" component={AccountPageContainer} />
       <Route path="admin" component={AdminContainer}>
         <Route path="orders" component={OrdersContainer} />
         <Route path="users" component={UsersContainer} />
