@@ -5,11 +5,22 @@ var Review = require('APP/db/models/review');
 const Item = require('APP/db/models/item');
 const User = require('APP/db/models/user');
 
+
+// GET all orders 
+router.get('/', function(req,res,next) {
+  Review.findAll({})
+  .then(function(reviews) {
+    res.json(reviews);
+  })
+  .catch(next);
+})
+
+
 // GET all reviews for an Item
 router.get('/:itemId', function(req,res,next){
   Item.findById(req.params.itemId)
     .then(function(item){
-        return item.getReviews()   // this probably isn't the automatic method for the association
+        return item.getReviews()   
     })
     .then(function(reviews) {
         res.json(reviews);
@@ -17,11 +28,12 @@ router.get('/:itemId', function(req,res,next){
     .catch(next);
 });
 
+
 // GET all reviews by a User
 router.get('/:userId', function(req,res,next){
   User.findById(req.params.userId)
     .then(function(user){
-      return user.getReviews()      // automatic method for association?
+      return user.getReviews()      
     })
     .then(function(reviews) {
         res.jeson(reviews);
@@ -29,13 +41,24 @@ router.get('/:userId', function(req,res,next){
     .catch(next);
 });
 
+//separate route to greate the review
+//POST a review (purely creating the review, not attaching it to an item)
+router.post('/addReview', function(req,res,next) {
+    Review.create(req.body)
+    .then(function(newReview) {
+      res.json(newReview);
+    })
+    .catch(next);
+})
 
-// POST a review
-// (handle login!)
-router.post('/:itemId', function(req, res, next){
-  Review.create(req.body)
-  .then(function(review){   // how to associate this review with an item and user
-    //do stuff?
+
+// POST a review *to an item* - this establishes association by adding an item id to the review
+router.post('/addReview/:itemId/:reviewId', function(req, res, next){
+  const review = Review.findById(req.params.reviewId);
+  const item = Item.findById(req.params.itemId);
+  Promise.all([review, item])
+  .spread(function(review,item) {
+    item.addReview(review)
   })
   .catch(next);
 });

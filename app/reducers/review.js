@@ -1,6 +1,7 @@
 // ACTIONS
 
 const GET_REVIEWS = 'GET_REVIEWS';
+const ADD_REVIEW = 'ADD_REVIEW';
 
 
 //-------------------------------------------------------------------------
@@ -12,6 +13,10 @@ export const getReviews = (reviews) => ({
 	reviews
 })
 
+export const addReview = (review) => ({
+	type: ADD_REVIEW,
+	review
+})
 
 //-------------------------------------------------------------------------
 
@@ -22,6 +27,8 @@ export function reviews(reviews = [], action) {
 	switch(action.type) {
 		case 'GET_REVIEWS':
 			return action.reviews;
+		case 'ADD_REVIEW':
+			return action.review;
 		default:
 			return reviews;
 	}
@@ -31,8 +38,8 @@ export function reviews(reviews = [], action) {
 
 // DISPATCHERS
 
-export const fetchReviews = (user) => ((dispatch) => {
-	fetch('/api/reviews/${user.id}')
+export const fetchReviews = (item) => ((dispatch) => {
+	fetch('/api/reviews/${item.id}')
     .then(res => res.json())
     .then(reviews => dispatch(getReviews(reviews)));
 })

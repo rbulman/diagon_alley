@@ -16,6 +16,7 @@ import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
 import Login from './components/Login'
+import AddReview from './components/AddReview';
 import WhoAmI from './components/WhoAmI'
 import {getItems} from './reducers/items'
 import {getUsers} from './reducers/users'
@@ -83,6 +84,7 @@ render (
         <Route path="items" component={ItemListContainer}/>
       </Route>
       <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>
+      <Route path="addReview" component={AddReview} />
    	</Route>
    </Router>
   </Provider>,

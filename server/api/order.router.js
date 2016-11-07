@@ -133,7 +133,7 @@ router.put('/:id', function(req, res, next){
 });
 
 
-// Update joiny tables
+// Update join tables
 // Possible updates:
 //  - add item
 //  - delete item

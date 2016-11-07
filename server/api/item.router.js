@@ -5,7 +5,7 @@ var Item = require('APP/db/models/item');
 
 router.get('/', function(req,res,next){
   console.log("IN ITEMS ROUTE: ", req.user.name)
-  Item.findAll({})
+  Item.findAll({ include: [ Reviews ] })
     .then(function(items){
       res.json(items);
     })
@@ -13,8 +13,7 @@ router.get('/', function(req,res,next){
 });
 
 router.get('/:id', function(req,res,next){
-
-  Item.findById(req.params.id)
+  Item.findById(req.params.id, { include: [ Reviews ] })
     .then(function(item){
       res.json(item);
     })
