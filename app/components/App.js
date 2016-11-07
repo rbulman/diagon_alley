@@ -16,9 +16,9 @@ const AdminButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <li>
+    <div>
       {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null} 
-    </li>
+    </div>
 )
 
 export default class App extends Component{
