@@ -170,18 +170,18 @@ var data = {
        content: "I like this. It is good.",
        item_id: 2
      }
-   ]
+   ],
 
 
-  // orders: [
-  //   {
-  //     user_id: 1,
-  //     status: 'pending',
-  //   }, {
-  //     user_id: 2,
-  //     status: 'pending'
-  //   }
-  // ]
+  orders: [
+    {
+      user_id: 1,
+      status: 'pending',
+    }, {
+      user_id: 2,
+      status: 'pending'
+    }
+  ]
 };
 
 module.exports = shouldClose => db.didSync
