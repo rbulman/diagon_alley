@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from "react-router";
-import { Review } from './Review';
+import Review  from './Review';
+import ReviewContainer from '../containers/ReviewContainer';
 
 export default class Item extends Component {
   constructor(props) {
@@ -8,13 +9,11 @@ export default class Item extends Component {
   }
 
   componentDidMount() {
-    
+    //load reviews here?
   }
 
-
-
   render() {
-
+    console.log('this.props.selectedItem', this.props.selectedItem);
     return (
       <div>
         
@@ -23,7 +22,16 @@ export default class Item extends Component {
           <h4>{this.props.selectedItem.price} Sickles</h4>
           <p>{this.props.selectedItem.description}</p>
           <button> Add to cart </button>
-       
+          <div>
+              {
+                this.props.selectedItem.reviews &&
+                this.props.selectedItem.reviews.map(function(review) {
+                return(
+                  <Review review={review} />
+                )
+              })}
+          </div>
+          
       </div>
     )
   }

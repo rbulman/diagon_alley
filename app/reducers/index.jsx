@@ -7,7 +7,7 @@ import {orders} from './orders'
 import {cartItems} from './cartItems'
 import {pastOrders} from './pastOrders'
 import {cart} from './cart'
-
+import {reviews} from './review'
 
 const initialState = {};
 
