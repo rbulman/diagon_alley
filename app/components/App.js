@@ -32,7 +32,7 @@ export default class App extends Component{
 		console.log("propsLogout: ", this.props.logout)
 		return(
 			<div>
-\
+			⚡️ <strong>TODAY ONLY:</strong> 25% off all hex guards! Guaranteed against death eater curses! ⚡
 			<nav className="navbar navbar-inverse" role="navigation">
        			<ul className="nav navbar-nav">
 				<li><Link to="/"> Home </Link></li>
