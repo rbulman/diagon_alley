@@ -3,15 +3,15 @@
 import { connect } from 'react-redux';
 import AccountPage from '../components/AccountPage'
 
-import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
+import {fetchPastOrders} from 'APP/app/reducers/pastOrders'
 
-const mapStateToProps = ({items}) => ({items}); 
+const mapStateToProps = ({pastOrders}) => ({pastOrders}); 
 
 const mapDispatchToProps = dispatch => ({
-    getItems(){
-    	dispatch(fetchItems());
+    getPastOrders(){
+    	dispatch(fetchPastOrders());
     },
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemList)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountPage)

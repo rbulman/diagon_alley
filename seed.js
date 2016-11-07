@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var db = require('./db');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
+var Order = require('./db/models/order');
 
 console.log("DROPPED DATABASE: NO BEFORE HOOK IN TESTS")
 console.log("db name: ", db.config.database)
@@ -76,6 +77,24 @@ module.exports = shouldClose => db.didSync
       .create(item);
     });
   });
+})
+.then(() => {
+  return User.findOne({
+    where: {isAdmin: true}
+  })
+})
+.then(user => {
+  return Order.create({
+    user: user.id,
+    status: 'pending', 
+    userType: 'user'
+  })
+  .then(order => {
+    return user.update({
+      currentOrder: order.id
+    })
+  })
+  .then(() => console.log("Added current order to user"))
 })
 .then(function (blah) {
   //console.log("in then function: ", blah);

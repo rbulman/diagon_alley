@@ -44,7 +44,7 @@ export const fetchPastOrders = () => ((dispatch) => {
 	axios.get('/api/auth/whoami')
 	.then(res => res.data)
 	.then(user => {
-		return axios.get(`/api/orders/completed/${user.id}`)
+		return axios.get(`/api/orders/user/completed/${user.id}`)
 	})
     .then(res => res.data)
     .then(pastOrders => dispatch(getPastOrders(pastOrders)));
