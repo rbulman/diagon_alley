@@ -33,7 +33,7 @@ export const removeItemFromCart = (item) => ({
 
 //-------------------------------------------------------------------------
 
-//CART REDUCER
+//CART  REDUCER
 
 // this is an empty reducer so things don't break when we combineReducers
 

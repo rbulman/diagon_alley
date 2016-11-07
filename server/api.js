@@ -14,7 +14,7 @@ const path = require('path');
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
-  //.use('/', require('./init'))
+  .use('/', require('./init'))
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
   .use('/review', require('./api/review.router'))

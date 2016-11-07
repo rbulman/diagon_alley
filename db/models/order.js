@@ -17,6 +17,10 @@ const Order = db.define('orders', {
 	dateCompleted: {
 		type: Sequelize.DATE, // does this need Date.now() or new Date();
 		defaultValue: null
+	},
+	subtotal: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0
 	}
 }, {
 	getterMethods: {

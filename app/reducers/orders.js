@@ -37,10 +37,12 @@ export function orders(orders = [], action) {
 // DISPATCHERS
 
 export const fetchOrders = () => ((dispatch) => {
+
 	console.log("dispatching orders")
 	axios('/api/orders')
     .then(res => res.data)
     .then(orders => dispatch(getOrders(orders)));
+
 })
 
 

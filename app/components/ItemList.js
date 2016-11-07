@@ -20,8 +20,6 @@ export default class ItemList extends Component {
     // })
     //this.props.getItems()
     this.props.getItems()
-
-
   }
 
 

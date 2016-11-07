@@ -22,8 +22,11 @@ import {getUsers} from './reducers/users'
 import axios from 'axios'
 
 import {fetchCartItems} from 'APP/app/reducers/cartItems'
+import {fetchCart} from 'APP/app/reducers/cart'
 
 import CartContainer from 'APP/app/containers/CartContainer'
+import ShippingContainer from 'APP/app/containers/ShippingContainer'
+import CheckoutContainer from 'APP/app/containers/CheckoutContainer'
 
 const loadSingleItem = ({params}) => {
   console.log("SELECTED ITEM ID: ", params.id)
@@ -37,6 +40,11 @@ const onCartEnter = () => {
   store.dispatch(fetchCartItems())
 }
 
+const onCheckoutEnter = () => {
+  console.log('LOAD CHECKOUT')
+  store.dispatch(fetchCart())
+}
+
 render (
   <Provider store={store}>
    {/* <Root/> */}
@@ -47,12 +55,16 @@ render (
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-      <Route path="admin" component={AdminContainer} >
+
+      <Route path="admin" component={AdminContainer}>
+        <Route path="orders" component={OrdersContainer} />
         <Route path="users" component={UsersContainer} />
         <Route path="items" component={ItemListContainer}/>
-        <Route path="orders" component={OrdersContainer}/>
       </Route>
+
       <Route path="cart" component={CartContainer} />
+      <Route path="shipping" component={ShippingContainer} />
+      <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
    	</Route>
    </Router>
   </Provider>,

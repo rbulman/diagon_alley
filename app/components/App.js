@@ -16,16 +16,23 @@ const AdminButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user }) =>
-    <div>
+    <li>
       {user && user.isAdmin ? <Link to="/admin">Admin</Link> : null} 
-    </div>
+    </li>
 )
 
 export default class App extends Component{
+	constructor(props){
+		super(props)
+		this.renderLoginSignup = this.renderLoginSignup.bind(this);
+    	this.renderLogout = this.renderLogout.bind(this);
+	}
+
 	render(){
 		console.log("propsLogout: ", this.props.logout)
 		return(
 			<div>
+\
 			<nav className="navbar navbar-inverse" role="navigation">
        			<ul className="nav navbar-nav">
 				<li><Link to="/"> Home </Link></li>
@@ -42,5 +49,38 @@ export default class App extends Component{
 			
 			)
 	}
+
+	renderLoginSignup(){
+		return(
+			<ul className="nav navbar-nav navbar-right">
+			<li><Link to="/login" activeClassName="active"> Login </Link></li>
+			</ul>
+			)
+	}
+
+	renderLogout(){
+		return (
+      	<ul className="nav navbar-nav navbar-right">
+        <WhoAmI/>
+      	</ul>
+    )
+
+	}
 }
 
+// 			<nav className="navbar navbar-inverse" role="navigation">
+//        			<ul className="nav navbar-nav">
+// 				<li><Link to="/"> Home </Link></li>
+// 				<li><Link to="/items"> Shop </Link></li>
+// 				<li><Link to="/about"> About </Link></li>
+// 				<li><AdminButton /> </li>
+// 				<li><ToggleButton /> </li>
+// 				</ul>
+// 			</nav>
+
+
+
+
+// <li>
+//               <Link className="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" data-on="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Sign in</Link>
+//             </li>

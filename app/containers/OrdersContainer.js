@@ -11,6 +11,7 @@ const mapDispatchToProps = dispatch => ({
    getOrders(){
    		dispatch(fetchOrders())
    }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders)

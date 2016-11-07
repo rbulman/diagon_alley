@@ -47,8 +47,13 @@ export function cart(cart = {}, action) {
 
 // DISPATCHERS
 
+let fakeCart = {
+	subtotal: 100
+}
+
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
+
 	console.log("dispatching users")
 	axios.get('/api/auth/whoami')
     .then(res => res.data)
@@ -59,4 +64,5 @@ export const fetchCart = () => ((dispatch) => {
     .then(cart => {
     	dispatch(getCart(cart))
     })
+
 })
