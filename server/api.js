@@ -14,11 +14,11 @@ const path = require('path');
 
 api
   .get('/heartbeat', (req, res) => res.send({ok: true,}))
-  //.use('/', require('./init'))
+  .use('/', require('./init'))
   .use('/auth', require('./auth'))
   .use('/items', require('./api/item.router'))
   .use('/review', require('./api/review.router'))
-  .use('/order', require('./api/order.router'))
+  .use('/orders', require('./api/order.router'))
 // // Epilogue can make routes for us
 // epilogue.initialize({app: api, sequelize: db})
 
