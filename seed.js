@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var db = require('./db');
 var User = require('./db/models/user');
 var Item = require('./db/models/item');
+var Review = require('./db/models/review');
 
 console.log("DROPPED DATABASE: NO BEFORE HOOK IN TESTS")
 console.log("db name: ", db.config.database)
@@ -52,7 +53,14 @@ var data = {
   categories: [
     {name: 'hats'},
     {name: 'flying'}
-  ]
+  ],
+   reviews: [
+     {
+       stars: 5,
+       content: "Great product! My wife Debbie and I use this to prank the local schoolchildren. Would recommend.",
+       item_id: 1
+     }
+   ]
   // orders: [
   //   {
   //     user_id: 1,
