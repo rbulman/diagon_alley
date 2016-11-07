@@ -45,10 +45,17 @@ export function cart(cart = {}, action) {
 
 // DISPATCHERS
 
+let fakeCart = {
+	subtotal: 100
+}
+
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
-	console.log("dispatching users")
-	fetch('/api/users')
+	
+	return dispatch(getCart(fakeCart));
+
+	console.log("dispatching cart")
+	fetch()
     .then(res => res.json())
-    .then(items => dispatch(getUsers(users)));
+    .then(cart => dispatch(getCart(cart)));
 })
