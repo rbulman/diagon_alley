@@ -108,7 +108,7 @@ passport.use(new (require('passport-local').Strategy) (
       debug('will authenticate user(email: "%s")', email)
       User.findOne({where: {email}})
         .then(user => {
-          console.log("USER: ", user)
+          console.log("USER: ", user.name)
           if (!user) {
             debug('authenticate user(email: "%s") did fail: no such user', email)
             return done(null, false, { message: 'Login incorrect' })
@@ -128,7 +128,7 @@ passport.use(new (require('passport-local').Strategy) (
   ))
 
 auth.get('/whoami', (req, res, next) => {
-  console.log("REQUEST IN /whoami: ", req.user.name)
+  //console.log("REQUEST IN /whoami: ", req.user.name)
   res.send(req.user)
 })
 

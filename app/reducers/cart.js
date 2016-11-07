@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // ACTIONS
 
 
@@ -48,7 +50,13 @@ export function cart(cart = {}, action) {
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 	console.log("dispatching users")
-	fetch('/api/users')
-    .then(res => res.json())
-    .then(items => dispatch(getUsers(users)));
+	axios.get('/api/auth/whoami')
+    .then(res => res.data)
+    .then(user => {
+    	return axios.get(`/api/orders/pending/${user.id}`)
+    })
+    .then(res => res.data)
+    .then(cart => {
+    	dispatch(getCart(cart))
+    })
 })
