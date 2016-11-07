@@ -22,7 +22,9 @@ import {getUsers} from './reducers/users'
 import axios from 'axios'
 
 import {fetchCartItems} from 'APP/app/reducers/cartItems'
+import {fetchCart} from 'APP/app/reducers/cart'
 
+import CheckoutContainer from 'APP/app/containers/CheckoutContainer'
 import CartContainer from 'APP/app/containers/CartContainer'
 
 const loadSingleItem = ({params}) => {
@@ -67,6 +69,11 @@ const onCartEnter = () => {
   store.dispatch(fetchCartItems())
 }
 
+const onCheckoutEnter = () => {
+  console.log('LOAD CHECKOUT')
+  store.dispatch(fetchCart())
+}
+
 render (
   <Provider store={store}>
    {/* <Root/> */}
@@ -83,6 +90,7 @@ render (
         <Route path="items" component={ItemListContainer}/>
       </Route>
       <Route path="cart" component={CartContainer} onEnter={onCartEnter}/>
+      <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
    	</Route>
    </Router>
   </Provider>,
