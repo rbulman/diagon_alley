@@ -23,7 +23,8 @@ export default class Orders extends Component {
                   <h3>{order.status}</h3>
                   
                   <button> Edit </button>
-                  </Link>
+
+                </Link>
               </div>
             )
           })}
