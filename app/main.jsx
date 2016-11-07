@@ -55,7 +55,6 @@ render (
    		<Route path="login" component={Login} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
-      <Route path="admin" component={AdminContainer} >
       <Route path="admin" component={AdminContainer}>
         <Route path="orders" component={OrdersContainer} />
         <Route path="users" component={UsersContainer} />
