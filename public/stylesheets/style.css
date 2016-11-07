@@ -33,7 +33,7 @@ h3, h4 {
   box-shadow:  0px 0px 16px rgba(0,0,0,0.1);
   border-radius: 4px;
   padding: 10px;
-  margin-top: 10px;
+  margin-bottom: 25px;
 }
 
 .shop-item:hover {
@@ -45,8 +45,7 @@ h3, h4 {
 }
 
 .item-image {
-  margin-top: 5px;
-  margin-bottom: 5px;
+
 }
 
 .item-container {
@@ -64,6 +63,16 @@ h3, h4 {
   color: black;
 }
 
+.logout {
+  margin-top: 8px;
+  background-color: rgba(75,45,113, 1);
+  color: #eeeeee;
+}
+
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
 
 .navbar-brand { position: relative; z-index: 2; }
 

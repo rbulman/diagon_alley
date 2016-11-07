@@ -9,7 +9,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <li>
-      {user ? <WhoAmI/> : <Link to="/login"> Login </Link>}
+      {user ? <WhoAmI/> : <Link to="/login"> LOGIN </Link>}
     </li>
 )
 const AdminButton = connect(
@@ -40,9 +40,9 @@ export default class App extends Component{
               <li><Link to="/items"> SHOP </Link></li>
               <li><Link to="/about"> ABOUT </Link></li>
               <li><Link to="/cart"> CART </Link></li>
-              <ToggleButton />
               <AdminButton />
             </ul>
+            <ToggleButton />
           </div>
         </nav>
   			<div className="container child-container">
