@@ -169,6 +169,70 @@ router.put('/:id', function(req, res, next){
 });
 
 
+
+//ADD ITEM TO CART
+router.put('/addToCart/:itemId', function (req, res, next){
+  let orderID;
+  if(!req.user){
+    if(!req.session.orderId){
+      Order.create({
+      userType: 'guest',
+      status: 'pending'
+      })
+      .then(order => {
+        req.session.orderId = order.id
+        orderID = order.id
+      })
+    }
+    else{
+      orderID = req.session.orderId
+    }
+  }
+  else{
+    orderID = req.user.currentOrder
+  }
+      
+
+  var itemPromise = Item.findById(req.params.itemId);
+  var orderPromise = Order.findById(orderID);
+  console.log("in put /addItem")
+  Promise.all([itemPromise, orderPromise])
+  .then(function(result){
+    var item = result[0];
+    var order = result[1];
+    if(item && order ){
+      console.log("item && order")
+      OrderItem.findOne({
+        where : {
+          order_id : order.id,
+          item_id : item.id
+        }
+      })
+      .then(function(orderItem){
+        if(orderItem){
+          //if the item is already in the cart, increment the quantity
+          return orderItem.increment('quantity');
+        }
+        else {
+          //if the order is not yet in the card, add it
+          return order.addItem(item);
+        }
+      })
+      .then(function(result){
+        // console.log('result', result)
+        if(result[0][0]) {
+          res.status(201).send(result[0][0]);
+        }
+        else if (result){
+          res.status(201).send(result)
+        }
+        else res.sendStatus(404); // shouldl this move outside if?
+      })
+      .catch(next)
+    }})
+  })
+
+
 //MAKE ADD/REMOVE/CHANGE ROUTES DRIER
 router.put('/addItem/:orderId/:itemId', function (req, res, next){
   var itemPromise = Item.findById(req.params.itemId);
@@ -283,6 +347,18 @@ router.put('/addItem/:orderId/:itemId', function (req, res, next){
 // *------------------------- POST ROUTES ------------------------------*//
 
 //when user or session id holder adds to cart w/o an existing cart
+
+
+router.post('/session/:id', function(req, res, next){
+  Order.create({
+    user: req.params.id,
+    userType: 'session'
+  })
+  .then(function(){
+    //do stuff?
+  })
+  .catch(next);
+});
 
 //need to validate that sessionID is unique
 router.post('/session/:id', function(req, res, next){
