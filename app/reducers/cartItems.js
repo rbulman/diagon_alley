@@ -108,13 +108,13 @@ export const fetchCartItems = () => ((dispatch) => {
 		axios.get('/api/auth/whoami')
 		.then(res => res.data)
 		.then(user => {
-			return axios.get(`api/orders/user/pending/${user.id}`)
+			if (user) return axios.get(`api/orders/user/pending/${user.id}`);
 		})
 		 //NEED API ROUTE TO FETCH CART ITEMS
 		.then(res => res.data)
-		.then((cartItems) => {
-			console.log("cartItems: ", cartItems)
-			dispatch(getCartItems(cartItems))
+		.then((cart) => {
+			console.log("cart: ", cart)
+			// dispatch(getCartItems(cart))
 		})
 	})
 
@@ -128,7 +128,7 @@ export const putItemInCart = () => ((dispatch) => {
 		return axios.get(`api/orders/user/pending/${user.id}`)
 	})
 	.then(res => res.data)
-	.then((cartItems) => {
+	.then((order) => {
 		console.log("cartItems: ", cartItems)
 		dispatch(getCartItems(cartItems))
 	})
