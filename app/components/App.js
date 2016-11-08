@@ -4,6 +4,7 @@ import WhoAmI from './WhoAmI'
 import Login from './Login'
 import {connect} from 'react-redux'
 
+
 export const ToggleButton = connect(
   ({ auth }) => ({ user: auth })
 ) (
@@ -20,6 +21,7 @@ const AdminButton = connect(
       {user && user.isAdmin ? <Link to="/admin">ADMIN</Link> : null}
     </li>
 )
+
 
 export default class App extends Component{
 	constructor(props){

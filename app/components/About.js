@@ -36,7 +36,9 @@ export default class About extends Component{
 				</div>
 
 				<div className="row" id="locate-us">
-					<div id="map"></div>
+					<div id="map">
+
+					</div>
 				</div>
 			</div>
 			)
