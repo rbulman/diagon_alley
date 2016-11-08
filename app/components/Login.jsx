@@ -2,15 +2,32 @@ import React from 'react'
 import {browserHistory} from 'react-router'
 
 export const Login = ({ login }) => (
-  <form onSubmit={evt => {
-    evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
-    browserHistory.push('/')
-  } }>
-    <input name="username" />
-    <input name="password" type="password" />
-    <input type="submit" value="Login" />
-  </form>
+  <div>
+    <h1>LOGIN</h1>
+    <form onSubmit={evt => {
+      evt.preventDefault()
+      login(evt.target.username.value, evt.target.password.value)
+      browserHistory.push('/')
+    } }>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label col-sm-offset-3 col-xs-4" for="usn">E-Mail:</label>
+        <div className="col-sm-4 col-xs-8">
+          <input className="form-control" name="username" id="usn"/>
+        </div>
+      </div>
+      <div className="form-group row">
+        <label className="col-sm-2 col-form-label col-sm-offset-3 col-xs-4" for="psw">Password:</label>
+        <div className="col-sm-4 col-xs-8">
+          <input className="form-control" name="password" id="psw" type="password" />
+        </div>
+      </div>
+      <div className="form-group row">
+        <div className="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+          <input className="btn btn-block" type="submit" value="Login" />
+        </div>
+      </div>
+    </form>
+  </div>
 )
 
 import {login} from 'APP/app/reducers/auth'
