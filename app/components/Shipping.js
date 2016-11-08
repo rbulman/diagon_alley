@@ -1,14 +1,44 @@
 import React, {Component} from 'react'
+import {browserHistory} from 'react-router'
 
 export default class Shipping extends Component{
 
 	constructor () {
 		super();
-		this.tempState = {};
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.declineDelivery = this.declineDelivery.bind(this);
 	}
 
 	onCountryChange() {
 
+	}
+
+	handleSubmit (e) {
+		e.preventDefault();
+		// console.log(e.target.country.value);
+		let country = e.target.country.value;
+		// let address = {
+		// 	fullName: e.target.fullName.value,
+		// 	streetAddress: e.target.streetAddress.value,
+		// 	municipality: e.target.municipality.value,
+		// 	state: e.target.state.value
+		// }
+		let address = [
+			e.target.fullName.value,
+			e.target.streetAddress.value,
+			e.target.municipality.value,
+			e.target.state.value
+		]
+		let owl = e.target.owl.value;
+		console.log("adress", address);
+		this.props.updateDelivery({owl, address, country});
+		console.log(this.props.cart);
+		browserHistory.push('/checkout')
+	}
+
+	declineDelivery () {
+		this.props.updateDelivery({owl:null, address:[], country:null})
+		browserHistory.push('/checkout');
 	}
 
 	render(){
@@ -35,8 +65,9 @@ export default class Shipping extends Component{
 		return (
 			<div>
 				<h1>OWL DELIVERY</h1>
+				<button onClick={this.declineDelivery}>Decline Delivery</button>
 				<p>Owl Delivery cost changes depending on country</p>
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<label>Choose your country: </label>
 					<select name="country">
 						<option value="US">United States</option>
@@ -47,7 +78,7 @@ export default class Shipping extends Component{
 					<select name="owl">
 						{
 							owls.US.map((element, index) => (
-								<option value={index} key={index}>{element}</option>
+								<option value={element} key={index}>{element}</option>
 							))
 						}
 					</select>

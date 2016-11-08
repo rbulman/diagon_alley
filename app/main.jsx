@@ -64,7 +64,7 @@ render (
       </Route>
       <Route path="cart" component={CartContainer} />
       <Route path="shipping" component={ShippingContainer} />
-      <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
+      <Route path="checkout" component={CheckoutContainer} />
 
    	</Route>
    </Router>
