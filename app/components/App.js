@@ -34,15 +34,28 @@ export default class App extends Component{
 
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div className="container">
-            <ul className="nav navbar-nav">
-              <li><Link to="/"> HOME </Link></li>
-              <li><Link to="/items"> SHOP </Link></li>
-              <li><Link to="/about"> ABOUT </Link></li>
-              <li><Link to="/cart"> CART </Link></li>
-              <AdminButton />
-            </ul>
-            <ToggleButton />
+          <div className="container-fluid">
+            <div className="navbar-header">
+                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNav" aria-expanded="false">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                </button>
+                <div id="logo">
+                   <h1 id="nav-brand"> W </h1>
+                </div>
+            </div>
+            <div className="collapse navbar-collapse" id="myNav">
+              <ul className="nav navbar-nav">
+                <li><Link to="/"> HOME </Link></li>
+                <li><Link to="/items"> SHOP </Link></li>
+                <li><Link to="/about"> ABOUT </Link></li>
+                <li><Link to="/cart"> CART </Link></li>
+                <AdminButton />
+              </ul>
+              <ToggleButton />
+            </div>
           </div>
         </nav>
   			<div className="container child-container">
