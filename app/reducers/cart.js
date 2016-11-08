@@ -18,10 +18,9 @@ import axios from 'axios'
  	}
  */
 
+
 const GET_CART = "GET_CART"
 const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
-
-
 
 
 //-------------------------------------------------------------------------
@@ -33,8 +32,6 @@ export const getCart = (cart) => ({
 	type: GET_CART,
 	cart
 })
-
-
 
 
 //-------------------------------------------------------------------------
@@ -69,12 +66,12 @@ let fakeCart = {
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 
-	console.log("dispatching users")
-	axios.get('/api/auth/whoami')
-    .then(res => res.data)
-    .then(user => {
-    	return axios.get(`/api/orders/${user.currentOrder}`)
-    })
+	// console.log("dispatching users")
+	// axios.get('/api/auth/whoami')
+ //    .then(res => res.data)
+ //    .then(user => {
+ //    	return 
+ 	axios.get('/api/orders/cartItems')
     .then(res => res.data)
     .then(cart => {
     	dispatch(getCart(cart))

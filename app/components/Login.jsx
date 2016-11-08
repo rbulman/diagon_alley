@@ -1,5 +1,5 @@
 import React from 'react'
-import {browserHistory} from 'react-router'
+import {browserHistory, Link} from 'react-router'
 
 export const Login = ({ login }) => (
   <div>
@@ -27,6 +27,10 @@ export const Login = ({ login }) => (
         </div>
       </div>
     </form>
+    <div>
+      Don't have an account?
+      <button onClick={() => {browserHistory.push('/signup')}}> Sign Up</button>
+    </div>
   </div>
 )
 
