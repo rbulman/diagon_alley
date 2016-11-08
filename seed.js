@@ -87,8 +87,7 @@ var data = {
     {name: 'hats'},
     {name: 'flying'},
     {name: 'sweets'},
-    {name: 'dark'},
-    {name: 'flying'}
+    {name: 'dark'}
   ],
    reviews: [
      {
@@ -174,15 +173,15 @@ var data = {
    ],
 
 
-  orders: [
-    {
-      user_id: 1,
-      status: 'pending',
-    }, {
-      user_id: 2,
-      status: 'pending'
-    }
-  ]
+  // orders: [
+  //   {
+  //     user_id: 1,
+  //     status: 'pending',
+  //   }, {
+  //     user_id: 2,
+  //     status: 'pending'
+  //   }
+  // ]
 };
 
 module.exports = shouldClose => db.didSync

@@ -31,7 +31,6 @@ export default class App extends Component{
 	render(){
 		console.log("propsLogout: ", this.props.logout)
 		return(
-
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div className="container">
@@ -49,7 +48,6 @@ export default class App extends Component{
       		{this.props.children}
   			</div>
       </div>
-
 			)
 	}
 
