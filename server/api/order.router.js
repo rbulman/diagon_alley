@@ -179,23 +179,17 @@ router.use('/addToCart/:itemId', function (req, res, next){
       .then(order => {
         req.session.orderId = order.id
         orderID = order.id
+        next()
       })
+
     }
-    else{
+    else {
       orderID = req.session.orderId
+      next()
     }
   }
-  else{
-    // if(!req.user.currentOrder){
-    //   Order.create({
-    //   userType: 'user',
-    //   status: 'pending'
-    //   })
-    //   .then(order => {
-    //     User.findById(req.user.id)
-    //     orderID = order.id
-    //   })
-    // }
+  else {
+  
     Order.findOrCreate({
       where: {
         userId : req.user.id,
@@ -204,6 +198,7 @@ router.use('/addToCart/:itemId', function (req, res, next){
     })
     .spread((order, created) => {
       orderID = order.id
+      next()
     })
     
   }
