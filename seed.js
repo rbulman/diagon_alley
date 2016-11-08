@@ -87,8 +87,7 @@ var data = {
     {name: 'hats'},
     {name: 'flying'},
     {name: 'sweets'},
-    {name: 'dark'},
-    {name: 'flying'}
+    {name: 'dark'}
   ],
    reviews: [
      {

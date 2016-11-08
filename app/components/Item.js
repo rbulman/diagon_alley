@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {Link} from "react-router";
 import Review  from './Review';
 import ReviewContainer from '../containers/ReviewContainer';
+import {putItemInCart} from 'APP/app/reducers/cartItems'
+
+import store from 'APP/app/store'
 
 export default class Item extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ export default class Item extends Component {
             <h4>{this.props.selectedItem.price} Sickles</h4>
             <p>{this.props.selectedItem.description} </p>
             <p>DESCRIPTION</p>
-            <button> Add to cart </button>
+            <button onClick={()=>store.dispatch(putItemInCart(this.props.selectedItem))}> Add to cart </button>
           </div>
         </div>
         <div>

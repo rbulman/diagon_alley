@@ -8,8 +8,18 @@ import axios from 'axios'
  * CartItems is the order-items join table + necessary items details
  */
 
-const GET_CART = "GET_CART"
+/* 
+ * cart = {
+		user: some id,
+		usertype: 'user' vs 'session'
+		subtotal: $$$
+		status: -----
+		dateCompleted: -----
+ 	}
+ */
 
+const GET_CART = "GET_CART"
+const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 
 
 
@@ -37,6 +47,11 @@ export function cart(cart = {}, action) {
 	switch(action.type) { 
 		case GET_CART:
 			return action.cart
+		case ADD_ITEM_TO_CART:
+			let newCart = Object.assign({}, cart);
+			let newSubTotal = cart.subtotal + action.item.price;
+			newCart.subtotal = newSubTotal;
+			return newCart;
 		default:
 			return cart;
 	}
