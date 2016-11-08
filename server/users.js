@@ -6,31 +6,6 @@ const User = require('APP/db/models/user')
 
 const customUserRoutes = require('express').Router() 
 
-customUserRoutes.post('/newUser', function(req, res, next){
-	console.log("reqBody: ", req.body)
-	User.findOne({
-		where:{
-			email : req.body.email
-		}
-	})
-	.then(user => {
-		if(!user){
-			User.create({
-				name: req.body.name,
-				email: req.body.email,
-				password: req.body.password
-			})
-			.then(user => {
-				res.status(201).send(user)
-		})
-		}
-		else{
-			res.status(400).send("An account with that email already exists")
-		}
-	})
-	
-})
-
 // Custom routes go here.
 // customUserRoutes.get("/", function(req, res, next){
 // 	console.log("in custom REQ.USER: ", req.user)

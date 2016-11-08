@@ -19,8 +19,7 @@ export const Login = ({ signup, login }) => (<div>
   </div>
 )
 
-import {signup} from 'APP/app/reducers/users'
-import {login} from 'APP/app/reducers/auth'
+import {login, signup} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect (
