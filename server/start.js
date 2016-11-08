@@ -4,7 +4,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
-const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const axios = require('axios')
 
