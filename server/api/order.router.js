@@ -191,7 +191,7 @@ router.use('/addToCart/:itemId', function (req, res, next){
   
     Order.findOrCreate({
       where: {
-        userId : req.user.id,
+        user_id : req.user.id,
         status: 'pending',
         userType: 'user'
       }
@@ -221,6 +221,8 @@ router.put('/addToCart/:itemId', function (req, res, next){
     var order = result[1];
     if(item && order){
       console.log("item && order")
+      console.log("order.id: ", order.id)
+      console.log("item.id: ", item.id)
       OrderItem.findOne({
         where : {
           order_id : order.id,
@@ -228,6 +230,7 @@ router.put('/addToCart/:itemId', function (req, res, next){
         }
       })
       .then(function(orderItem){
+        console.log("orderItem: ", orderItem)
         if(orderItem){
           //if the item is already in the cart, increment the quantity
           return orderItem.increment('quantity');
@@ -238,7 +241,9 @@ router.put('/addToCart/:itemId', function (req, res, next){
         }
       })
       .then(function(result){
-        // console.log('result', result)
+        console.log('result', result)
+        console.log('result[0][0]', result[0])
+
         if(result[0][0]) {
           res.status(201).send(result[0][0]);
         }
