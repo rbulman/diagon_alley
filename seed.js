@@ -19,7 +19,7 @@ var data = {
       password: "ilovehermione"
     }, {
       name: "Hermione Granger",
-      email: "beautifulBraniac@hogwarts.com",
+      email: "beautifulBrainiac@hogwarts.com",
       password: "orworseexpelled"
     },
     {
@@ -204,14 +204,15 @@ module.exports = shouldClose => db.didSync
 })
 .then(user => {
   return Order.create({
-    user: user.id,
     status: 'pending', 
     userType: 'user'
   })
   .then(order => {
-    return user.update({
+    return order.setUser(user)
+    .then(() => {user.update({
       currentOrder: order.id
     })
+  })
     .then(() => {
       return order.addItem(1)
     })
@@ -234,9 +235,11 @@ module.exports = shouldClose => db.didSync
     userType: 'user'
   })
   .then(order => {
-    return user.update({
+    return order.setUser(user)
+    .then(() => {user.update({
       currentOrder: order.id
     })
+  })
     .then(() => {
       return order.addItem(2)
     })

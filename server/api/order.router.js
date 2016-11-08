@@ -50,7 +50,7 @@ router.get('/user/:userid', function(req,res,next){
 
 // get current order(s) for userid
 router.get('/user/pending/:userid', function(req,res,next){
-  let currentOrder, orderItems;
+  var currentOrder, orderItems;
   console.log("USER ID: ", req.params.userid)
   Order.findOne({
     where: {
@@ -169,7 +169,6 @@ router.put('/:id', function(req, res, next){
 });
 
 router.use('/addToCart/:itemId', function (req, res, next){
-  let orderID;
   if(!req.user){
     if(!req.session.orderId){
       Order.create({
@@ -178,13 +177,13 @@ router.use('/addToCart/:itemId', function (req, res, next){
       })
       .then(order => {
         req.session.orderId = order.id
-        orderID = order.id
+        req.body.orderID = order.id
         next()
       })
 
     }
     else {
-      orderID = req.session.orderId
+      req.body.orderID = req.session.orderId
       next()
     }
   }
@@ -193,11 +192,12 @@ router.use('/addToCart/:itemId', function (req, res, next){
     Order.findOrCreate({
       where: {
         userId : req.user.id,
-        status: 'pending'
+        status: 'pending',
+        userType: 'user'
       }
     })
     .spread((order, created) => {
-      orderID = order.id
+      req.body.orderID = order.id
       next()
     })
     
@@ -207,35 +207,19 @@ router.use('/addToCart/:itemId', function (req, res, next){
 
 //ADD ITEM TO CART
 router.put('/addToCart/:itemId', function (req, res, next){
-  let orderID;
-  if(!req.user){
-    if(!req.session.orderId){
-      Order.create({
-      userType: 'guest',
-      status: 'pending'
-      })
-      .then(order => {
-        req.session.orderId = order.id
-        orderID = order.id
-      })
-    }
-    else{
-      orderID = req.session.orderId
-    }
-  }
-  else{
-    orderID = req.user.currentOrder
-  }
       
-
+  let orderID = req.body.orderID
+  console.log("REQ.BODY.ORDERID: ", orderID)
+  console.log("req.params.itemId: ", req.params.itemId )
   var itemPromise = Item.findById(req.params.itemId);
   var orderPromise = Order.findById(orderID);
   console.log("in put /addItem")
+  //Item.findById
   Promise.all([itemPromise, orderPromise])
   .then(function(result){
     var item = result[0];
     var order = result[1];
-    if(item && order ){
+    if(item && order){
       console.log("item && order")
       OrderItem.findOne({
         where : {
