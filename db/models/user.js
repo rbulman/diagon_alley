@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt')
 const Sequelize = require('sequelize')
 const db = require('APP/db')
+const Order = require('APP/db/models/order')
 
 const User = db.define('users', {
   name: Sequelize.STRING,
@@ -41,6 +42,7 @@ const User = db.define('users', {
   }
 })
 
+
 function setEmailAndPassword(user) {
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
@@ -53,5 +55,7 @@ function setEmailAndPassword(user) {
 	  })
   )
 }
+
+
 
 module.exports = User

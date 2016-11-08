@@ -10,7 +10,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <li>
-      {user ? <WhoAmI/> : <Link to="/login"> LOGIN </Link>}
+      {user ? <WhoAmI/> : <Link to="/login"> Login/Sign Up </Link>}
     </li>
 )
 const AdminButton = connect(

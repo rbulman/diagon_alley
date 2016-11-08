@@ -38,3 +38,10 @@ export const fetchUsers = () => ((dispatch) => {
     .then(res => res.data)
     .then(users => dispatch(getUsers(users)));
 })
+
+export const signup = (name, email, password) => {
+	axios.post('/api/users/newUser', {name, email, password})
+	.then(res => res.data)
+	.then(res => {console.log("got res")
+	})
+}

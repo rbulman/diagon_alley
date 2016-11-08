@@ -54,7 +54,7 @@ const CartDisplay = connect(
 export default class Cart extends Component{
 	componentDidMount(){
 		this.props.getCartItems()
-		this.props.getCart()
+		//this.props.getCart()
 	}
 
 	render(){
