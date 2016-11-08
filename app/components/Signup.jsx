@@ -1,10 +1,10 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
 
-export const Login = ({ login }) => (<div>
+export const Login = ({ signup, login }) => (<div>
   <form onSubmit={evt => {
     evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
+    signup(evt.target.name.value, evt.target.username.value, evt.target.password.value)
     browserHistory.push('/')
   } }>
     <input name="name" placeholder="Full name" />
@@ -19,10 +19,11 @@ export const Login = ({ login }) => (<div>
   </div>
 )
 
+import {signup} from 'APP/app/reducers/users'
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 export default connect (
   state => ({}),
-  {login},
+  {signup, login},
 ) (Login)

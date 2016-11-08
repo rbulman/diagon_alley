@@ -66,12 +66,12 @@ let fakeCart = {
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 
-	console.log("dispatching users")
-	axios.get('/api/auth/whoami')
-    .then(res => res.data)
-    .then(user => {
-    	return axios.get('/api/orders/cartItems')
-    })
+	// console.log("dispatching users")
+	// axios.get('/api/auth/whoami')
+ //    .then(res => res.data)
+ //    .then(user => {
+ //    	return 
+ 	axios.get('/api/orders/cartItems')
     .then(res => res.data)
     .then(cart => {
     	dispatch(getCart(cart))
