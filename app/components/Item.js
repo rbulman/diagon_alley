@@ -16,19 +16,18 @@ export default class Item extends Component {
   }
 
   render() {
-    console.log('this.props.selectedItem', this.props.selectedItem);
     return (
       <div>
-        <h3 className="item-title">{this.props.selectedItem.name}</h3>
+        <h3 className="">{this.props.selectedItem.name}</h3>
         <div className="row">
           <div className="col-sm-6 col-xs-12">
-              <img src={this.props.selectedItem.itemURL} />
-              <p>IMAGE</p>
+              <img className="img-responsive img-rounded item-image" src={this.props.selectedItem.imageURL} />
           </div>
           <div className="col-sm-6 col-xs-12">
             <h4>{this.props.selectedItem.price} Sickles</h4>
-            <p>{this.props.selectedItem.description} </p>
             <p>DESCRIPTION</p>
+            <p>{this.props.selectedItem.description} </p>
+
             <button onClick={()=>store.dispatch(putItemInCart(this.props.selectedItem))}> Add to cart </button>
           </div>
         </div>

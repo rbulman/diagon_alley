@@ -35,7 +35,7 @@ export default class ItemList extends Component {
                     <Link to={`/items/${item.id}`}>
                       <img className="img-responsive img-rounded item-image" alt={item.name} src={item.imageURL} />
                         <h3 className="item-title">{item.name}</h3>
-                        <h4>{item.price} Sickles</h4>
+                        <h4 className="item-price">{item.price} Sickles</h4>
                     </Link>
                   </div>
                 </div>

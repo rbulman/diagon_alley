@@ -57,6 +57,7 @@ span.icon-bar {
 
 .item-title {
   margin: 0px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 
@@ -64,6 +65,9 @@ span.icon-bar {
   margin-bottom: 10px;
 }
 
+.item-price {
+  margin-bottom: 0px;
+}
 .item-container {
 
 }
