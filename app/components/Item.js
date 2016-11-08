@@ -16,25 +16,32 @@ export default class Item extends Component {
   }
 
   render() {
-    console.log('this.props.selectedItem', this.props.selectedItem);
     return (
       <div>
-        
-          <h3>{this.props.selectedItem.name}</h3>
-          <img src="http://vignette3.wikia.nocookie.net/harrypotter/images/d/d0/Harry_Potter's_wand.gif/revision/latest?cb=20090801185350" />
-          <h4>{this.props.selectedItem.price} Sickles</h4>
-          <p>{this.props.selectedItem.description}</p>
-          <button onClick={() => putItemInCartToServer(this.props.selectedItem)}> Add to cart </button>
-          <div>
-              {
-                this.props.selectedItem.reviews &&
-                this.props.selectedItem.reviews.map(function(review) {
-                return(
-                  <Review review={review} />
-                )
-              })}
+
+        <h3 className="">{this.props.selectedItem.name}</h3>
+        <div className="row">
+          <div className="col-sm-6 col-xs-12">
+              <img className="img-responsive img-rounded item-image" src={this.props.selectedItem.imageURL} />
+
           </div>
-          
+          <div className="col-sm-6 col-xs-12">
+            <h4>{this.props.selectedItem.price} Sickles</h4>
+            <p>DESCRIPTION</p>
+            <p>{this.props.selectedItem.description} </p>
+
+            <button onClick={() => putItemInCartToServer(this.props.selectedItem)}> Add to cart </button>
+          </div>
+        </div>
+        <div>
+          {
+            this.props.selectedItem.reviews &&
+            this.props.selectedItem.reviews.map(function(review) {
+            return(
+              <Review review={review} />
+            )
+          })}
+        </div>
       </div>
     )
   }
