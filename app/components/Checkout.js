@@ -18,7 +18,7 @@ export default class Checkout extends Component{
 		// 	municipality: "New York",
 		// 	state: "New York"
 		// }
-		
+
 		console.log("Checkout", this.props)
 		let {cart} = this.props;
 		console.log(cart)
@@ -58,21 +58,21 @@ export default class Checkout extends Component{
 					</tbody>
 				</table>
 				<h2>Delivery {cart.owl? "By "+cart.owl+" to:": "declined"} </h2>
-				<button>Edit Delivery</button>
+				<button className="btn">Edit Delivery</button>
 				{
 					cart.owl && cart.address.map((element, index) => (
 						<p key={index}>{element}</p>
 					))
 				}
 				<p>{cart.country}</p>
-				<button>Confirm Order</button>
-				<button onClick={() => browserHistory.push('/cart')}>Return to Cart</button>
+				<button className="btn">Confirm Order</button>
+				<button className="btn" onClick={() => browserHistory.push('/cart')}>Return to Cart</button>
 			</div>
 		)
 	}
 }
 
-/* 
+/*
 <p>{cart.address.fullName}</p>
 <p>{cart.address.streetAddress}</p>
 <p>{cart.address.municipality}, {cart.address.state}</p>
