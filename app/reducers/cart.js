@@ -62,6 +62,7 @@ export const addDelivery = (delivery) => ({
 
 
 let fakeCart = {
+	id: -1,
 	subtotal: 100,
 	owl: null,
 	country: null,
