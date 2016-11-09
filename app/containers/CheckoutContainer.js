@@ -6,8 +6,8 @@ import {updateCompleteStatusToServer} from 'APP/app/reducers/cart'
 const mapStateToProps = ({cart}) => ({cart})
 
 const mapDispatchToProps = (dispatch) => ({
-	confirmOrder() {
-		dispatch(updateCompleteStatusToServer())
+	confirmOrder(id) {
+		dispatch(updateCompleteStatusToServer(id))
 		browserHistory.push('/confirmation')
 	}
 });

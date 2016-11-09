@@ -31,7 +31,7 @@ export default class Shipping extends Component{
 		]
 		let owl = e.target.owl.value;
 		console.log("adress", address);
-		this.props.updateDelivery({owl, address, country});
+		this.props.updateDelivery(this.props.cart.id, {owl, address, country});
 		console.log(this.props.cart);
 		browserHistory.push('/checkout')
 	}
@@ -65,7 +65,7 @@ export default class Shipping extends Component{
 		return (
 			<div>
 				<h1>OWL DELIVERY</h1>
-				<button onClick={this.declineDelivery}>Decline Delivery</button>
+				<button onClick={this.declineDelivery}>Pickup in Store</button>
 				<p>Owl Delivery cost changes depending on country</p>
 				<form onSubmit={this.handleSubmit}>
 					<label>Choose your country: </label>

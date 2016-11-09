@@ -47,7 +47,7 @@ const CartDisplay = connect(
 												}>-</button>
 										</td>
 										<td>{singleItem.item.price * singleItem.quantity}</td>
-										<td><button className="btn" onClick={() => {browserHistory.push('/checkout')}}>Remove</button></td>
+										<td><button className="btn" onClick={() => {browserHistory.push('/shipping')}}>Remove</button></td>
 									</tr>
 								)
 							})
