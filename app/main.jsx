@@ -14,6 +14,7 @@ import ItemContainer from 'APP/app/containers/ItemContainer'
 import UsersContainer from 'APP/app/containers/UsersContainer'
 import store from './store'
 import Root from './components/Root'
+import AddReviewContainer from './containers/AddReviewContainer'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -60,6 +61,7 @@ render (
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
       <Route path="accountPage" component={AccountPageContainer} />
+      <Route path="addReview" component={AddReviewContainer} />
       <Route path="admin" component={AdminContainer}>
         <Route path="orders" component={OrdersContainer} />
         <Route path="users" component={UsersContainer} />
