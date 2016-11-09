@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
-
+import TheMap from './GoogleMap.jsx'
+import initMap from 'APP/map.js'
 
 export default class About extends Component{
+	componentDidMount(){
+		console.log("component mounted")
+		initMap();
+	}
 	render(){
 		const dummy = "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg";
 		return (
@@ -36,7 +41,9 @@ export default class About extends Component{
 				</div>
 
 				<div className="row" id="locate-us">
-					<div id="map"></div>
+					<h1>Where To Find Us</h1>
+					<div id="map">
+					</div>
 				</div>
 			</div>
 			)
