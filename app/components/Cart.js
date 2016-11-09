@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-
 import {Link, browserHistory} from 'react-router'
-
 import {connect} from 'react-redux'
+
 import {putItemInCartToServer} from 'APP/app/reducers/cartItems'
 import {decrementItem} from 'APP/app/reducers/cartItems'
 import {putItemInCart} from 'APP/app/reducers/cartItems'
@@ -22,7 +21,7 @@ const CartDisplay = connect(
 							<th>Item Price</th>
 							<th>Qty</th>
 							<th>Item Total</th>
-							<th><button className="btn" onClick={() => {browserHistory.push('/checkout')}}>Checkout</button></th>
+							<th><button className="btn" onClick={() => browserHistory.push('/shipping')}>Checkout</button></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,7 +57,7 @@ const CartDisplay = connect(
 							<td/>
 							<td/>
 							<td>TOTAL:</td><td>{subtotal}</td>
-							<td><button className="btn">Checkout</button></td>
+							<td><button className="btn" onClick={() => browserHistory.push('/shipping')}>Checkout</button></td>
 						</tr>
 					</tbody>
 				</table>

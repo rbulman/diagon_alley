@@ -26,7 +26,7 @@ const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 // const ADD_ADDRESS = "ADD_ADDRESS";
 // const ADD_OWL = "ADD_OWL";
 const ADD_DELIVERY = "ADD_DELIVERY";
-
+const COMPLETE_ORDER = "COMPLETE_ORDER"
 //-------------------------------------------------------------------------
 
 //ACTION CREATORS
@@ -55,6 +55,9 @@ export const addDelivery = (delivery) => ({
 	delivery
 })
 
+export const completeOrder = () => ({
+	type: COMPLETE_ORDER
+})
 //-------------------------------------------------------------------------
 
 //CART REDUCER
@@ -62,15 +65,15 @@ export const addDelivery = (delivery) => ({
 // this is an empty reducer so things don't break when we combineReducers
 
 
-let fakeCart = {
-	id: -1,
-	subtotal: 100,
-	owl: null,
-	country: null,
-	address: []
-}
+// let fakeCart = {
+// 	id: -1,
+// 	subtotal: 100,
+// 	owl: null,
+// 	country: null,
+// 	address: []
+// }
 
-export function cart(cart = fakeCart, action) {
+export function cart(cart = {}, action) {
 	switch(action.type) { 
 		case GET_CART:
 			return action.cart
@@ -81,6 +84,8 @@ export function cart(cart = fakeCart, action) {
 			return newCart;
 		case ADD_DELIVERY:
 			return Object.assign({}, cart, action.delivery)
+		case COMPLETE_ORDER:
+			return {id:cart.id}
 		default:
 			return cart;
 	}
@@ -96,9 +101,21 @@ export function cart(cart = fakeCart, action) {
 export const updateDeliveryToServer = (delivery) => ((dispatch) => {
 	console.log("updating delivery to server")
 	
-	return dispatch(addDelivery(delivery))
-	
-	axios.put()
+	axios.put(`/orders/${cart.id}`, delivery)
+	.then(res => res.data)
+	.then(cart => {
+		dispatch(addDelivery(delivery))
+	})
+})
+
+export const updateCompleteStatusToServer = () => ((dispatch) => {
+	console.log("order complete")
+
+	axios.put(`/orders/${cart.id}`, {status: 'complete'})
+	.then(res => res.data)
+	.then(cart => {
+		dispatch(completeOrder())
+	})
 })
 
 // copied from users, please change ASAP

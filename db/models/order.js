@@ -33,6 +33,14 @@ const Order = db.define('orders', {
 	address: {
 		type: Sequelize.ARRAY(Sequelize.STRING),
 		defaultValue: []
+	},
+	shippingHandling: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0
+	},
+	vautPayment: {
+		type: Sequelize.STRING,
+		defaultValue: null
 	}
 }, {
 	getterMethods: {
