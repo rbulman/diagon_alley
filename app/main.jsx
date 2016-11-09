@@ -29,6 +29,7 @@ import {fetchCart} from 'APP/app/reducers/cart'
 import CartContainer from 'APP/app/containers/CartContainer'
 import ShippingContainer from 'APP/app/containers/ShippingContainer'
 import CheckoutContainer from 'APP/app/containers/CheckoutContainer'
+import ConfirmationContainer from 'APP/app/containers/ConfirmationContainer'
 import AccountPageContainer from 'APP/app/containers/AccountPageContainer'
 
 const loadSingleItem = ({params}) => {
@@ -68,8 +69,8 @@ render (
       </Route>
       <Route path="cart" component={CartContainer} />
       <Route path="shipping" component={ShippingContainer} />
-      <Route path="checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
-
+      <Route path="checkout" component={CheckoutContainer} />
+      <Route path="confirmation" component={ConfirmationContainer} />
    	</Route>
    </Router>
   </Provider>,
