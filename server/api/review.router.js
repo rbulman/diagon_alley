@@ -8,7 +8,7 @@ const Item = require('APP/db/models/item');
 const User = require('APP/db/models/user');
 
 // GET all reviews for an Item
-router.get('/:itemId', function(req,res,next){
+router.get('/byItem/:itemId', function(req,res,next){
   Item.findById(req.params.itemId)
     .then(function(item){
         return item.getReviews()   
@@ -19,17 +19,17 @@ router.get('/:itemId', function(req,res,next){
     .catch(next);
 });
 
-// GET all reviews by a User
-// router.get('/:userId', function(req,res,next){
-//   User.findById(req.params.userId)
-//     .then(function(user){
-//       return user.getReviews()     
-//     })
-//     .then(function(reviews) {
-//         res.jeson(reviews);
-//     })
-//     .catch(next);
-// });
+//GET all reviews by a User
+router.get('/byUser/:userId', function(req,res,next){
+  User.findById(req.params.userId)
+    .then(function(user){
+      return user.getReviews()     
+    })
+    .then(function(reviews) {
+        res.json(reviews);
+    })
+    .catch(next);
+});
 
 
 //POST a review (purely creating the review, not attaching it to an item)
@@ -42,21 +42,31 @@ router.get('/:itemId', function(req,res,next){
  })
 
 
-// POST a review *to an item* 
- router.post('/addReview/:itemId', function(req, res, next){
+// POST a review *to an item and user* 
+ router.post('/addReview/:itemId/:userId', function(req, res, next){
    let newReview;
    const review = Review.create(req.body); 
    const item = Item.findById(req.params.itemId);
-   Promise.all([review, item])
-   .spread(function(review,item) {
+   const user = User.findById(req.params.userId);
+   Promise.all([review, item, user])
+   .spread(function(review,item,user) {
      newReview = review;
-     return item.addReview(review)
+     return item.addReview(newReview)
+      .then(function(result) {
+        console.log('USER: ',user);
+        console.log('RESULT: ', result);
+        return user.addReview(review)
+        })
+        .then(function(result) {
+          res.send(result.data)
+        })
     })
-    .then(function() {
-      res.send(newReview)
-    })
+    
     .catch(next);
   });
+
+
+
 
 
 

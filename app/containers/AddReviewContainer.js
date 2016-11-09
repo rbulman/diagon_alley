@@ -5,7 +5,7 @@ import AddReview from '../components/AddReview';
 import { selectedItem } from '../reducers/index';
 
 
-const mapStateToProps = ({selectedItem}) => ({selectedItem}); 
+const mapStateToProps = ({selectedItem, auth}) => ({selectedItem, user: auth}); 
 
 // const mapDispatchToProps = dispatch => ({
 //     getReviews() {
