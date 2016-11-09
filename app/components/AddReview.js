@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+// let userId;
 
 export default class AddReview extends React.Component {
   constructor(props) {
@@ -15,13 +15,18 @@ export default class AddReview extends React.Component {
   }
 
   handleSubmit(event) {
-    axios.post(`/api/reviews/addReview/${this.props.selectedItem.id}`, this.state)
+    // userId = this.props.user.id;
+    return axios.post(`/api/reviews/addReview/${this.props.selectedItem.id}/${this.props.user.id}`, this.state)
     .then(function(res) {
-      console.log(res.data);
+      console.log(res);
+    })
+    .then(function() {
+      
     })
 }
 
   render() {
+    console.log('THIS.PROPS.SELECTEDITEM: ', this.props.selectedItem);
     return (
       <div>
         <input type="text"

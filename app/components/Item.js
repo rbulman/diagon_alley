@@ -11,11 +11,8 @@ export default class Item extends Component {
     super();
   }
 
-  componentDidMount() {
-    //load reviews here?
-  }
-
   render() {
+    console.log('_---__--THIS.PROPS.AUTH: ', this.props.auth);
     return (
 
       <div className="item-container">
@@ -41,9 +38,18 @@ export default class Item extends Component {
               <Review review={review} id={review.id}/>
             )
           })}
-          <Link to="/addReview"> Add a review </Link>
+          <div>
+              {this.props.auth? <Link to="/addReview"> Add a review </Link> : <div></div> }
+          </div>
+
         </div>
       </div>
     )
   }
 }
+      
+
+
+
+
+
