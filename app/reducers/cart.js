@@ -62,15 +62,15 @@ export const addDelivery = (delivery) => ({
 // this is an empty reducer so things don't break when we combineReducers
 
 
-let fakeCart = {
-	id: -1,
-	subtotal: 100,
-	owl: null,
-	country: null,
-	address: []
-}
+// let fakeCart = {
+// 	id: -1,
+// 	subtotal: 100,
+// 	owl: null,
+// 	country: null,
+// 	address: []
+// }
 
-export function cart(cart = fakeCart, action) {
+export function cart(cart = {}, action) {
 	switch(action.type) { 
 		case GET_CART:
 			return action.cart

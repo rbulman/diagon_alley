@@ -24,21 +24,39 @@ router.get('/cartItems', function(req, res, next){
   if (!orderID) return;
 
   else{
-  Order.findOne({
-    where: {id : orderID},
-    include: [
-      {
-        model: OrderItem,
-        include: [Item]
-      }]
+    Order.findOne({
+      where: {id : orderID},
+      include: [
+        {
+          model: OrderItem,
+          include: [Item]
+        }]
+      })
+    .then(function(order){
+      res.json(order.orderItems);
     })
-  .then(function(order){
-    res.json(order.orderItems);
-  })
-  .catch(err => console.log(err));
-}
+    .catch(err => console.log(err));
+  }
 })
 
+//Get specific order given id
+router.get('/cart', function(req, res, next){
+  console.log('in /cart')
+  let orderID = null;
+  if(req.user){orderID = req.user.currentOrder}
+  else if(req.session.orderId) {orderID = req.session.orderId;}
+  console.log("/cartItems orderID: ", orderID)
+
+  if (!orderID) return;
+
+  else{
+    Order.findById(orderID)
+    .then(function(order){
+      res.json(order);
+    })
+    .catch(err => console.log(err));
+  }
+})
 
 router.get('/', function(req,res,next){
   console.log("Context: ", next)
@@ -75,9 +93,9 @@ router.get('/user/:userid', function(req,res,next){
     })
     .catch(next);
 });
-
-// get current order(s) for userid
-router.get('/user/pending', function(req,res,next){
+/*
+// get all items on current order for userid
+router.get('/user/pending/items', function(req,res,next){
   console.log("REQ: ", req)
   if(req.user){var userID = req.user.id}
   else{
@@ -100,32 +118,38 @@ router.get('/user/pending', function(req,res,next){
     ]
 
   })
-  // .then(function(foundOrder){
-  //   console.log("currentOrder: ", foundOrder)
-  //   currentOrder = foundOrder;
-  //   console.log("ORDER ID: ", currentOrder.id)
-  //   // return .findAll({
-  //   //   where: {
-  //   //     order_id: currentOrder.id
-  //   //   }
-  //   // })
-  //   //res.json(currentOrder)
-  //   return currentOrder.getItems()
-  //})
   .then(function(order){
     console.log("foundItems: ", order)
     res.json(order.orderItems);
   })
   .catch(err => console.log(err));
-
-  /* 
-   * User.findById(userid)
-   * then call
-   * Order.findById(foundUser.currentOrder)
-   * the two calls to findByID should run faster / smoother than what we have now
-   */
 });
 
+// get current pending order for userid
+router.get('/user/pending', function(req,res,next) {
+  console.log("REQ: ", req)
+  if(req.user){var userID = req.user.id}
+  else{
+    console.log("i am a guest")
+  }
+  console.log("USER ID: ", userID)
+  Order.findOne({
+    where: {
+      user_id: userID,
+      // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
+      // OUT IF YOU ARE NOT A USER
+      userType: 'user',
+      status: 'pending'
+    }
+  })
+  .then(function(order){
+    console.log("order", order);
+    res.json(order);
+  })
+  .catch(err => console.log(err));
+
+})
+*/
 // get completed order history
 router.get('/user/completed/:userid', function(req,res,next){
 

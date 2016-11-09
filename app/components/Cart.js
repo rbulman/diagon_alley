@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
-
 
 const CartDisplay = connect(
   ({ cartItems }) => ({ cartItems })
@@ -17,7 +16,7 @@ const CartDisplay = connect(
 							<th>Item Price</th>
 							<th>Qty</th>
 							<th>Item Total</th>
-							<th><button className="btn">Checkout</button></th>
+							<th><button className="btn" onClick={() => browserHistory.push('/checkout')}>Checkout</button></th>
 						</tr>
 					</thead>
 					<tbody>
