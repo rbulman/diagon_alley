@@ -110,7 +110,7 @@ export const updateDeliveryToServer = (id, delivery) => ((dispatch) => {
 export const updateCompleteStatusToServer = (id) => ((dispatch) => {
 	console.log("order complete")
 
-	axios.put(`/api/orders/${id}`, {status: 'complete'})
+	axios.put(`/api/orders/complete/${id}`, {status: 'completed'})
 	.then(() => {
 		console.log('complete order updated')
 		dispatch(completeOrder())

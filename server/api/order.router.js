@@ -242,6 +242,34 @@ router.put('/:id', function(req, res, next){
   });
 });
 
+router.put('/complete/:id', function(req, res, next){
+  console.log(req.body);
+  Order.findById(req.params.id)
+  .then(function(order){
+    if(order){
+      console.log("completing order")
+      var date = Date.now();
+      console.log("date: ", date)
+      return order.update({
+        status: 'completed', 
+        dateCompleted: new Date()
+      })
+      .then((order) => {
+        return order.getUser()
+        .then(user => user.update({
+          currentOrder: null
+        }))
+      })
+    }
+  })
+  .then(function(order){
+    if(order){
+      res.status(201).send(order);
+    }
+    else res.sendStatus(404);
+  });
+});
+
 router.use('/addToCart/:itemId', function (req, res, next){
   if(!req.user){
     if(!req.session.orderId){
