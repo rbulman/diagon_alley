@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
+import {putItemInCartToServer} from 'APP/app/reducers/cartItems'
+import {decrementItem} from 'APP/app/reducers/cartItems'
+import {putItemInCart} from 'APP/app/reducers/cartItems'
 
 const CartDisplay = connect(
-  ({ cartItems }) => ({ cartItems })
+  ({ cartItems }) => ({ cartItems }), 
+  {putItemInCart}
 ) (
   ({ cartItems, subtotal, cart}) => (
-   <div> 
+   <div>
 				<h1>CART</h1>
 				<table className="table">
 					<thead>
@@ -16,11 +20,11 @@ const CartDisplay = connect(
 							<th>Item Price</th>
 							<th>Qty</th>
 							<th>Item Total</th>
-							<th><button>Checkout</button></th>
+							<th><button className="btn">Checkout</button></th>
 						</tr>
 					</thead>
 					<tbody>
-						{	
+						{
 							cartItems.map((singleItem, index) => {
 								subtotal += singleItem.item.price * singleItem.quantity
 								return (
@@ -30,11 +34,19 @@ const CartDisplay = connect(
 										<td>{singleItem.item.price}</td>
 										<td>
 											{singleItem.quantity}
-											<button>+</button>
-											<button>-</button>
+											<button className="btn" onClick={() => {
+												putItemInCartToServer(singleItem.item)
+												window.location.reload()
+											}}>+</button>
+											<button className="btn" 
+												onClick={() => {
+													decrementItem(singleItem.item, cart)
+													window.location.reload()
+													}
+												}>-</button>
 										</td>
 										<td>{singleItem.item.price * singleItem.quantity}</td>
-										<td><button>Remove</button></td>
+										<td><button className="btn">Remove</button></td>
 									</tr>
 								)
 							})
@@ -44,7 +56,7 @@ const CartDisplay = connect(
 							<td/>
 							<td/>
 							<td>TOTAL:</td><td>{subtotal}</td>
-							<td><button>Checkout</button></td>
+							<td><button className="btn">Checkout</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -52,35 +64,19 @@ const CartDisplay = connect(
 ))
 
 export default class Cart extends Component{
+  constructor(props){
+    super(props)
+    this.renderNoCart = this.renderNoCart.bind(this)
+  }
+
 	componentDidMount(){
 		this.props.getAuth()
 		this.props.getCartItems()
-		//this.props.getCart()
+		this.props.getCart()
 	}
 
 	render(){
-	
 		let {cartItems, cart} = this.props
-		// let cartItems = [{
-		// 	name: "Extendable Ears",
-		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
-		// 	singlePrice: 7,
-		// 	qty: 3
-		// },{
-		// 	name: "Firebolt",
-		// 	imageURL: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Hogwarts_coat_of_arms_colored_with_shading.svg",
-		// 	singlePrice: 1000,
-		// 	qty: 1
-		// }];
-		/* expecting item to be:
-		{
-			name: string
-			imageURL: url
-			singlePrice: integer
-			qty: integer
-		}
-		 */
-		
 		let subtotal = 0;
 
 		console.log("this.props", this.props)
@@ -88,9 +84,25 @@ export default class Cart extends Component{
 
 		return (
 			<div>
-				{this.props.cartItems && this.props.cartItems.length ? 
-				<CartDisplay cartItems={this.props.cartItems} cart={cart} subtotal={subtotal}/> : <Link to="/items"> Treat Yourself! </Link>}
+				{this.props.cartItems && this.props.cartItems.length ?
+				<CartDisplay cartItems={this.props.cartItems} cart={cart} subtotal={subtotal}/> : this.renderNoCart()}
 			</div>
-			)
+		)
 	}
+
+  renderNoCart(){
+    return (
+      <div className="row">
+        <div className="col-xs-1 col-sm-2 col-md-3"></div>
+        <div className="col-xs-10 col-sm-8 col-md-6 banner-text">
+          <h2 id="hmm">Hmm... </h2>
+          <h3 id="looks">Looks like your cart is</h3>
+          <h1 id="empty">empty.</h1>
+          <h3 id="whynot">Why not</h3>
+          <Link to="/items"><h1 id="treat">Treat Yourself?</h1></Link>
+        </div>
+      </div>
+    )
+  }
+
 }

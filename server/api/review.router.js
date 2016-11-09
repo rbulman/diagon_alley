@@ -1,4 +1,6 @@
 'use strict';
+var Promise = require('bluebird');
+
 
 var router = require('express').Router();
 var Review = require('APP/db/models/review');
@@ -42,11 +44,16 @@ router.get('/:itemId', function(req,res,next){
 
 // POST a review *to an item* 
  router.post('/addReview/:itemId', function(req, res, next){
+   let newReview;
    const review = Review.create(req.body); 
    const item = Item.findById(req.params.itemId);
    Promise.all([review, item])
    .spread(function(review,item) {
-     item.addReview(review)
+     newReview = review;
+     return item.addReview(review)
+    })
+    .then(function() {
+      res.send(newReview)
     })
     .catch(next);
   });

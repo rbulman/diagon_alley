@@ -27,7 +27,7 @@ export function reviews(reviews = [], action) {
 		case 'GET_REVIEWS':
 			return action.reviews;
 		case 'ADD_REVIEW':
-			return action.review;
+			return reviews.concat(action.review);
 		default:
 			return reviews;
 	}
@@ -43,8 +43,7 @@ export const fetchReviews = (selectedItem) => ((dispatch) => {
     .then(reviews => dispatch(getReviews(reviews)));
 })
 
-
-
-
-
+// export const createReview = (selectedItem) => ((dispatch) => {
+	
+// }
 

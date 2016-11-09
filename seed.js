@@ -221,6 +221,22 @@ module.exports = shouldClose => db.didSync
     })
     .then(() => console.log("Added current order to user"))
   })
+  .then(() => {
+    return Order.create({
+    status: 'completed', 
+    userType: 'user'
+  })
+  .then(order => {
+    return order.setUser(user)
+    .then(() => {
+      order.addItem(5)
+    })
+    .then(() => {
+      return order.addItem(7)
+    })
+  })
+    .then(() => console.log("Added current order to user"))
+  })
   .then(() => console.log("Added current order to user"))
 })
 .then(() => {

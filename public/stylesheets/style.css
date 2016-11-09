@@ -21,12 +21,76 @@ li a:hover {
   color: #ffbf00;
 }
 
-h1 {
+h1, h2, h3 {
   font-family: 'Playfair Display SC', serif;
 }
 
+
 h3, h4 {
   color: black;
+}
+
+.splash {
+  max-width: 1024px;
+  text-align: center;
+  background-image: url(http://i67.tinypic.com/2m7e0d4.png);
+  background-repeat: no-repeat;
+}
+
+.splash-text {
+
+}
+
+#orange {
+  font-style: italic;
+  font-size: 72px;
+  color: orange;
+  margin-top: -20px;
+  text-shadow: 2px 2px 5px #000;
+}
+
+#white {
+  color: white;
+  text-shadow: 2px 2px 5px #000;
+
+}
+
+#hmm {
+  font-size: 72px;
+  font-style: italic;
+  margin-left: -20px;
+  margin-bottom: -25px;
+  padding: 0px;
+  color: rgba(75,45,113, .15)
+}
+
+#looks {
+  font-style: bold;
+  margin: 0px;
+  padding: 0px;
+}
+
+#empty {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+#treat {
+  color: orange;
+  font-style: italic;
+  margin-top: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+#whynot {
+  padding: 0px;
+  margin: 0px;
+}
+
+.banner-text {
+  font-family: 'Playfair Display SC', serif;
+  margin: 0px;
 }
 
 #nav-brand {
@@ -36,13 +100,11 @@ h3, h4 {
   font-style: italic;
 }
 
-
 span.icon-bar {
   background-color: white;
   color: black;
   position: static;
 }
-
 
 .shop-item {
   box-shadow:  0px 0px 16px rgba(0,0,0,0.1);
@@ -66,14 +128,20 @@ span.icon-bar {
 }
 
 .item-price {
-  margin-bottom: 0px;
+  color: rgba(75,45,113,1)
 }
-.item-container {
 
+.item-container {
+  margin-top: 20px;
+}
+
+.item-description {
+  font-style: italic;
 }
 
 .child-container {
     margin-top: 65px;
+
 }
 #logo-header {
   font-weight: bold;
@@ -95,6 +163,10 @@ span.icon-bar {
 
 .headshot {
   padding: 25px;
+}
+
+#locate-us {
+  margin-bottom: 50px;
 }
 
 #map {

@@ -17,30 +17,31 @@ export default class Item extends Component {
 
   render() {
     return (
-      <div>
 
-        <h3 className="">{this.props.selectedItem.name}</h3>
+      <div className="item-container">
+      <h3>{this.props.selectedItem.name}</h3>
         <div className="row">
           <div className="col-sm-6 col-xs-12">
               <img className="img-responsive img-rounded item-image" src={this.props.selectedItem.imageURL} />
-
           </div>
           <div className="col-sm-6 col-xs-12">
-            <h4>{this.props.selectedItem.price} Sickles</h4>
+            <h2 className="banner-text">{this.props.selectedItem.name}</h2>
+            <h4 className="item-price">{this.props.selectedItem.price} Sickles</h4>
             <p>DESCRIPTION</p>
-            <p>{this.props.selectedItem.description} </p>
-
-            <button onClick={() => putItemInCartToServer(this.props.selectedItem)}> Add to cart </button>
+            <p className="item-description">{this.props.selectedItem.description} </p>
+            <button className="btn" onClick={() => putItemInCartToServer(this.props.selectedItem)}> Add to cart </button>
           </div>
         </div>
         <div>
+          <h2 className="banner-text">Reviews</h2>
           {
             this.props.selectedItem.reviews &&
             this.props.selectedItem.reviews.map(function(review) {
             return(
-              <Review review={review} />
+              <Review review={review} id={review.id}/>
             )
           })}
+          <Link to="/addReview"> Add a review </Link>
         </div>
       </div>
     )

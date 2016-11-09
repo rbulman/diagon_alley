@@ -22,6 +22,9 @@ export default class AccountPage extends Component {
 
     return (
       <div>
+        <h1>ACCOUNT INFORMATION </h1>
+        <h5>Name: {this.props.auth.name} </h5>
+        <h5>E-Mail: {this.props.auth.email} </h5>
         <h1>YOUR PAST ORDERS </h1>
           {this.props.pastOrders.map(function(order) {
             return (

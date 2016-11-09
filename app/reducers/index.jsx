@@ -11,7 +11,18 @@ import {reviews} from './review'
 
 const initialState = {};
 
-const rootReducer = combineReducers({items, selectedItem, users, auth, cartItems, orders, pastOrders});
+
+const rootReducer = combineReducers({
+	items, 
+	selectedItem, 
+	users, 
+	auth, 
+	cart, 
+	cartItems, 
+	orders, 
+	pastOrders
+});
+
 
 
 export default rootReducer

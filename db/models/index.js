@@ -32,7 +32,7 @@ Order.hasMany(OrderItems)
 OrderItems.belongsTo(Item)
 //Item.belongsToMany(User)
 
-//User.hasMany(Review, {as: 'Reviews'})
+User.hasMany(Review)
 Item.hasMany(Review)
 
 

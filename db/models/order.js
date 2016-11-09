@@ -21,6 +21,18 @@ const Order = db.define('orders', {
 	subtotal: {
 		type: Sequelize.INTEGER,
 		defaultValue: 0
+	},
+	owl: {
+		type: Sequelize.STRING,
+		defaultValue: null
+	},
+	country: {
+		type: Sequelize.STRING,
+		defaultValue: null
+	},
+	address: {
+		type: Sequelize.ARRAY(Sequelize.STRING),
+		defaultValue: []
 	}
 }, {
 	getterMethods: {
