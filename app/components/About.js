@@ -38,6 +38,11 @@ export default class About extends Component{
 						<h3>Explosions Expert</h3>
 						<p><i>"BOOM!"</i></p>
 					</div>
+					<div className="col-md-3 col-xs-6 headshot">
+						<img src='/liz.jpg' className="profile img img-responsive img-circle"/>
+						<h3>HEAD MUGWHUMP</h3>
+						<p><i>"I'm the boss!"</i></p>
+					</div>
 				</div>
 
 				<div className="row" id="locate-us">
