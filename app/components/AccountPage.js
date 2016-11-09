@@ -25,6 +25,9 @@ export default class AccountPage extends Component {
       <div>
           <div>
             <h1>YOUR PAST ORDERS </h1>
+            <div>
+              {this.props.pastOrders.length?  <div></div> : <div>(No past orders)</div> }
+            </div>
               {this.props.pastOrders.map(function(order) {
                 return (
                   <div key={order.id}>
