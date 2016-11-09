@@ -198,6 +198,7 @@ router.get('/session/:id', function(req,res,next){
 
 // req.body should contain an object of attributes to change
 router.put('/:id', function(req, res, next){
+  console.log(req.body);
   Order.findById(req.params.id)
   .then(function(order){
     if(order){

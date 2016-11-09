@@ -96,9 +96,9 @@ export function cart(cart = {}, action) {
 export const updateDeliveryToServer = (delivery) => ((dispatch) => {
 	console.log("updating delivery to server")
 	
-	return dispatch(addDelivery(delivery))
+	dispatch(addDelivery(delivery))
 	
-	axios.put()
+	axios.put(`/orders/${cart.id}`, delivery);
 })
 
 // copied from users, please change ASAP
