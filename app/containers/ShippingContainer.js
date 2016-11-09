@@ -7,8 +7,9 @@ import {updateDeliveryToServer} from 'APP/app/reducers/cart'
 const mapStateToProps = ({cart}) => ({cart});
 
 const mapDispatchToProps = (dispatch) => ({
-	updateDelivery (delivery) {
-		dispatch(updateDeliveryToServer(delivery));
+	updateDelivery (id, delivery) {
+
+		dispatch(updateDeliveryToServer(id, delivery));
 	}
 })
 

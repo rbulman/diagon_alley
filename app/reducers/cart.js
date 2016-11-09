@@ -98,22 +98,21 @@ export function cart(cart = {}, action) {
 
 
 
-export const updateDeliveryToServer = (delivery) => ((dispatch) => {
+export const updateDeliveryToServer = (id, delivery) => ((dispatch) => {
 	console.log("updating delivery to server")
 	
-	axios.put(`/orders/${cart.id}`, delivery)
+	dispatch(addDelivery(delivery))
+
+	axios.put(`/api/orders/${id}`, delivery)
 	.then(res => res.data)
-	.then(cart => {
-		dispatch(addDelivery(delivery))
-	})
 })
 
-export const updateCompleteStatusToServer = () => ((dispatch) => {
+export const updateCompleteStatusToServer = (id) => ((dispatch) => {
 	console.log("order complete")
 
-	axios.put(`/orders/${cart.id}`, {status: 'complete'})
-	.then(res => res.data)
-	.then(cart => {
+	axios.put(`/api/orders/${id}`, {status: 'complete'})
+	.then(() => {
+		console.log('complete order updated')
 		dispatch(completeOrder())
 	})
 })
