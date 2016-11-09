@@ -41,7 +41,9 @@ export default class Item extends Component {
               <Review review={review} id={review.id}/>
             )
           })}
-          <Link to="/addReview"> Add a review </Link>
+          <div>
+            <Link to="/addReview"> Add a review </Link>
+          </div>
         </div>
       </div>
     )
