@@ -119,8 +119,8 @@ export const fetchCartItems = () => ((dispatch) => {
 	
 		// dispatches dummy data, comment out for access to backend
 		//return dispatch(getCartItems(fakeItems));
-		fetch('/api/orders/cartItems')
-		.then(res => res.json())
+		axios.get('/api/orders/cartItems')
+		.then(res => res.data)
 		.then((cartItems) => {
 			console.log("cartItems: ", cartItems)
 			dispatch(getCartItems(cartItems))
