@@ -51,7 +51,7 @@ render (
   <Provider store={store}>
    {/* <Root/> */}
    <Router history={browserHistory}>
-   	<Route path='/' component={AppContainer} >
+   	<Route path='/' component={AppContainer} onEnter={onCartEnter}>
    		<IndexRoute component={HomeContainer}/>
    		<Route path="about" component={AboutContainer} />
    		<Route path="login" component={Login} /> 

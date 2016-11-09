@@ -8,7 +8,6 @@ export const Login = ({ login }) => (
     <form onSubmit={evt => {
       evt.preventDefault()
       login(evt.target.username.value, evt.target.password.value)
-      this.props.getCartItems()
       browserHistory.push('/')
     } }>
       <div className="form-group row">
@@ -46,8 +45,11 @@ const mapDispatchToProps = dispatch => (
       dispatch(fetchCartItems())
     },
 
+    login
+
   });
+
 export default connect (
   state => ({}),
-  mapDispatchToProps,
+  {login}
 ) (Login)
