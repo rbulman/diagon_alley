@@ -33,6 +33,7 @@ router.get('/cartItems', function(req, res, next){
         }]
       })
     .then(function(order){
+      console.log('order',order)
       res.json(order.orderItems);
     })
     .catch(err => console.log(err));
