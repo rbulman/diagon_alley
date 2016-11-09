@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {browserHistory, Link} from 'react-router'
 
 export const WhoAmI = ({ user, logout }) => (
   <ul className="nav navbar-nav">

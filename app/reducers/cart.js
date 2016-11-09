@@ -109,7 +109,7 @@ export const fetchCart = () => ((dispatch) => {
  //    .then(res => res.data)
  //    .then(user => {
  //    	return 
- 	axios.get('/api/orders/cartItems')
+ 	axios.get('/api/orders/user/pending')
     .then(res => res.data)
     .then(cart => {
     	dispatch(getCart(cart))

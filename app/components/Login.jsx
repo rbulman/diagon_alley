@@ -1,5 +1,6 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
+import {fetchCartItems} from '../reducers/cartItems'
 
 export const Login = ({ login }) => (
   <div>
@@ -39,7 +40,18 @@ export const Login = ({ login }) => (
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
+const mapDispatchToProps = dispatch => (
+  {
+    getCartItems(){
+      console.log("running get cart items from login")
+      dispatch(fetchCartItems())
+    },
+
+    login
+
+  });
+
 export default connect (
   state => ({}),
-  {login},
+  {login}
 ) (Login)
