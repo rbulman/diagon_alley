@@ -17,7 +17,9 @@ export default class Item extends Component {
 
   render() {
     return (
+
       <div className="item-container">
+      <h3>{this.props.selectedItem.name}</h3>
         <div className="row">
           <div className="col-sm-6 col-xs-12">
               <img className="img-responsive img-rounded item-image" src={this.props.selectedItem.imageURL} />
@@ -36,9 +38,10 @@ export default class Item extends Component {
             this.props.selectedItem.reviews &&
             this.props.selectedItem.reviews.map(function(review) {
             return(
-              <Review review={review} />
+              <Review review={review} id={review.id}/>
             )
           })}
+          <Link to="/addReview"> Add a review </Link>
         </div>
       </div>
     )
