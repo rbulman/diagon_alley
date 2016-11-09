@@ -12,6 +12,7 @@ import {reviews} from './review'
 
 const initialState = {};
 
+
 const rootReducer = combineReducers({
 	items, 
 	selectedItem, 
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	pastOrders,
 	pastReviews
 });
+
 
 
 export default rootReducer

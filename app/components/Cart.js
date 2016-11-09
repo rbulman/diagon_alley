@@ -2,8 +2,13 @@ import React, {Component} from 'react'
 import {Link, browserHistory} from 'react-router'
 import {connect} from 'react-redux'
 
+import {putItemInCartToServer} from 'APP/app/reducers/cartItems'
+import {decrementItem} from 'APP/app/reducers/cartItems'
+import {putItemInCart} from 'APP/app/reducers/cartItems'
+
 const CartDisplay = connect(
-  ({ cartItems }) => ({ cartItems })
+  ({ cartItems }) => ({ cartItems }), 
+  {putItemInCart}
 ) (
   ({ cartItems, subtotal, cart}) => (
    <div>
@@ -30,11 +35,19 @@ const CartDisplay = connect(
 										<td>{singleItem.item.price}</td>
 										<td>
 											{singleItem.quantity}
-											<button className="btn">+</button>
-											<button className="btn">-</button>
+											<button className="btn" onClick={() => {
+												putItemInCartToServer(singleItem.item)
+												window.location.reload()
+											}}>+</button>
+											<button className="btn" 
+												onClick={() => {
+													decrementItem(singleItem.item, cart)
+													window.location.reload()
+													}
+												}>-</button>
 										</td>
 										<td>{singleItem.item.price * singleItem.quantity}</td>
-										<td><button className="btn">Remove</button></td>
+										<td><button className="btn" onClick={() => {browserHistory.push('/checkout')}}>Remove</button></td>
 									</tr>
 								)
 							})
@@ -58,8 +71,9 @@ export default class Cart extends Component{
   }
 
 	componentDidMount(){
+		this.props.getAuth()
 		this.props.getCartItems()
-		//this.props.getCart()
+		this.props.getCart()
 	}
 
 	render(){

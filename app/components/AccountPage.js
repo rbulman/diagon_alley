@@ -23,8 +23,11 @@ export default class AccountPage extends Component {
 
     return (
       <div>
-          <div>
-            <h1>YOUR PAST ORDERS </h1>
+
+        <h1>ACCOUNT INFORMATION </h1>
+        <h5>Name: {this.props.auth.name} </h5>
+        <h5>E-Mail: {this.props.auth.email} </h5>
+        <h1>YOUR PAST ORDERS </h1>
             <div>
               {this.props.pastOrders.length?  <div></div> : <div>(No past orders)</div> }
             </div>
@@ -32,15 +35,15 @@ export default class AccountPage extends Component {
                 return (
                   <div key={order.id}>
                     <Link to={`/orders/${order.id}`}>
-                      <h3>{order.dateCompleted}</h3>
-                      <h3>{order.subtotal}</h3>
+                      <h3>Date completed: {order.dateCompleted}</h3>
+                      <h3>Subtotal: {order.subtotal} sickles</h3>
                     </Link>
                   </div>
                 )
               })}
-          </div>
+      
 
-          <div>
+      
             <h1>YOUR PAST REVIEWS </h1>
               {this.props.pastReviews.map(function(review) {
                 return (
@@ -51,9 +54,10 @@ export default class AccountPage extends Component {
                   </div>
                 )
               })}
-          </div>
+      </div>
+    )
 
-        </div>
-      )
+
+  
   }
 }

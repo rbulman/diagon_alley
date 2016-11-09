@@ -3,6 +3,7 @@
 var router = require('express').Router();
 var Order = require('APP/db/models/order');
 var Item = require('APP/db/models/item');
+var User = require('APP/db/models/user');
 var OrderItem = require('APP/db/models/orderItems')
 const epilogue = require('../epilogue')
 const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
@@ -14,14 +15,58 @@ const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
 //perhaps we save current order ID on state and get by ID when we view Cart
 //or get details of cart from "order history"
 
+
+router.use('/', function(req, res, next){
+  console.log("MIDDLEWARE REQ.USER: ", req.user)
+  console.log("MIDDLEWARE REQ.SESSION.ORDER: ", req.session.orderId)
+  if(req.user && !req.user.currentOrder){
+    if (req.session.orderId){
+      console.log("inside if")
+      var findUser = User.findById(req.user.id)
+      var findOrder = Order.findById(req.session.orderId)
+      return Promise.all([findUser, findOrder])
+      .then(function(result){
+        console.log("found order and user")
+          var user = result[0];
+          var order = result[1];
+          console.log("middleware user + order: ", user, order)
+          return user.update({currentOrder: order.id})
+          .then((user) => {
+            console.log("updated user currentOrder: ", user.currentOrder)
+            console.log("about to setUser on order")
+            order.setUser(user.id)
+          })
+      })
+      .then(() => {
+        console.log("about to reset session order to null")
+        req.session.orderId = null
+        next()
+      })
+      .catch(err => console.log(err))
+
+      // var 
+      // var findOrderItems = OrderItem.findAll({where: {order_id: req.session.orderId}})
+
+      // Promise.all([])
+        
+    }
+
+  }
+  next()
+})
+
 router.get('/cartItems', function(req, res, next){
   console.log('in /cartItems')
   let orderID = null;
-  if(req.user){orderID = req.user.currentOrder}
+  if(req.user){
+  console.log("/cartItems user: ", req.user.id)}
+  if(req.user){
+    console.log("found req.user")
+    orderID = req.user.currentOrder}
   else if(req.session.orderId) {orderID = req.session.orderId;}
   console.log("/cartItems orderID: ", orderID)
 
-  if (!orderID) return;
+  if (!orderID) res.send([]);
 
   else{
     Order.findOne({
@@ -79,13 +124,52 @@ router.get('/:id', function(req,res,next){
     .catch(next);
 });
 
+// get current order(s) for userid
+router.get('/user/pending', function(req,res,next){
+  var orderID;
+  console.log("REQ: ", req)
+  if(req.user && req.user.currentOrder){orderID = req.user.currentOrder}
+  else{
+    console.log("i am a guest")
+    orderID = req.session.orderId
+  }
+  if(!orderID) res.send({})
+  else{
+    Order.findById(orderID)
+    // .then(function(foundOrder){
+    //   console.log("currentOrder: ", foundOrder)
+    //   currentOrder = foundOrder;
+    //   console.log("ORDER ID: ", currentOrder.id)
+    //   // return .findAll({
+    //   //   where: {
+    //   //     order_id: currentOrder.id
+    //   //   }
+    //   // })
+    //   //res.json(currentOrder)
+    //   return currentOrder.getItems()
+    //})
+    .then(function(order){
+      console.log("foundItems: ", order)
+      res.json(order);
+    })
+    .catch(err => console.log(err));
+  }
+  /* 
+   * User.findById(userid)
+   * then call
+   * Order.findById(foundUser.currentOrder)
+   * the two calls to findByID should run faster / smoother than what we have now
+   */
+});
+
+
 //get all orders by userid
 //for grabbing list of order history
 router.get('/user/:userid', function(req,res,next){
 
   Order.findAll({
     where: {
-      user: req.params.userid,
+      user_id: req.params.userid,
       userType: 'user'
     }
   })
@@ -94,69 +178,13 @@ router.get('/user/:userid', function(req,res,next){
     })
     .catch(next);
 });
-/*
-// get all items on current order for userid
-router.get('/user/pending/items', function(req,res,next){
-  console.log("REQ: ", req)
-  if(req.user){var userID = req.user.id}
-  else{
-    console.log("i am a guest")
-  }
-  console.log("USER ID: ", userID)
-  Order.findOne({
-    where: {
-      user_id: userID,
-      // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
-      // OUT IF YOU ARE NOT A USER
-      userType: 'user',
-      status: 'pending'
-    },
-    include: [
-    {
-      model: OrderItem,
-      include: [Item]
-    }
-    ]
 
-  })
-  .then(function(order){
-    console.log("foundItems: ", order)
-    res.json(order.orderItems);
-  })
-  .catch(err => console.log(err));
-});
-
-// get current pending order for userid
-router.get('/user/pending', function(req,res,next) {
-  console.log("REQ: ", req)
-  if(req.user){var userID = req.user.id}
-  else{
-    console.log("i am a guest")
-  }
-  console.log("USER ID: ", userID)
-  Order.findOne({
-    where: {
-      user_id: userID,
-      // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
-      // OUT IF YOU ARE NOT A USER
-      userType: 'user',
-      status: 'pending'
-    }
-  })
-  .then(function(order){
-    console.log("order", order);
-    res.json(order);
-  })
-  .catch(err => console.log(err));
-
-})
-*/
 // get completed order history
 router.get('/user/completed/:userid', function(req,res,next){
 
   Order.findAll({
     where: {
-      user: req.params.userid,
+      user_id: req.params.userid,
       userType: 'user',
       status: 'completed'
     }
@@ -222,7 +250,7 @@ router.use('/addToCart/:itemId', function (req, res, next){
       status: 'pending'
       })
       .then(order => {
-        console.log("order: ", order)
+        console.log("order: ", order.id)
         req.session.orderId = order.id
         req.body.orderID = order.id
         next()
@@ -246,8 +274,13 @@ router.use('/addToCart/:itemId', function (req, res, next){
     })
     .spread((order, created) => {
       req.body.orderID = order.id
-      req.session.orderId = order.id
-      next()
+      return order.getUser()
+      .then(user => {
+        user.update({
+          currentOrder : order.id
+        })
+      })
+      .then(() => next())
     })
     
   }
@@ -279,7 +312,7 @@ router.put('/addToCart/:itemId', function (req, res, next){
         }
       })
       .then(function(orderItem){
-        console.log("orderItem: ", orderItem)
+        console.log("orderItem: ")
         if(orderItem){
           //if the item is already in the cart, increment the quantity
           return orderItem.increment('quantity');
@@ -403,7 +436,7 @@ router.put('/addItem/:orderId/:itemId', function (req, res, next){
   })
 
 
-  router.put('/removeItem/:orderId/:itemId', function (req, res, next){
+  router.put('/removeOne/:orderId/:itemId', function (req, res, next){
     OrderItem.findOne({
       where: {
         order_id: req.params.orderId,

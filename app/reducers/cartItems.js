@@ -139,16 +139,24 @@ export const fetchCartItems = () => ((dispatch) => {
 export const putItemInCart = (item) => ((dispatch) => {
 	console.log("put item to cart");
 
-	// item must show up in cart
-	dispatch(addItemToCart(item));
-
 	// orderItem relation
-	putItemInCartToServer(item)
+	return putItemInCartToServer(item)
+	.then(() => dispatch(fetchCartItems()))
 })
 
 export const putItemInCartToServer = (item) => {
+	console.log("putItemInCartToServer: ", item.id)
 	axios.put(`/api/orders/addToCart/${item.id}`)
 	.then(res => res.data)
-	.then(res => {console.log("got res")
+	.then(res => {console.log("incremented")
+	})
+}
+
+
+export const decrementItem = (item, order) => {
+	console.log("decrement item: ", item.id)
+	axios.put(`/api/orders/removeOne/${order.id}/${item.id}`)
+	.then(res => res.data)
+	.then(res => {console.log("decremented")
 	})
 }
