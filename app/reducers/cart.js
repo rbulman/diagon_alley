@@ -104,22 +104,12 @@ export const updateDeliveryToServer = (delivery) => ((dispatch) => {
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 
-<<<<<<< HEAD
-
-	console.log("dispatching users")
-	axios.get('/api/auth/whoami')
-    .then(res => res.data)
-    .then(user => {
-    	return axios.get(`/api/orders/${user.currentOrder}`)
-    })
-=======
 	// console.log("dispatching users")
 	// axios.get('/api/auth/whoami')
  //    .then(res => res.data)
  //    .then(user => {
  //    	return 
  	axios.get('/api/orders/cartItems')
->>>>>>> master
     .then(res => res.data)
     .then(cart => {
     	dispatch(getCart(cart))
