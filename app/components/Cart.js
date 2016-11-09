@@ -53,6 +53,7 @@ const CartDisplay = connect(
 
 export default class Cart extends Component{
 	componentDidMount(){
+		this.props.getAuth()
 		this.props.getCartItems()
 		//this.props.getCart()
 	}
