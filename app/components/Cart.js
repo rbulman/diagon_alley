@@ -28,7 +28,11 @@ const CartDisplay = connect(
 										<td><img src={singleItem.item.imageURL} height="100" width="100"/></td>
 										<td>{singleItem.item.name}</td>
 										<td>{singleItem.item.price}</td>
-										<td>{singleItem.quantity}<button>+</button></td>
+										<td>
+											{singleItem.quantity}
+											<button>+</button>
+											<button>-</button>
+										</td>
 										<td>{singleItem.item.price * singleItem.quantity}</td>
 										<td><button>Remove</button></td>
 									</tr>
@@ -50,7 +54,7 @@ const CartDisplay = connect(
 export default class Cart extends Component{
 	componentDidMount(){
 		this.props.getCartItems()
-		this.props.getCart()
+		//this.props.getCart()
 	}
 
 	render(){

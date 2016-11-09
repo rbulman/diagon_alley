@@ -42,44 +42,49 @@ const db = require('APP/db')
 
 
 
-// OAuth.setupStrategy({
-//   provider: 'facebook',
-//   strategy: require('passport-facebook').Strategy,
-//   config: {
-//     clientID: env.FACEBOOK_CLIENT_ID,
-//     clientSecret: env.FACEBOOK_CLIENT_SECRET,
-//     callbackURL: `${app.rootUrl}/api/auth/login/facebook`,
-//   },
-//   passport
-// })
+OAuth.setupStrategy({
+  provider: 'facebook',
+  strategy: require('passport-facebook').Strategy,
+  config: {
+    clientID: env.FACEBOOK_CLIENT_ID,
+    clientSecret: env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: `${app.rootUrl}/api/auth/login/facebook`,
+  },
+  passport
+})
 
-// // Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
-// // environment variables.
-// OAuth.setupStrategy({
-//   provider: 'google',
-//   strategy: require('passport-google-oauth').Strategy,
-//   config: {
-//     consumerKey: env.GOOGLE_CONSUMER_KEY,
-//     consumerSecret: env.GOOGLE_CONSUMER_SECRET,
-//     callbackURL: `${app.rootUrl}/api/auth/login/google`,
-//   },
-//   passport
-// })
+// Google needs the GOOGLE_CONSUMER_SECRET AND GOOGLE_CONSUMER_KEY
+// environment variables.
+OAuth.setupStrategy({
+  provider: 'google',
+  strategy: require('passport-google-oauth').Strategy,
+  config: {
+    consumerKey: env.GOOGLE_CONSUMER_KEY,
+    consumerSecret: env.GOOGLE_CONSUMER_SECRET,
+    callbackURL: `${app.rootUrl}/api/auth/login/google`,
+  },
+  passport
+})
 
-// // Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
-// // environment variables.
-// OAuth.setupStrategy({
-//   provider: 'github',
-//   strategy: require('passport-github2').Strategy,
-//   config: {
-//     clientID: env.GITHUB_CLIENT_ID,
-//     clientSecrets: env.GITHUB_CLIENT_SECRET,
-//     callbackURL: `${app.rootUrl}/api/auth/login/github`,
-//   },
-//   passport
-// })
+// Github needs the GITHUB_CLIENT_ID AND GITHUB_CLIENT_SECRET
+// environment variables.
+OAuth.setupStrategy({
+  provider: 'github',
+  strategy: require('passport-github2').Strategy,
+  config: {
+    clientID: env.GITHUB_CLIENT_ID,
+    clientSecrets: env.GITHUB_CLIENT_SECRET,
+    callbackURL: `${app.rootUrl}/api/auth/login/github`,
+  },
+  passport
+})
 
-// // Other passport configuration:
+// Other passport configuration:
+passport.serializeUser((user, done) => {
+  debug('will serialize user.id=%d', user.id)
+  done(null, user.id)
+  debug('did serialize user.id=%d', user.id)
+})
 
 passport.deserializeUser(
   (id, done) => {
@@ -101,6 +106,7 @@ passport.use(new (require('passport-local').Strategy) (
     (email, password, done) => {
       console.log("INSIDE PASSPORT")
       console.log("email: ", email)
+      console.log("password: ", password)
       email = email.toLowerCase()
       debug('will authenticate user(email: "%s")', email)
       User.findOne({where: {email}})
@@ -123,12 +129,6 @@ passport.use(new (require('passport-local').Strategy) (
         .catch(done)
     }
   ))
-
-// passport.serializeUser((user, done) => {
-//   debug('will serialize user.id=%d', user.id)
-//   done(null, user.id)
-//   debug('did serialize user.id=%d', user.id)
-// })
 
 // passport.deserializeUser(
 //   (id, done) => {

@@ -29,11 +29,26 @@ h3, h4 {
   color: black;
 }
 
+#nav-brand {
+  margin: 5px;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+span.icon-bar {
+  background-color: white;
+  color: black;
+  position: static;
+}
+
+
 .shop-item {
   box-shadow:  0px 0px 16px rgba(0,0,0,0.1);
   border-radius: 4px;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
 }
 
 .shop-item:hover {
@@ -42,16 +57,19 @@ h3, h4 {
 
 .item-title {
   margin: 0px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .item-image {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
+.item-price {
+  margin-bottom: 0px;
+}
 .item-container {
-  margin-left: -10px;
-  margin-right: -10px;
+
 }
 
 .child-container {
@@ -64,7 +82,25 @@ h3, h4 {
   color: black;
 }
 
+.logout {
+  margin-top: 8px;
+  background-color: rgba(75,45,113, 1);
+  color: #eeeeee;
+}
 
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.headshot {
+  padding: 25px;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+}
 .navbar-brand { position: relative; z-index: 2; }
 
 .navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; transition: transform 0.3s; }

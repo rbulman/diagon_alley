@@ -9,7 +9,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <li>
-      {user ? <WhoAmI/> : <Link to="/login"> Login </Link>}
+      {user ? <WhoAmI/> : <Link to="/login"> Login/Sign Up </Link>}
     </li>
 )
 const AdminButton = connect(
@@ -31,25 +31,36 @@ export default class App extends Component{
 	render(){
 		console.log("propsLogout: ", this.props.logout)
 		return(
-
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div className="container">
-            <ul className="nav navbar-nav">
-              <li><Link to="/"> HOME </Link></li>
-              <li><Link to="/items"> SHOP </Link></li>
-              <li><Link to="/about"> ABOUT </Link></li>
-              <li><Link to="/cart"> CART </Link></li>
+          <div className="container-fluid">
+            <div className="navbar-header">
+                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNav" aria-expanded="false">
+                    <span className="sr-only">Toggle navigation</span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                </button>
+                <div id="logo">
+                   <h1 id="nav-brand"> W </h1>
+                </div>
+            </div>
+            <div className="collapse navbar-collapse" id="myNav">
+              <ul className="nav navbar-nav">
+                <li><Link to="/"> HOME </Link></li>
+                <li><Link to="/items"> SHOP </Link></li>
+                <li><Link to="/about"> ABOUT </Link></li>
+                <li><Link to="/cart"> CART </Link></li>
+                <AdminButton />
+              </ul>
               <ToggleButton />
-              <AdminButton />
-            </ul>
+            </div>
           </div>
         </nav>
   			<div className="container child-container">
       		{this.props.children}
   			</div>
       </div>
-
 			)
 	}
 
