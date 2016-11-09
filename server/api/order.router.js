@@ -13,6 +13,33 @@ const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
 //Get specific order given id
 //perhaps we save current order ID on state and get by ID when we view Cart
 //or get details of cart from "order history"
+
+router.get('/cartItems', function(req, res, next){
+  console.log('in /cartItems')
+  let orderID = null;
+  if(req.user){orderID = req.user.currentOrder}
+  else if(req.session.orderId) {orderID = req.session.orderId;}
+  console.log("/cartItems orderID: ", orderID)
+
+  if (!orderID) return;
+
+  else{
+  Order.findOne({
+    where: {id : orderID},
+    include: [
+      {
+        model: OrderItem,
+        include: [Item]
+      }]
+    })
+  .then(function(order){
+    res.json(order.orderItems);
+  })
+  .catch(err => console.log(err));
+}
+})
+
+
 router.get('/', function(req,res,next){
   console.log("Context: ", next)
   mustBeAdmin()(req, res, next)
@@ -22,6 +49,7 @@ router.get('/', function(req,res,next){
     })
     .catch(next);
 });
+
 
 router.get('/:id', function(req,res,next){
 
@@ -49,12 +77,16 @@ router.get('/user/:userid', function(req,res,next){
 });
 
 // get current order(s) for userid
-router.get('/user/pending/:userid', function(req,res,next){
-  let currentOrder, orderItems;
-  console.log("USER ID: ", req.params.userid)
+router.get('/user/pending', function(req,res,next){
+  console.log("REQ: ", req)
+  if(req.user){var userID = req.user.id}
+  else{
+    console.log("i am a guest")
+  }
+  console.log("USER ID: ", userID)
   Order.findOne({
     where: {
-      user: req.params.userid,
+      user_id: userID,
       // !! NON USERS SHOULD ALSO HAVE A CURRENT ORDER, BC YOU CAN CHECK 
       // OUT IF YOU ARE NOT A USER
       userType: 'user',
@@ -133,18 +165,6 @@ router.get('/session/:id', function(req,res,next){
 // Get all items on an order
 // for cart this owuld be all the items on a pending order?
 
-router.get('/cartItems/:id', function(req, res, next){
-  Order.findById(req.params.id)
-  .then(function(order){
-    console.log('found order', order)
-    return order.getItems()
-  })
-  .then(function(items){
-    console.log("ITEMS ARRAY???", items)
-    res.json(items)
-  })
-})
-
 // *------------------------- PUT ROUTES ------------------------------*//
 
 // Updates the Order Instance
@@ -167,6 +187,97 @@ router.put('/:id', function(req, res, next){
     else res.sendStatus(404);
   });
 });
+
+router.use('/addToCart/:itemId', function (req, res, next){
+  if(!req.user){
+    if(!req.session.orderId){
+      Order.create({
+      userType: 'guest',
+      status: 'pending'
+      })
+      .then(order => {
+        console.log("order: ", order)
+        req.session.orderId = order.id
+        req.body.orderID = order.id
+        next()
+      })
+
+    }
+    else {
+      console.log("in else")
+      req.body.orderID = req.session.orderId
+      next()
+    }
+  }
+  else {
+  
+    Order.findOrCreate({
+      where: {
+        user_id : req.user.id,
+        status: 'pending',
+        userType: 'user'
+      }
+    })
+    .spread((order, created) => {
+      req.body.orderID = order.id
+      req.session.orderId = order.id
+      next()
+    })
+    
+  }
+})
+
+
+//ADD ITEM TO CART
+router.put('/addToCart/:itemId', function (req, res, next){
+      
+  let orderID = req.body.orderID
+  console.log("REQ.BODY.ORDERID: ", orderID)
+  console.log("req.params.itemId: ", req.params.itemId )
+  var itemPromise = Item.findById(req.params.itemId);
+  var orderPromise = Order.findById(orderID);
+  console.log("in put /addItem")
+  //Item.findById
+  Promise.all([itemPromise, orderPromise])
+  .then(function(result){
+    var item = result[0];
+    var order = result[1];
+    if(item && order){
+      console.log("item && order")
+      console.log("order.id: ", order.id)
+      console.log("item.id: ", item.id)
+      OrderItem.findOne({
+        where : {
+          order_id : order.id,
+          item_id : item.id
+        }
+      })
+      .then(function(orderItem){
+        console.log("orderItem: ", orderItem)
+        if(orderItem){
+          //if the item is already in the cart, increment the quantity
+          return orderItem.increment('quantity');
+        }
+        else {
+          //if the order is not yet in the card, add it
+          return order.addItem(item);
+        }
+      })
+      .then(function(result){
+        console.log('result', result)
+
+
+        if(result[0] && result[0][0]) {
+          res.status(201).send(result[0][0]);
+        }
+        else if (result){
+          res.status(201).send(result)
+        }
+        else res.sendStatus(404); // shouldl this move outside if?
+      })
+      .catch(err => console.log(err))
+    }})
+  })
 
 
 //MAKE ADD/REMOVE/CHANGE ROUTES DRIER
@@ -283,6 +394,18 @@ router.put('/addItem/:orderId/:itemId', function (req, res, next){
 // *------------------------- POST ROUTES ------------------------------*//
 
 //when user or session id holder adds to cart w/o an existing cart
+
+
+router.post('/session/:id', function(req, res, next){
+  Order.create({
+    user: req.params.id,
+    userType: 'session'
+  })
+  .then(function(){
+    //do stuff?
+  })
+  .catch(next);
+});
 
 //need to validate that sessionID is unique
 router.post('/session/:id', function(req, res, next){

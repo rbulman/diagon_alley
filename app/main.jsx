@@ -16,6 +16,7 @@ import store from './store'
 import Root from './components/Root'
 import {fetchSelectedItem} from 'APP/app/reducers/selectedItem'
 import Login from './components/Login'
+import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import {getItems} from './reducers/items'
 import {getUsers} from './reducers/users'
@@ -55,6 +56,7 @@ render (
    		<IndexRoute component={HomeContainer}/>
    		<Route path="about" component={AboutContainer} />
    		<Route path="login" component={Login} /> 
+      <Route path="signup" component={Signup} /> 
       <Route path="items" component={ItemListContainer} />
       <Route path="items/:id" component={ItemContainer} onEnter={loadSingleItem} />
       <Route path="accountPage" component={AccountPageContainer} />

@@ -4,9 +4,9 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Order = db.define('orders', {
-	user: {
-		type: Sequelize.INTEGER, // if session converts to user, update user & userType
-	},
+	// user: {
+	// 	type: Sequelize.INTEGER, // if session converts to user, update user & userType
+	// },
 	userType: {
 		type: Sequelize.STRING // 'session' vs 'user'
 	},

@@ -13,6 +13,16 @@ export const authenticated = user => ({
   type: AUTHENTICATED, user
 })
 
+export const signup = (name, email, password) => dispatch => {
+  console.log("signing up")
+  axios.post('/api/users', {name, email, password})
+  .then(user => {
+    console.log("email and pass: ")
+    dispatch(login(user.data.email, user.data.password))
+  })
+  .catch(failed => dispatch(authenticated(null)))
+}
+
 export const login = (username, password) =>
   dispatch =>
   {console.log("LOGIN ATTEMPT: ", username, password);

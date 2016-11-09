@@ -18,8 +18,10 @@ import axios from 'axios'
  	}
  */
 
+
 const GET_CART = "GET_CART"
 const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
+
 
 // const ADD_ADDRESS = "ADD_ADDRESS";
 // const ADD_OWL = "ADD_OWL";
@@ -52,7 +54,6 @@ export const addDelivery = (delivery) => ({
 	type: ADD_DELIVERY,
 	delivery
 })
-
 
 //-------------------------------------------------------------------------
 
@@ -103,6 +104,7 @@ export const updateDeliveryToServer = (delivery) => ((dispatch) => {
 // copied from users, please change ASAP
 export const fetchCart = () => ((dispatch) => {
 
+<<<<<<< HEAD
 
 	console.log("dispatching users")
 	axios.get('/api/auth/whoami')
@@ -110,6 +112,14 @@ export const fetchCart = () => ((dispatch) => {
     .then(user => {
     	return axios.get(`/api/orders/${user.currentOrder}`)
     })
+=======
+	// console.log("dispatching users")
+	// axios.get('/api/auth/whoami')
+ //    .then(res => res.data)
+ //    .then(user => {
+ //    	return 
+ 	axios.get('/api/orders/cartItems')
+>>>>>>> master
     .then(res => res.data)
     .then(cart => {
     	dispatch(getCart(cart))
