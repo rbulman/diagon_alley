@@ -42,9 +42,9 @@ export default class AccountPage extends Component {
               {this.props.pastReviews.map(function(review) {
                 return (
                   <div key={review.id}>
-                      <h3>Item ID: {review.item_id}</h3>
-                      <h3>{review.stars}</h3>
-                      <p>{review.content}</p>
+                      <Link to={`items/${review.item_id}`}><strong>Item ID: {review.item_id}</strong></Link>
+                      <p>Star Rating: {review.stars}</p>
+                      <p>Your Review: {review.content}</p>
                   </div>
                 )
               })}
