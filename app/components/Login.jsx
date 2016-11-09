@@ -2,13 +2,13 @@ import React from 'react'
 import {browserHistory, Link} from 'react-router'
 import {fetchCartItems} from '../reducers/cartItems'
 
-export const Login = ({ login }) => (
+export const Login = ({ login, getCartItems }) => (
   <div>
     <h1>LOGIN</h1>
     <form onSubmit={evt => {
       evt.preventDefault()
       login(evt.target.username.value, evt.target.password.value)
-      this.props.getCartItems()
+      getCartItems()
       browserHistory.push('/')
     } }>
       <div className="form-group row">
@@ -46,8 +46,10 @@ const mapDispatchToProps = dispatch => (
       dispatch(fetchCartItems())
     },
 
+    login
+
   });
 export default connect (
   state => ({}),
-  mapDispatchToProps,
+  mapDispatchToProps, 
 ) (Login)
