@@ -26,11 +26,13 @@ export const Login = ({ login }) => (
           <input className="btn btn-block" type="submit" value="Login" />
         </div>
       </div>
+      <div className="row">
+        <div className="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+          <button className="btn btn-block" onClick={() => {browserHistory.push('/signup')}}> Don't have an account?</button>
+        </div>
+      </div>
     </form>
-    <div>
-      Don't have an account?
-      <button onClick={() => {browserHistory.push('/signup')}}> Sign Up</button>
-    </div>
+
   </div>
 )
 

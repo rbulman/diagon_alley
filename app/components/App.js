@@ -10,7 +10,7 @@ export const ToggleButton = connect(
 ) (
   ({ user }) =>
     <li>
-      {user ? <WhoAmI/> : <Link to="/login"> Login/Sign Up </Link>}
+      {user ? <WhoAmI/> : <Link to="/login"> LOGIN OR SIGN UP </Link>}
     </li>
 )
 const AdminButton = connect(
@@ -54,11 +54,12 @@ export default class App extends Component{
                 <li><Link to="/about"> ABOUT </Link></li>
                 <li><Link to="/cart"> CART </Link></li>
                 <AdminButton />
+                <ToggleButton />
               </ul>
-              <ToggleButton />
             </div>
           </div>
         </nav>
+
   			<div className="container child-container">
       		{this.props.children}
   			</div>
@@ -83,20 +84,3 @@ export default class App extends Component{
 
 	}
 }
-
-// 			<nav className="navbar navbar-inverse" role="navigation">
-//        			<ul className="nav navbar-nav">
-// 				<li><Link to="/"> Home </Link></li>
-// 				<li><Link to="/items"> Shop </Link></li>
-// 				<li><Link to="/about"> About </Link></li>
-// 				<li><AdminButton /> </li>
-// 				<li><ToggleButton /> </li>
-// 				</ul>
-// 			</nav>
-
-
-
-
-// <li>
-//               <Link className="btn btn-default btn-outline btn-circle collapsed"  data-toggle="collapse" data-on="#nav-collapse2" aria-expanded="false" aria-controls="nav-collapse2">Sign in</Link>
-//             </li>
