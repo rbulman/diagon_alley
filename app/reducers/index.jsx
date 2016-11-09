@@ -6,6 +6,7 @@ import auth from './auth'
 import {orders} from './orders'
 import {cartItems} from './cartItems'
 import {pastOrders} from './pastOrders'
+import {pastReviews} from './pastReviews'
 import {cart} from './cart'
 import {reviews} from './review'
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
 	cart, 
 	cartItems, 
 	orders, 
-	pastOrders
+	pastOrders,
+	pastReviews
 });
 
 

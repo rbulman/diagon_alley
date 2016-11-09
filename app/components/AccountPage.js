@@ -15,6 +15,7 @@ export default class AccountPage extends Component {
     // })
     //this.props.getItems()
     this.props.getPastOrders()
+    this.props.getPastReviews()
   }
 
 
@@ -22,18 +23,34 @@ export default class AccountPage extends Component {
 
     return (
       <div>
-        <h1>YOUR PAST ORDERS </h1>
-          {this.props.pastOrders.map(function(order) {
-            return (
-              <div key={order.id}>
-                <Link to={`/orders/${order.id}`}>
-                  <h3>{order.dateCompleted}</h3>
-                  <h3>{order.subtotal}</h3>
-                </Link>
-              </div>
-            )
-          })}
-      </div>
-    )
+          <div>
+            <h1>YOUR PAST ORDERS </h1>
+              {this.props.pastOrders.map(function(order) {
+                return (
+                  <div key={order.id}>
+                    <Link to={`/orders/${order.id}`}>
+                      <h3>{order.dateCompleted}</h3>
+                      <h3>{order.subtotal}</h3>
+                    </Link>
+                  </div>
+                )
+              })}
+          </div>
+
+          <div>
+            <h1>YOUR PAST REVIEWS </h1>
+              {this.props.pastReviews.map(function(review) {
+                return (
+                  <div key={review.id}>
+                      <Link to={`items/${review.item_id}`}><strong>Item ID: {review.item_id}</strong></Link>
+                      <p>Star Rating: {review.stars}</p>
+                      <p>Your Review: {review.content}</p>
+                  </div>
+                )
+              })}
+          </div>
+
+        </div>
+      )
   }
 }
