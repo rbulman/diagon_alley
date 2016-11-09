@@ -224,7 +224,9 @@ module.exports = shouldClose => db.didSync
   .then(() => {
     return Order.create({
     status: 'completed', 
-    userType: 'user'
+    userType: 'user',
+    subtotal: 123,
+    dateCompleted: Date.now()
   })
   .then(order => {
     return order.setUser(user)

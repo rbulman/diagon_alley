@@ -46,6 +46,11 @@ export const fetchItems = () => ((dispatch) => {
     .then(items => dispatch(getItems(items)));
 })
 
+export const fetchItemById = (itemId) => ((dispatch) => {
+	axios.get('/api/items/${itemId}')
+    .then(res => res.data)
+    .then(items => dispatch(getItems(items)));
+})
 
 
 

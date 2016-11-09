@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export default class Users extends Component {
   constructor(props) {
     super(props);
-    
+
   }
 
   componentDidMount(){
@@ -22,8 +22,8 @@ export default class Users extends Component {
               <div key={user.id}>
                 <Link to={`/users/${user.id}`}>
                   <h3>{user.name}</h3>
-                  
-                  <button> Edit </button>
+
+                  <button className="btn"> Edit </button>
                   </Link>
               </div>
 
