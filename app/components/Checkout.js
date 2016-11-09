@@ -58,14 +58,14 @@ export default class Checkout extends Component{
 					</tbody>
 				</table>
 				<h2>Delivery {cart.owl? "By "+cart.owl+" to:": "declined"} </h2>
-				<button className="btn">Edit Delivery</button>
+				<button className="btn" onClick={()=>browserHistory.push('./shipping')}>Edit Delivery</button>
 				{
 					cart.owl && cart.address.map((element, index) => (
 						<p key={index}>{element}</p>
 					))
 				}
 				<p>{cart.country}</p>
-				<button className="btn">Confirm Order</button>
+				<button className="btn" onClick={()=>this.props.confirmOrder}>Confirm Order</button>
 				<button className="btn" onClick={() => browserHistory.push('/cart')}>Return to Cart</button>
 			</div>
 		)

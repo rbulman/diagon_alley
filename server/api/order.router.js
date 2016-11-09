@@ -69,21 +69,40 @@ router.get('/cartItems', function(req, res, next){
   if (!orderID) res.send([]);
 
   else{
-  Order.findOne({
-    where: {id : orderID},
-    include: [
-      {
-        model: OrderItem,
-        include: [Item]
-      }]
+    Order.findOne({
+      where: {id : orderID},
+      include: [
+        {
+          model: OrderItem,
+          include: [Item]
+        }]
+      })
+    .then(function(order){
+      console.log('order',order)
+      res.json(order.orderItems);
     })
-  .then(function(order){
-    res.json(order.orderItems);
-  })
-  .catch(err => console.log(err));
-}
+    .catch(err => console.log(err));
+  }
 })
 
+//Get specific order given id
+router.get('/cart', function(req, res, next){
+  console.log('in /cart')
+  let orderID = null;
+  if(req.user){orderID = req.user.currentOrder}
+  else if(req.session.orderId) {orderID = req.session.orderId;}
+  console.log("/cartItems orderID: ", orderID)
+
+  if (!orderID) return;
+
+  else{
+    Order.findById(orderID)
+    .then(function(order){
+      res.json(order);
+    })
+    .catch(err => console.log(err));
+  }
+})
 
 router.get('/', function(req,res,next){
   console.log("Context: ", next)
@@ -160,8 +179,6 @@ router.get('/user/:userid', function(req,res,next){
     .catch(next);
 });
 
-
-
 // get completed order history
 router.get('/user/completed/:userid', function(req,res,next){
 
@@ -210,6 +227,7 @@ router.get('/session/:id', function(req,res,next){
 
 // req.body should contain an object of attributes to change
 router.put('/:id', function(req, res, next){
+  console.log(req.body);
   Order.findById(req.params.id)
   .then(function(order){
     if(order){
