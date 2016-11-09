@@ -5,13 +5,12 @@ import axios from 'axios';
 export default class AddReview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {stars: 1, content: ''};
+    this.state = {stars: 5, content: ''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    console.log('~~~change handled!');
     this.setState({[event.target.name]: event.target.value});
   }
 
@@ -23,7 +22,6 @@ export default class AddReview extends React.Component {
 }
 
   render() {
-    console.log('_____THIS.STATE: ', this.state);
     return (
       <div>
         <input type="text"
