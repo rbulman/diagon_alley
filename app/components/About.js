@@ -21,22 +21,27 @@ export default class About extends Component{
 					<div className="col-md-3 col-xs-6 headshot">
 						<img src='/owl.jpg' className="profile img img-responsive img-circle"/>
 						<h3>Owl Trainer</h3>
-						<p><i>some cute text</i></p>
+						<p><i>"The owls really trained ME..."</i></p>
 					</div>
 					<div className="col-md-3 col-xs-6 headshot">
 						<img src="/orange.jpg" className="profile img img-responsive img-circle"/>
 						<h3>Taste-Tester</h3>
-						<p><i>some cute text</i></p>
+						<p><i>"There was an incident."</i></p>
 					</div>
 					<div className="col-md-3 col-xs-6 headshot">
 						<img src="/potions.jpg" className="profile img img-responsive img-circle"/>
 						<h3>Potions Master</h3>
-						<p><i>some cute text</i></p>
+						<p><i>"Double, double toil and trouble."</i></p>
 					</div>
 					<div className="col-md-3 col-xs-6 headshot">
 						<img src='/explosives.jpg' className="profile img img-responsive img-circle"/>
 						<h3>Explosions Expert</h3>
-						<p><i>some cute text</i></p>
+						<p><i>"BOOM!"</i></p>
+					</div>
+					<div className="col-md-3 col-xs-6 headshot">
+						<img src='/liz.jpg' className="profile img img-responsive img-circle"/>
+						<h3>HEAD MUGWHUMP</h3>
+						<p><i>"I'm the boss!"</i></p>
 					</div>
 				</div>
 
